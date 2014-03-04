@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package entities;
 
 import java.io.Serializable;
@@ -17,6 +16,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -30,12 +31,24 @@ import javax.validation.constraints.Size;
  * @author Aires
  */
 @Entity
+
+@NamedQueries({
+    @NamedQuery(name = "Playlist.findAll", query = "SELECT p FROM Playlist p"),
+    @NamedQuery(name = "Playlist.findAllOrderByDateAsc", query = "SELECT p FROM Playlist p ORDER by p.dateCreation ASC"),
+    @NamedQuery(name = "Playlist.findAllOrderByDateDesc", query = "SELECT p FROM Playlist p ORDER by p.dateCreation DESC"),
+    @NamedQuery(name = "Playlist.findAllOrderBySizeAsc", query = "SELECT count(p.musicList.id) FROM Playlist p ORDER by p.musicList ASC"),
+    @NamedQuery(name = "Playlist.findAllOrderBySizeDesc", query = "SELECT count(p.musicList.id)  FROM Playlist p ORDER by p.dateCreation DESC"),
+    @NamedQuery(name = "Playlist.findAllOrderByNameAsc", query = "SELECT p FROM Playlist p ORDER by p.namePlaylist ASC"),
+    @NamedQuery(name = "Playlist.findAllOrderByNameDesc", query = "SELECT p FROM Playlist p ORDER by p.namePlaylist DESC"),
+
+    @NamedQuery(name = "Playlist.findAllByUser", query = "SELECT p FROM Playlist p WHERE p.userPlay.email=:email"),})
 public class Playlist implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Size(min =1,max=20 , message = "Name is mandatory and cannot contain more "
+    @Size(min = 1, max = 20, message = "Name is mandatory and cannot contain more "
             + "than 20 characters")
     private String namePlaylist;
     @NotNull
@@ -53,25 +66,22 @@ public class Playlist implements Serializable {
         this.id = id;
     }
 
-    public Playlist( String namePlaylist, Date dateCreation, UserPlay 
-            userPlay, Collection<Music> musicList) {
+    public Playlist(String namePlaylist, Date dateCreation, UserPlay userPlay, Collection<Music> musicList) {
         this.namePlaylist = namePlaylist;
         this.dateCreation = dateCreation;
         this.userPlay = userPlay;
         this.musicList = musicList;
     }
-    
+
     public Long getId() {
         return id;
     }
-    
-    
 
     public void setId(Long id) {
         this.id = id;
     }
 
-     public String getNamePlaylist() {
+    public String getNamePlaylist() {
         return namePlaylist;
     }
 
@@ -96,8 +106,6 @@ public class Playlist implements Serializable {
         this.dateCreation = dateCreation;
     }
 
-
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -108,13 +116,13 @@ public class Playlist implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields 
-       // are not set
+        // are not set
         if (!(object instanceof Playlist)) {
             return false;
         }
         Playlist other = (Playlist) object;
-        if ((this.id == null && other.id != null) || (this.id != null && 
-                !this.id.equals(other.id))) {
+        if ((this.id == null && other.id != null) || (this.id != null
+                && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -128,5 +136,4 @@ public class Playlist implements Serializable {
     /**
      * @return the namePlaylist
      */
-    
 }

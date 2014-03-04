@@ -10,7 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -19,6 +20,15 @@ import javax.validation.constraints.Size;
  * @author Aires
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name="UserPlay.findAll",query="SELECT u FROM UserPlay u"),
+    @NamedQuery(name="UserPlay.findByName",query="SELECT u FROM UserPlay u WHERE u.name=:name"),
+    @NamedQuery(name="UserPlay.findByEmail",query="SELECT u FROM UserPlay u WHERE u.email=:email"),
+    @NamedQuery(name="UserPlay.getPassByEmail",query="SELECT u.password FROM UserPlay u WHERE u.email=:email"),
+    @NamedQuery(name="UserPlay.findNameByEmail",query="SELECT u.name FROM UserPlay u WHERE u.email=:email")
+})
+
+
 public class UserPlay implements Serializable {
 
     private static final long serialVersionUID = 1L;
