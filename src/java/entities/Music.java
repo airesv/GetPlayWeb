@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package entities;
 
 import java.io.Serializable;
@@ -16,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -23,21 +24,25 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class Music implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    
     private Long id;
-    private int yearOfRelease;  
-    @NotNull
+    @Pattern(regexp = "(19|20)\\d\\d",
+            message = "{invalid.yearOfRelease}")
+    private int yearOfRelease;
+    @Size(min =1,max=20 , message = "Name is mandatory and cannot contain "
+            + "more than 20 characters")
     private String name;
-    @NotNull
+    @Size(min =1,max=20 , message = "Author is mandatory and cannot contain "
+            + "more than 20 characters")
     private String author;
+    @Size(max=20 , message = "Album cannot contain more than 20 characters")
     private String album;
     @OneToOne
     private UserPlay userPlay;
-    
 
     public Music() {
     }
@@ -46,19 +51,17 @@ public class Music implements Serializable {
         this.id = id;
     }
 
-    public Music(Long id, int yearOfRelease, String name, String author, String album, UserPlay userPlay) {
+    public Music(Long id, int yearOfRelease, String name, String author,
+            String album, UserPlay userPlay) {
         this.id = id;
         this.yearOfRelease = yearOfRelease;
         this.name = name;
         this.author = author;
         this.album = album;
         this.userPlay = userPlay;
-     
+
     }
 
-    
-    
-    
     public int getYearOfRelease() {
         return yearOfRelease;
     }
@@ -99,8 +102,6 @@ public class Music implements Serializable {
         this.userPlay = userPlay;
     }
 
- 
-    
     public Long getId() {
         return id;
     }
@@ -123,7 +124,8 @@ public class Music implements Serializable {
             return false;
         }
         Music other = (Music) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id == null && other.id != null) || (this.id != null && 
+                !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -133,5 +135,5 @@ public class Music implements Serializable {
     public String toString() {
         return "entities.Music[ id=" + id + " ]";
     }
-    
+
 }
