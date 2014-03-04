@@ -7,6 +7,8 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.persistence.Entity;
@@ -16,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -36,10 +39,10 @@ public class Playlist implements Serializable {
     @NotNull
     @Temporal(TemporalType.DATE)
     private Date dateCreation;
-    @OneToMany
-    private UserPlay user;
+    @OneToOne
+    private UserPlay userPlay;
     @ManyToMany
-    private Music musica;
+    private Collection<Music> musicList;
 
     public Playlist() {
     }
@@ -48,18 +51,13 @@ public class Playlist implements Serializable {
         this.id = id;
     }
 
-    public Playlist(Long id, String namePlaylist, Date dateCreation, UserPlay user, Music musica) {
+    public Playlist(Long id, String namePlaylist, Date dateCreation, UserPlay userPlay, Collection<Music> musicList) {
         this.id = id;
         this.namePlaylist = namePlaylist;
         this.dateCreation = dateCreation;
-        this.user = user;
-        this.musica = musica;
+        this.userPlay = userPlay;
+        this.musicList = musicList;
     }
-   
-    
-    
-    
-    
     
     public Long getId() {
         return id;
