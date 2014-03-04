@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -34,10 +35,9 @@ public class Music implements Serializable {
     @NotNull
     private String author;
     private String album;
-    @OneToMany
-    private UserPlay user;
-    @ManyToMany
-    private Playlist playlist;
+    @OneToOne
+    private UserPlay userPlay;
+    
 
     public Music() {
     }
@@ -46,17 +46,16 @@ public class Music implements Serializable {
         this.id = id;
     }
 
-    public Music(Long id, int yearOfRelease, String name, String author, String album, UserPlay user, Playlist playlist) {
+    public Music(Long id, int yearOfRelease, String name, String author, String album, UserPlay userPlay) {
         this.id = id;
         this.yearOfRelease = yearOfRelease;
         this.name = name;
         this.author = author;
         this.album = album;
-        this.user = user;
-        this.playlist = playlist;
+        this.userPlay = userPlay;
+     
     }
 
-    
     
     
     
@@ -92,14 +91,15 @@ public class Music implements Serializable {
         this.album = album;
     }
 
-    public UserPlay getUser() {
-        return user;
+    public UserPlay getUserPlay() {
+        return userPlay;
     }
 
-    public void setUser(UserPlay user) {
-        this.user = user;
-    }  
-    
+    public void setUserPlay(UserPlay userPlay) {
+        this.userPlay = userPlay;
+    }
+
+ 
     
     public Long getId() {
         return id;
