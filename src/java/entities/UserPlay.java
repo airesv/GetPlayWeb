@@ -25,22 +25,23 @@ public class UserPlay implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Size(min = 1, message = "Please, enter a Username")
+    @Size(min = 1, message = "Please, enter a Name")
     private String name;
 
-    @NotNull
-    @Pattern(regexp = "[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+", message = "Email format is invalid.")
+    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            + "[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            + "(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+"
+            + "[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+            message = "{invalid.email}")
     private String email;
 
-    @NotNull
-    
+    @Size(min = 1, message = "Password is mandatory and cannot contain"
+            + " more than 10 characters")
     private String password;
 
     public UserPlay() {
     }
 
-    
-    
     public UserPlay(Long id) {
         this.id = id;
     }
@@ -51,9 +52,6 @@ public class UserPlay implements Serializable {
         this.email = email;
         this.password = password;
     }
-    
-    
-    
 
     public Long getId() {
         return id;
@@ -72,12 +70,14 @@ public class UserPlay implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        // TODO: Warning - this method won't work in the case the id
+        //fields are not set
         if (!(object instanceof UserPlay)) {
             return false;
         }
         UserPlay other = (UserPlay) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id == null && other.id != null) || (this.id != null && 
+                !this.id.equals(other.id))) {
             return false;
         }
         return true;
