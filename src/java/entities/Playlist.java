@@ -23,6 +23,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -34,7 +35,8 @@ public class Playlist implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotNull
+    @Size(min =1,max=20 , message = "Name is mandatory and cannot contain more "
+            + "than 20 characters")
     private String namePlaylist;
     @NotNull
     @Temporal(TemporalType.DATE)
@@ -51,7 +53,8 @@ public class Playlist implements Serializable {
         this.id = id;
     }
 
-    public Playlist(Long id, String namePlaylist, Date dateCreation, UserPlay userPlay, Collection<Music> musicList) {
+    public Playlist(Long id, String namePlaylist, Date dateCreation, UserPlay 
+            userPlay, Collection<Music> musicList) {
         this.id = id;
         this.namePlaylist = namePlaylist;
         this.dateCreation = dateCreation;
@@ -105,12 +108,14 @@ public class Playlist implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        // TODO: Warning - this method won't work in the case the id fields 
+       // are not set
         if (!(object instanceof Playlist)) {
             return false;
         }
         Playlist other = (Playlist) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id == null && other.id != null) || (this.id != null && 
+                !this.id.equals(other.id))) {
             return false;
         }
         return true;
