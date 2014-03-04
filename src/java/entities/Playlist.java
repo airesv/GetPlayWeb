@@ -14,6 +14,7 @@ import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,6 +38,8 @@ public class Playlist implements Serializable {
     private Date dateCreation;
     @OneToMany
     private UserPlay user;
+    @ManyToMany
+    private Music musica;
    
     
     public Long getId() {
