@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package entities;
 
 import java.io.Serializable;
@@ -13,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -20,16 +20,18 @@ import javax.validation.constraints.Pattern;
  */
 @Entity
 public class UserPlay implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Size(min = 1, message = "Please, enter a Username")
     private String name;
-    
+
     @NotNull
     @Pattern(regexp = "[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+", message = "Email format is invalid.")
     private String email;
-    
+
     @NotNull
     
     private String password;
@@ -127,5 +129,5 @@ public class UserPlay implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
 }
