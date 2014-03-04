@@ -46,8 +46,7 @@ public class UserPlay implements Serializable {
         this.id = id;
     }
 
-    public UserPlay(Long id, String name, String email, String password) {
-        this.id = id;
+    public UserPlay(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -76,8 +75,8 @@ public class UserPlay implements Serializable {
             return false;
         }
         UserPlay other = (UserPlay) object;
-        if ((this.id == null && other.id != null) || (this.id != null && 
-                !this.id.equals(other.id))) {
+        if ((this.id == null && other.id != null) || (this.id != null
+                && !this.id.equals(other.id))) {
             return false;
         }
         return true;

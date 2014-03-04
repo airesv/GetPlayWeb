@@ -51,9 +51,8 @@ public class Music implements Serializable {
         this.id = id;
     }
 
-    public Music(Long id, int yearOfRelease, String name, String author,
+    public Music(int yearOfRelease, String name, String author,
             String album, UserPlay userPlay) {
-        this.id = id;
         this.yearOfRelease = yearOfRelease;
         this.name = name;
         this.author = author;
