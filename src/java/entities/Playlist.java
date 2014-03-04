@@ -40,7 +40,26 @@ public class Playlist implements Serializable {
     private UserPlay user;
     @ManyToMany
     private Music musica;
+
+    public Playlist() {
+    }
+
+    public Playlist(Long id) {
+        this.id = id;
+    }
+
+    public Playlist(Long id, String namePlaylist, Date dateCreation, UserPlay user, Music musica) {
+        this.id = id;
+        this.namePlaylist = namePlaylist;
+        this.dateCreation = dateCreation;
+        this.user = user;
+        this.musica = musica;
+    }
    
+    
+    
+    
+    
     
     public Long getId() {
         return id;

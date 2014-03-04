@@ -31,7 +31,26 @@ public class UserPlay implements Serializable {
     private String email;
     
     @NotNull
+    
     private String password;
+
+    public UserPlay() {
+    }
+
+    
+    
+    public UserPlay(Long id) {
+        this.id = id;
+    }
+
+    public UserPlay(Long id, String name, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+    
+    
     
 
     public Long getId() {
