@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
@@ -23,6 +25,19 @@ import javax.validation.constraints.Size;
  * @author alvaro
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Music.findAll", query = "SELECT m FROM Music m order by m asc"),
+    @NamedQuery(name = "Music.findById", query = "SELECT m FROM Music m WHERE m.id = :Id"),
+    @NamedQuery(name = "Music.findByAlbumAsc", query = "SELECT m FROM Music m WHERE m.album = :Album order by m.album asc"),
+    @NamedQuery(name = "Music.findByAlbumDesc", query = "SELECT m FROM Music m WHERE m.album = :Album order by m.album desc"),
+    @NamedQuery(name = "Music.findByNameAsc", query = "SELECT m FROM Music m WHERE m.name = :Name order by m.name asc"),
+    @NamedQuery(name = "Music.findByNameDesc", query = "SELECT m FROM Music m WHERE m.name = :Name order by m.name desc"),
+    @NamedQuery(name = "Music.findByAuthorAsc", query = "SELECT m FROM Music m WHERE m.author = :Author order by m.author asc"),
+    @NamedQuery(name = "Music.findByAuthorDesc", query = "SELECT m FROM Music m WHERE m.author = :Author order by m.author desc"),
+    @NamedQuery(name = "Music.findByUser", query = "SELECT m FROM Music m WHERE m.userPlay = :UserPlay"),
+    @NamedQuery(name = "Music.findByYearOfReleaseAsc", query = "SELECT m FROM Music m WHERE m.yearOfRelease = :YearOfRelease order by m.yearOfRelease asc"),
+    @NamedQuery(name = "Music.findByYearOfReleaseDesc", query = "SELECT m FROM Music m WHERE m.yearOfRelease = :YearOfRelease order by m.yearOfRelease desc")
+})
 public class Music implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,13 +48,13 @@ public class Music implements Serializable {
     @Pattern(regexp = "(19|20)\\d\\d",
             message = "{invalid.yearOfRelease}")
     private int yearOfRelease;
-    @Size(min =1,max=20 , message = "Name is mandatory and cannot contain "
+    @Size(min = 1, max = 20, message = "Name is mandatory and cannot contain "
             + "more than 20 characters")
     private String name;
-    @Size(min =1,max=20 , message = "Author is mandatory and cannot contain "
+    @Size(min = 1, max = 20, message = "Author is mandatory and cannot contain "
             + "more than 20 characters")
     private String author;
-    @Size(max=20 , message = "Album cannot contain more than 20 characters")
+    @Size(max = 20, message = "Album cannot contain more than 20 characters")
     private String album;
     @OneToOne
     private UserPlay userPlay;
@@ -123,8 +138,8 @@ public class Music implements Serializable {
             return false;
         }
         Music other = (Music) object;
-        if ((this.id == null && other.id != null) || (this.id != null && 
-                !this.id.equals(other.id))) {
+        if ((this.id == null && other.id != null) || (this.id != null
+                && !this.id.equals(other.id))) {
             return false;
         }
         return true;
