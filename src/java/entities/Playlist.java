@@ -7,23 +7,18 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -32,16 +27,15 @@ import javax.validation.constraints.Size;
  */
 @Entity
 
-@NamedQueries({
-    @NamedQuery(name = "Playlist.findAll", query = "SELECT p FROM Playlist p"),
-    @NamedQuery(name = "Playlist.findAllOrderByDateAsc", query = "SELECT p FROM Playlist p ORDER by p.dateCreation ASC"),
-    @NamedQuery(name = "Playlist.findAllOrderByDateDesc", query = "SELECT p FROM Playlist p ORDER by p.dateCreation DESC"),
-    @NamedQuery(name = "Playlist.findAllOrderBySizeAsc", query = "SELECT count(p.musicList.id) FROM Playlist p ORDER by p.musicList ASC"),
-    @NamedQuery(name = "Playlist.findAllOrderBySizeDesc", query = "SELECT count(p.musicList.id)  FROM Playlist p ORDER by p.dateCreation DESC"),
-    @NamedQuery(name = "Playlist.findAllOrderByNameAsc", query = "SELECT p FROM Playlist p ORDER by p.namePlaylist ASC"),
-    @NamedQuery(name = "Playlist.findAllOrderByNameDesc", query = "SELECT p FROM Playlist p ORDER by p.namePlaylist DESC"),
-
-    @NamedQuery(name = "Playlist.findAllByUser", query = "SELECT p FROM Playlist p WHERE p.userPlay.email=:email"),})
+//@NamedQueries({
+//    @NamedQuery(name = "Playlist.findAll", query = "SELECT p FROM Playlist p"),
+//    @NamedQuery(name = "Playlist.findAllOrderByDateAsc", query = "SELECT p FROM Playlist p ORDER by p.dateCreation ASC"),
+//    @NamedQuery(name = "Playlist.findAllOrderByDateDesc", query = "SELECT p FROM Playlist p ORDER by p.dateCreation DESC"),
+//    @NamedQuery(name = "Playlist.findAllOrderBySizeDesc", query = "SELECT count(p.musicList.id)  FROM Playlist p ORDER by p.dateCreation DESC"),
+//    @NamedQuery(name = "Playlist.findAllOrderByNameAsc", query = "SELECT p FROM Playlist p ORDER by p.namePlaylist ASC"),
+//    @NamedQuery(name = "Playlist.findAllOrderByNameDesc", query = "SELECT p FROM Playlist p ORDER by p.namePlaylist DESC"),
+//
+//    @NamedQuery(name = "Playlist.findAllByUser", query = "SELECT p FROM Playlist p WHERE p.userPlay.email=:email"),})
 public class Playlist implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,7 +46,7 @@ public class Playlist implements Serializable {
             + "than 20 characters")
     private String namePlaylist;
     @NotNull
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreation;
     @OneToOne
     private UserPlay userPlay;
