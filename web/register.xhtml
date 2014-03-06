@@ -29,23 +29,23 @@
                                 <tbody>
                                     <tr>
                                         <td><h:outputText value="Name : "/></td>
-                                        <td><h:inputText value="método" required="true"/></td>
+                                        <td><h:inputText value="#{UserRegister.name}" required="true"/></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="E-Mail : "/></td>
-                                        <td><h:inputText value="método" required="true"/></td>
+                                        <td><h:inputText value="#{UserRegister.useremail}" required="true"/></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="Password : "/></td>
-                                        <td><h:inputText value="método" required="true"/></td>
+                                        <td><h:inputText value="#{UserRegister.password}" required="true"/></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="Confirm Password : "/></td>
-                                        <td><h:inputText value="método" required="true"/></td>
+                                        <td><h:inputText value="#{UserRegister.confirmPassword}" required="true"/></td>
                                     </tr>
                                     <tr>
                                         <td><h:commandButton value="HomePage" action="métodoretroceder" /></td>
-                                        <td><h:commandButton value="Finish" action="métodoTerminar" /></td>
+                                        <td><h:commandButton value="Finish" action="#{Register.verification()}" /></td>
                                     </tr>
                                 </tbody>
                             </table>
