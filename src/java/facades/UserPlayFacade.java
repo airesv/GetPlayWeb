@@ -48,7 +48,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         Query query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
         query.setParameter("email", email);
         int result = query.getFirstResult();
-        if (result != 0) {
+        if (result == 0) {
             return true;
         } else {
             return false;
