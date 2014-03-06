@@ -14,7 +14,7 @@
                         <img src="image/sound.png"></img>
                         
                        </td>
-                    <td height="100%"  align="center" valign="middle">   
+                    <td height="100%"  align="left" valign="middle">   
 
 
 
@@ -24,15 +24,15 @@
                                 <tbody>
                                     <tr>
                                         <td><h:outputText value="E-Mail : "/></td>
-                                        <td><h:inputText id="email" value="metodo" required="true"/></td>
+                                        <td><h:inputText value="#{UserLogin.useremail}" required="false"/></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="Password : "/></td>
-                                        <td><h:inputText id="pass" value="metodo" required="true"/></td>
+                                        <td><h:inputSecret value="#{UserLogin.password}" required="false"/></td>
                                     </tr>
                                     <tr>
-                                        <td><h:commandButton id="makeLoginIn" value="Log in" action="métodoFazerLogin" /></td>
-                                        <td><h:commandButton id="makeRegister" value="Register" action="métodoFazerRegisto" /></td>
+                                        <td><h:commandButton value="Log in" action="#{UserLogin.verification()}" /></td>
+                                        <td><h:commandButton value="Register" action="register"  /></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -42,7 +42,7 @@
                 </tr>
             </tbody>
         </table>
-
+        
 
 
     </h:body>

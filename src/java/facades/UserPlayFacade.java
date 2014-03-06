@@ -10,6 +10,7 @@ import entities.UserPlay;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +29,19 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     public UserPlayFacade() {
         super(UserPlay.class);
     }
+    
+   public boolean userIsDataBase(String email, String pass){
+       
+       Query query=em.createNamedQuery("UserPlay.getPassByEmail", UserPlay.class);
+       query.setParameter("email", email);
+       String result=(String)query.getSingleResult();
+       
+       return pass.equals(result);
+          
+    
+   }  
+   
+   
+   
     
 }
