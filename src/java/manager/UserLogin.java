@@ -17,6 +17,7 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "UserLogin")
 @SessionScoped
 public class UserLogin {
+
     @EJB
     private UserPlayFacade userPlayFacade;
 
@@ -34,9 +35,6 @@ public class UserLogin {
         this.useremail = useremail;
     }
 
-    
-    
-
     public String getPassword() {
         return password;
     }
@@ -45,10 +43,11 @@ public class UserLogin {
         this.password = password;
     }
 
-    public String verification(){
-         if(userPlayFacade.userIsDataBase(getUseremail(), getPassword()))
-         { 
-             return "main";}
-         else{return "notlogin";}
+    public String verification() {
+        if (userPlayFacade.userIsDataBase(getUseremail(), getPassword())) {
+            return "main";
+        } else {
+            return "notlogin";
+        }
     }
 }

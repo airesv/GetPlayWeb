@@ -52,7 +52,7 @@ public class UserPlay implements Serializable {
     private String password;
     @OneToMany
     @JoinColumn(name = "userCreatorMusic")
-    private List<Music> music;
+    private List<Music> music; 
     @OneToMany
     @JoinColumn(name = "userCreatorPlaylist")
     private List<Playlist> playlists;
