@@ -23,6 +23,7 @@ public class UserLogin {
 
     private String useremail;
     private String password;
+    private String erro="";
 
     public UserLogin() {
     }
@@ -47,7 +48,15 @@ public class UserLogin {
         if (userPlayFacade.userIsDataBase(getUseremail(), getPassword())) {
             return "main";
         } else {
-            return "notlogin";
+            erro = "Sorry";
+            return "index"   ;
         }
+    }
+
+    /**
+     * @return the erro
+     */
+    public String getErro() {
+        return erro;
     }
 }

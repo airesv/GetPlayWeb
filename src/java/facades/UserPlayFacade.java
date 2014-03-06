@@ -34,26 +34,32 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
 
         Query query = em.createNamedQuery("UserPlay.getPassByEmail", UserPlay.class);
         query.setParameter("email", email);
-        String result = (String) query.getSingleResult();
-        return pass.equals(result);
+        try {
+            String result = (String) query.getSingleResult();
+            return pass.equals(result);
+        } catch (Exception e) {
+            return false;
+        }
+        
+        
 
     }
 
     public void createUser(String nome, String email, String password) {
-        if(!existsUser(email)){
-        UserPlay up = new UserPlay(nome, email, password);
-        em.persist(up);}
+       UserPlay up = new UserPlay(nome, email, password);
+        if (existsUser(email)==true) {
+             em.persist(up);
+        }
+      
+       
+        
     }
 
     public boolean existsUser(String email) {
         Query query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
         query.setParameter("email", email);
         int result = query.getFirstResult();
-        if (result == 0) {
-            return true;
-        } else {
-            return false;
-        }
+          return (result == 0);
 
     }
 }

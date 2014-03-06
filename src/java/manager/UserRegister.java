@@ -7,6 +7,7 @@ package manager;
 
 import static entities.UserPlay_.email;
 import facades.UserPlayFacade;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -17,7 +18,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean(name = "UserRegister")
 @RequestScoped
-public class UserRegister {
+public class UserRegister implements Serializable{
 
     @EJB
     private UserPlayFacade userPlayFacade;
@@ -29,7 +30,7 @@ public class UserRegister {
     /**
      * Creates a new instance of Register
      */
-    public UserRegister() {
+    public UserRegister()  {
     }
 
     public UserPlayFacade getUserPlayFacade() {

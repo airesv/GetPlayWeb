@@ -16,7 +16,7 @@
                        </td>
                     <td height="100%"  align="left" valign="middle">   
 
-
+                        <p><h:outputText value="#{UserLogin.erro}"/></p>
 
                         <h:form> 
                             <h2>Login:</h2>
@@ -32,7 +32,11 @@
                                     </tr>
                                     <tr>
                                         <td><h:commandButton value="Log in" action="#{UserLogin.verification()}" /></td>
-                                        <td><h:commandButton value="Register" action="register"  /></td>
+                                        <td><h:commandButton value="Register" action="register"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{UserLogin.erro}"/></td>
+                                        
                                     </tr>
                                 </tbody>
                             </table>
