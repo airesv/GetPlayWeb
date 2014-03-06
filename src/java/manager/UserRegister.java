@@ -18,6 +18,7 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean(name = "UserRegister")
 @RequestScoped
 public class UserRegister {
+
     @EJB
     private UserPlayFacade userPlayFacade;
     private String name;
@@ -42,7 +43,6 @@ public class UserRegister {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-    
 
     public void setUserPlayFacade(UserPlayFacade userPlayFacade) {
         this.userPlayFacade = userPlayFacade;
@@ -73,16 +73,14 @@ public class UserRegister {
     }
 
     public String verification() {
-       if (userPlayFacade.existsUser(getUseremail())) {
-            return "notregister";
-        } 
-        if(!password.equals(confirmPassword)){
+        if (userPlayFacade.existsUser(getUseremail())) {
             return "notregister";
         }
-
-        else {
-            userPlayFacade.createUser(name, useremail, password);
-            return "index";
+        if (!password.equals(confirmPassword)) {
+            return "notregister";
+        } else {
+            userPlayFacade.createUser(getName(), getUseremail(), getPassword());
+            return "main";
         }
     }
 
