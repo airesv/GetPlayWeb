@@ -30,36 +30,45 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         super(UserPlay.class);
     }
 
-    public boolean userIsDataBase(String email, String pass) {
+    public int userIsDataBase(String email, String pass) {
 
-        Query query = em.createNamedQuery("UserPlay.getPassByEmail", UserPlay.class);
-        query.setParameter("email", email);
-        try {
-            String result = (String) query.getSingleResult();
-            return pass.equals(result);
-        } catch (Exception e) {
-            return false;
+        if (!existsUser(email)) {
+            return 0;//não há email na BD
+        } else {
+            
+            Query query = em.createNamedQuery("UserPlay.getPassByEmail", UserPlay.class);
+            query.setParameter("email", email);
+            String result;
+            try {
+                result = (String) query.getSingleResult();
+            } catch (Exception e) {
+                return 1;
+            }
+
+            if (!pass.equals(result)) {
+                return 1; //a password está errada
+
+            } else {
+                return 2;//está tudo correto
+            }
         }
-        
         
 
     }
 
     public void createUser(String nome, String email, String password) {
-       UserPlay up = new UserPlay(nome, email, password);
-        if (existsUser(email)==true) {
-             em.persist(up);
+        UserPlay up = new UserPlay(nome, email, password);
+        if (existsUser(email) == false) {
+            em.persist(up);
         }
-      
-       
-        
+
     }
 
     public boolean existsUser(String email) {
         Query query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
         query.setParameter("email", email);
-        int result = query.getFirstResult();
-          return (result == 0);
+        int result = query.getResultList().size();
+        return (result > 0);
 
     }
 }

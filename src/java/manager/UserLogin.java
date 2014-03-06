@@ -23,9 +23,10 @@ public class UserLogin {
 
     private String useremail;
     private String password;
-    private String erro="";
-
+    private String erro;
+    
     public UserLogin() {
+        erro="";
     }
 
     public String getUseremail() {
@@ -45,12 +46,25 @@ public class UserLogin {
     }
 
     public String verification() {
-        if (userPlayFacade.userIsDataBase(getUseremail(), getPassword())) {
-            return "main";
-        } else {
-            erro = "Sorry";
-            return "index"   ;
+        switch (userPlayFacade.userIsDataBase(getUseremail(), getPassword())) {
+            case 0:
+                setErro("Este Email não está na BD");
+                return "index";
+            case 1:
+                setErro("Password mal inserida");
+                return "index";
+           case 2:  
+                return "main";
+                
+            default:
+                throw new AssertionError();
         }
+//        if (userPlayFacade.userIsDataBase(getUseremail(), getPassword())) {
+//            return "main";
+//        } else {
+//            setErro("Sorry");
+//            return "index"   ;
+//        }
     }
 
     /**
@@ -58,5 +72,12 @@ public class UserLogin {
      */
     public String getErro() {
         return erro;
+    }
+
+    /**
+     * @param erro the erro to set
+     */
+    public void setErro(String erro) {
+        this.erro = erro;
     }
 }
