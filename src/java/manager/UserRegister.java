@@ -73,7 +73,7 @@ public class UserRegister {
     }
 
     public String verification() {
-        if (userPlayFacade.existsUser(getUseremail())) {
+        if (!userPlayFacade.existsUser(getUseremail())) {
             return "notregister";
         }
         if (!password.equals(confirmPassword)) {
