@@ -6,12 +6,15 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -21,13 +24,12 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name="UserPlay.findAll",query="SELECT u FROM UserPlay u"),
-    @NamedQuery(name="UserPlay.findByName",query="SELECT u FROM UserPlay u WHERE u.name=:name"),
-    @NamedQuery(name="UserPlay.findByEmail",query="SELECT u FROM UserPlay u WHERE u.email=:email"),
-    @NamedQuery(name="UserPlay.getPassByEmail",query="SELECT u.password FROM UserPlay u WHERE u.email=:email"),
-    @NamedQuery(name="UserPlay.findNameByEmail",query="SELECT u.name FROM UserPlay u WHERE u.email=:email")
+    @NamedQuery(name = "UserPlay.findAll", query = "SELECT u FROM UserPlay u"),
+    @NamedQuery(name = "UserPlay.findByName", query = "SELECT u FROM UserPlay u WHERE u.name=:name"),
+    @NamedQuery(name = "UserPlay.findByEmail", query = "SELECT u FROM UserPlay u WHERE u.email=:email"),
+    @NamedQuery(name = "UserPlay.getPassByEmail", query = "SELECT u.password FROM UserPlay u WHERE u.email=:email"),
+    @NamedQuery(name = "UserPlay.findNameByEmail", query = "SELECT u.name FROM UserPlay u WHERE u.email=:email")
 })
-
 
 public class UserPlay implements Serializable {
 
@@ -48,6 +50,12 @@ public class UserPlay implements Serializable {
     @Size(min = 1, message = "Password is mandatory and cannot contain"
             + " more than 10 characters")
     private String password;
+    @OneToMany
+    @JoinColumn(name = "userCreatorMusic")
+    private List<Music> music;
+    @OneToMany
+    @JoinColumn(name = "userCreatorPlaylist")
+    private List<Playlist> playlists;
 
     public UserPlay() {
     }
