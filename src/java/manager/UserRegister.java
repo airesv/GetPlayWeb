@@ -5,6 +5,7 @@
  */
 package manager;
 
+import static entities.UserPlay_.email;
 import facades.UserPlayFacade;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -72,7 +73,7 @@ public class UserRegister {
     }
 
     public String verification() {
-       if (userPlayFacade.existsUser(email) {
+       if (userPlayFacade.existsUser(getUseremail())) {
             return "notregister";
         } 
         if(!password.equals(confirmPassword)){
