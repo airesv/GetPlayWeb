@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width"/>
+    </head>
+    
+    <body>
+        <h:form> 
+            <h2>Register:</h2>
+                <table width="250" border="0" cellspacing="0" cellpadding="2">
+                <tbody>
+                    <tr>
+                        <td><h:outputText value="Name : "/></td>
+                        <td><h:inputText id="name" value="método" required="true"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="E-Mail : "/></td>
+                        <td><h:inputText id="email" value="método" required="true"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Password : "/></td>
+                        <td><h:inputText id="pass" value="método" required="true"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Confirm Password : "/></td>
+                        <td><h:inputText id="pass" value="método" required="true"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:commandButton id="homePage" value="HomePage" action="métodoretroceder" /></td>
+                        <td><h:commandButton id="doneRegister" value="Finish" action="métodoTerminar" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </h:form> 
+    </body>
+</html>
