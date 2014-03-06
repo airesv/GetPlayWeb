@@ -48,8 +48,7 @@ public class Playlist implements Serializable {
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreation;
-    @OneToOne
-    private UserPlay userPlay;
+
     @ManyToMany
     private Collection<Music> musicList;
 
@@ -60,10 +59,9 @@ public class Playlist implements Serializable {
         this.id = id;
     }
 
-    public Playlist(String namePlaylist, Date dateCreation, UserPlay userPlay, Collection<Music> musicList) {
+    public Playlist(String namePlaylist, Date dateCreation, Collection<Music> musicList) {
         this.namePlaylist = namePlaylist;
         this.dateCreation = dateCreation;
-        this.userPlay = userPlay;
         this.musicList = musicList;
     }
 

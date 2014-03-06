@@ -64,8 +64,7 @@ public class Music implements Serializable {
     @Size(max = 20, message = "Album cannot contain more than 20 characters")
     @Column(name = "ALBUM")
     private String album;
-    @OneToOne
-    private UserPlay userPlay;
+   
 
     public Music() {
     }
@@ -74,12 +73,11 @@ public class Music implements Serializable {
         this.id = id;
     }
 
-    public Music(int yearOfRelease, String name, String author,String album, UserPlay userPlay) {
+    public Music(int yearOfRelease, String name, String author,String album) {
         this.yearOfRelease = yearOfRelease;
         this.name = name;
         this.author = author;
         this.album = album;
-        this.userPlay = userPlay;
 
     }
 
@@ -115,13 +113,6 @@ public class Music implements Serializable {
         this.album = album;
     }
 
-    public UserPlay getUserPlay() {
-        return userPlay;
-    }
-
-    public void setUserPlay(UserPlay userPlay) {
-        this.userPlay = userPlay;
-    }
 
     public Long getId() {
         return id;
