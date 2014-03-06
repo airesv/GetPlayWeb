@@ -40,8 +40,9 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     }
 
     public void createUser(String nome, String email, String password) {
+        if(!existsUser(email)){
         UserPlay up = new UserPlay(nome, email, password);
-        em.persist(up);
+        em.persist(up);}
     }
 
     public boolean existsUser(String email) {
