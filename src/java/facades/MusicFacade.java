@@ -7,6 +7,7 @@
 package facades;
 
 import entities.Music;
+import entities.UserPlay;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,12 @@ public class MusicFacade extends AbstractFacade<Music> {
 
     public MusicFacade() {
         super(Music.class);
+    }
+    
+         public void createUser(String nome, String email, String password) {
+        UserPlay up = new UserPlay(nome, email, password);
+        em.persist(up);
+        
     }
     
 }

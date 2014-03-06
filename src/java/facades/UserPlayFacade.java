@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package facades;
 
 import entities.UserPlay;
@@ -18,6 +17,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class UserPlayFacade extends AbstractFacade<UserPlay> {
+
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
 
@@ -29,19 +29,20 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     public UserPlayFacade() {
         super(UserPlay.class);
     }
-    
-   public boolean userIsDataBase(String email, String pass){
-       
-       Query query=em.createNamedQuery("UserPlay.getPassByEmail", UserPlay.class);
-       query.setParameter("email", email);
-       String result=(String)query.getSingleResult();
-       
-       return pass.equals(result);
-          
-    
-   }  
-   
-   
-   
-    
+
+    public boolean userIsDataBase(String email, String pass) {
+
+        Query query = em.createNamedQuery("UserPlay.getPassByEmail", UserPlay.class);
+        query.setParameter("email", email);
+        String result = (String) query.getSingleResult();
+        return pass.equals(result);
+
+    }
+
+    public void createUser(String nome, String email, String password) {
+        UserPlay up = new UserPlay(nome, email, password);
+        em.persist(up);
+        
+    }
+
 }
