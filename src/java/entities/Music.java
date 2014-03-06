@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,6 +6,8 @@
 package entities;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,17 +46,23 @@ public class Music implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
+    
     private Long id;
     @Pattern(regexp = "(19|20)\\d\\d",
             message = "{invalid.yearOfRelease}")
+    @Column(name = "YEAR_OF_RELEASE")
     private int yearOfRelease;
     @Size(min = 1, max = 20, message = "Name is mandatory and cannot contain "
             + "more than 20 characters")
+    @Column(name = "NAME")
     private String name;
     @Size(min = 1, max = 20, message = "Author is mandatory and cannot contain "
             + "more than 20 characters")
+    @Column(name = "AUTHOR")
     private String author;
+    @Basic(optional=true)
     @Size(max = 20, message = "Album cannot contain more than 20 characters")
+    @Column(name = "ALBUM")
     private String album;
     @OneToOne
     private UserPlay userPlay;
