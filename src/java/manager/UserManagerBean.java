@@ -17,7 +17,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class UserManagerBean {
 
-    private UserLogin ul;
+    
     /**
      * Creates a new instance of UserMangerBean
      */
