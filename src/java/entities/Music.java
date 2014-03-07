@@ -45,7 +45,7 @@ public class Music implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    
+
     private Long id;
     @Pattern(regexp = "(19|20)\\d\\d",
             message = "{invalid.yearOfRelease}")
@@ -59,11 +59,13 @@ public class Music implements Serializable {
             + "more than 20 characters")
     @Column(name = "AUTHOR")
     private String author;
-    @Basic(optional=true)
+    @Basic(optional = true)
     @Size(max = 20, message = "Album cannot contain more than 20 characters")
     @Column(name = "ALBUM")
     private String album;
-   
+    @NotNull
+    @Column(name = "PathSound")
+    private String pathSound;
 
     public Music() {
     }
@@ -72,11 +74,12 @@ public class Music implements Serializable {
         this.id = id;
     }
 
-    public Music(int yearOfRelease, String name, String author,String album) {
+    public Music(int yearOfRelease, String name, String author, String album, String pathSound) {
         this.yearOfRelease = yearOfRelease;
         this.name = name;
         this.author = author;
         this.album = album;
+        this.pathSound=pathSound;
 
     }
 
@@ -112,7 +115,6 @@ public class Music implements Serializable {
         this.album = album;
     }
 
-
     public Long getId() {
         return id;
     }
@@ -121,6 +123,18 @@ public class Music implements Serializable {
         this.id = id;
     }
 
+    public String getPathSound() {
+        return pathSound;
+    }
+
+    public void setPathSound(String pathSound) {
+        this.pathSound = pathSound;
+    }
+
+    
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
