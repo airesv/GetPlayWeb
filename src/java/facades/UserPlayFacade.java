@@ -33,7 +33,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     }
 
     public int userIsDataBase(String email, String pass) {
-
+        String password=encriptPassword(pass);
         if (!existsUser(email)) {
             return 0;//não há email na BD
         } else {
@@ -41,13 +41,14 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
             Query query = em.createNamedQuery("UserPlay.getPassByEmail", UserPlay.class);
             query.setParameter("email", email);
             String result;
+            
             try {
                 result = (String) query.getSingleResult();
             } catch (Exception e) {
                 return 1;
             }
 
-            if (!pass.equals(result)) {
+            if (!password.equals(result)) {
                 return 1; //a password está errada
 
             } else {
