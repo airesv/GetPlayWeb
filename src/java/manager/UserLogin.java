@@ -54,7 +54,7 @@ public class UserLogin {
                 setErro("Password mal inserida");
                 return "index";
            case 2:  
-                return "main";
+                return "main";//ligado
                 
             default:
                 throw new AssertionError();
