@@ -1,3 +1,6 @@
+
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,8 +8,10 @@
  */
 package manager;
 
+import EJB.EncryptPassword;
 import entities.UserPlay;
 import facades.UserPlayFacade;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -18,7 +23,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "UserLogin")
 @SessionScoped
-public class UserLogin {
+public class UserLogin implements Serializable {
 
     @EJB
     private UserPlayFacade userPlayFacade;
@@ -30,13 +35,15 @@ public class UserLogin {
     private String password;
     private String erro;
     
-    
+    @EJB
+    private EncryptPassword encryptPassword;
     
     public UserLogin() {
         erro="";
         
         
     }
+  
 
     public String getUseremail() {
         return useremail;
@@ -53,12 +60,10 @@ public class UserLogin {
     public void setPassword(String password) {
         this.password = password;
     }
+    
 
-    public String verification() {
-        // encrypt password
-        String encryptedPassword = "";
-        
-        UserPlay loggedUser = userPlayFacade.getUser(useremail, encryptedPassword);
+    public String verification() {     
+        UserPlay loggedUser = userPlayFacade.getUser(useremail/*, encryptPassword.cryptWithMD5(password)*/);
         
         if(loggedUser != null) {
             // user correctly logged
