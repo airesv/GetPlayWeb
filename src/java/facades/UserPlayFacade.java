@@ -80,4 +80,6 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         int result = query.getResultList().size();
         return (result > 0);
     }
+    
+    
 }

@@ -147,4 +147,32 @@ public class UserPlay implements Serializable {
         this.password = password;
     }
 
+    /**
+     * @return the playlists
+     */
+    public List<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    /**
+     * @param playlists the playlists to set
+     */
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
+    }
+
+    /**
+     * @return the music
+     */
+    public List<Music> getMusic() {
+        return music;
+    }
+
+    /**
+     * @param music the music to set
+     */
+    public void setMusic(List<Music> music) {
+        this.music = music;
+    }
+
 }

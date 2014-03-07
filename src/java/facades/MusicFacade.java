@@ -8,10 +8,11 @@ package facades;
 
 import entities.Music;
 import javax.ejb.Stateless;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import manager.UserLogin;
+import manager.UserManagerBean;
+
 
 /**
  *
@@ -33,7 +34,10 @@ public class MusicFacade extends AbstractFacade<Music> {
     
      public void createMusic(int yearOfRelease, String name, String author,String album, String pathSound) {
          Music music = new Music(yearOfRelease, name,author,album,pathSound);
-        // loggedUserPlay.musics.add(music);
+         UserManagerBean um = new UserManagerBean();
+         
+                
+// loggedUserPlay.musics.add(music);
         em.persist(music);
     }
     
