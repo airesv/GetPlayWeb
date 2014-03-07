@@ -51,7 +51,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
                 return 1; //a password está errada
 
             } else {
-                return 2;//está tudo correto
+                return 2;//está tudo correto está logsdo
             }
         }
     }

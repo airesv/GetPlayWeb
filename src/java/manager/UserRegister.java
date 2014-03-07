@@ -5,12 +5,13 @@
  */
 package manager;
 
-import static entities.UserPlay_.email;
 import facades.UserPlayFacade;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -18,7 +19,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean(name = "UserRegister")
 @RequestScoped
-public class UserRegister implements Serializable{
+public class UserRegister implements Serializable {
 
     @EJB
     private UserPlayFacade userPlayFacade;
@@ -26,11 +27,13 @@ public class UserRegister implements Serializable{
     private String useremail;
     private String password;
     private String confirmPassword;
+    private String message;
 
     /**
      * Creates a new instance of Register
      */
-    public UserRegister()  {
+    public UserRegister() {
+        message = "";
     }
 
     public UserPlayFacade getUserPlayFacade() {
@@ -57,6 +60,14 @@ public class UserRegister implements Serializable{
         this.name = name;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public String getUseremail() {
         return useremail;
     }
@@ -75,13 +86,17 @@ public class UserRegister implements Serializable{
 
     public String verification() {
         if (userPlayFacade.existsUser(getUseremail())) {
-            return "notregister";
+            message = "This user already exists!";
+            return "register";
         }
         if (!password.equals(confirmPassword)) {
-            return "notregister";
+            message = "Passwords do not match";
+            return "register";
         } else {
             userPlayFacade.createUser(getName(), getUseremail(), getPassword());
-            return "main";
+            message = "Successfully inserted";
+            return "register";
+
         }
     }
 

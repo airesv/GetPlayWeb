@@ -21,9 +21,6 @@
 
 
 
-
-
-
                             <h2>Register:</h2>
                             <table width="250" border="0" cellspacing="0" cellpadding="2">
                                 <tbody>
@@ -44,8 +41,13 @@
                                         <td><h:inputSecret value="#{UserRegister.confirmPassword}" required="true"/></td>
                                     </tr>
                                     <tr>
-                                        <td><h:commandButton value="HomePage" action="index" /></td>
-                                        <td><h:commandButton value="Finish" action="#{UserRegister.verification()}" /></td>
+                                        
+                                        <td><h:commandButton value="Insert" action="#{UserRegister.verification()}" /></td>
+                                        <td><h:commandButton value="Cancel" immediate="true" action="index" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><h:outputText value="#{UserRegister.message}"/></td>
+                                        
                                     </tr>
                                 </tbody>
                             </table>
