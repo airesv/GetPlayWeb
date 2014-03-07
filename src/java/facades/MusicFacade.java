@@ -31,10 +31,8 @@ public class MusicFacade extends AbstractFacade<Music> {
         super(Music.class);
     }
     
-     public void createMusic(int yearOfRelease, String name, String author,String album) {
-         Music music = new Music(yearOfRelease, name,author,album);
-         
-         
+     public void createMusic(int yearOfRelease, String name, String author,String album, String pathSound) {
+         Music music = new Music(yearOfRelease, name,author,album,pathSound);
         // loggedUserPlay.musics.add(music);
         em.persist(music);
     }

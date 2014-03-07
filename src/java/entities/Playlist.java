@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -13,9 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -59,9 +57,8 @@ public class Playlist implements Serializable {
         this.id = id;
     }
 
-    public Playlist(String namePlaylist, Date dateCreation, Collection<Music> musicList) {
+    public Playlist(String namePlaylist, Collection<Music> musicList) {
         this.namePlaylist = namePlaylist;
-        this.dateCreation = dateCreation;
         this.musicList = musicList;
     }
 

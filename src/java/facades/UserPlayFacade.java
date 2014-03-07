@@ -6,6 +6,8 @@
 package facades;
 
 import entities.UserPlay;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,7 +37,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         if (!existsUser(email)) {
             return 0;//não há email na BD
         } else {
-            
+
             Query query = em.createNamedQuery("UserPlay.getPassByEmail", UserPlay.class);
             query.setParameter("email", email);
             String result;
@@ -52,16 +54,24 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
                 return 2;//está tudo correto está logsdo
             }
         }
-        
-
     }
 
-    public void createUser(String nome, String email, String password) {
-        UserPlay up = new UserPlay(nome, email, password);
+    public static String encriptPassword(String value) {
+        MessageDigest m = null;
+        try {
+            m = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
+        return new String(m.digest(value.getBytes()));
+    }
+
+    public void createUser(String nome, String email, String password) {       
+        UserPlay up = new UserPlay(nome, email, encriptPassword(password));
         if (existsUser(email) == false) {
             em.persist(up);
         }
-
     }
 
     public boolean existsUser(String email) {
@@ -69,6 +79,5 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         query.setParameter("email", email);
         int result = query.getResultList().size();
         return (result > 0);
-
     }
 }

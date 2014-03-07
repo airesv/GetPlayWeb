@@ -29,4 +29,15 @@ public class PlaylistFacade extends AbstractFacade<Playlist> {
         super(Playlist.class);
     }
     
+    public void createPlayList(String name) {
+       // Playlist playlist = new Playlist(name);
+        // loggedUserPlay.musics.add(music);
+       // em.persist(playlist);
+    }
+    
+    
+    
+    
+    
+    
 }
