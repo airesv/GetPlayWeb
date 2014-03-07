@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package facades;
 
 import entities.Music;
 import javax.ejb.Stateless;
+import javax.faces.bean.ManagedProperty;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import manager.UserLogin;
 import manager.UserManagerBean;
-
 
 /**
  *
@@ -20,8 +20,11 @@ import manager.UserManagerBean;
  */
 @Stateless
 public class MusicFacade extends AbstractFacade<Music> {
+
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
+    @ManagedProperty(value = "#{UserManagerBean}")
+    private UserManagerBean userManager;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -31,14 +34,13 @@ public class MusicFacade extends AbstractFacade<Music> {
     public MusicFacade() {
         super(Music.class);
     }
-    
-     public void createMusic(int yearOfRelease, String name, String author,String album, String pathSound) {
-         Music music = new Music(yearOfRelease, name,author,album,pathSound);
-         UserManagerBean um = new UserManagerBean();
-         
-                
+
+    public void createMusic(int yearOfRelease, String name, String author, String album, String pathSound) {
+        Music music = new Music(yearOfRelease, name, author, album, pathSound);
+        userManager.getLoggedUser().getMusic().add(music);
+
 // loggedUserPlay.musics.add(music);
-        em.persist(music);
+        em.merge(userManager.getLoggedUser());//u
     }
-    
+
 }

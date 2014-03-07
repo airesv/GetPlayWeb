@@ -10,6 +10,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -33,7 +34,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     }
 
     public int userIsDataBase(String email, String pass) {
-        String password=encriptPassword(pass);
+        String password = encriptPassword(pass);
         if (!existsUser(email)) {
             return 0;//não há email na BD
         } else {
@@ -41,7 +42,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
             Query query = em.createNamedQuery("UserPlay.getPassByEmail", UserPlay.class);
             query.setParameter("email", email);
             String result;
-            
+
             try {
                 result = (String) query.getSingleResult();
             } catch (Exception e) {
@@ -68,7 +69,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         return new String(m.digest(value.getBytes()));
     }
 
-    public void createUser(String nome, String email, String password) {       
+    public void createUser(String nome, String email, String password) {
         UserPlay up = new UserPlay(nome, email, encriptPassword(password));
         if (existsUser(email) == false) {
             em.persist(up);
@@ -81,6 +82,16 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         int result = query.getResultList().size();
         return (result > 0);
     }
-    
-    
+
+    public UserPlay getUser(String email, String encryptedPassword) {
+        Query query = em.createNamedQuery("UserPlay.getUserByCredentials", UserPlay.class);
+        query.setParameter("email", email);
+        query.setParameter("password", encryptedPassword);
+        
+        try {
+            return (UserPlay) query.getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
+    }
 }

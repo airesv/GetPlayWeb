@@ -5,9 +5,11 @@
  */
 package manager;
 
+import entities.UserPlay;
 import facades.UserPlayFacade;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 /**
@@ -20,13 +22,20 @@ public class UserLogin {
 
     @EJB
     private UserPlayFacade userPlayFacade;
-
+    
+    @EJB
+    private UserManagerBean userManagerBean;
+    
     private String useremail;
     private String password;
     private String erro;
     
+    
+    
     public UserLogin() {
         erro="";
+        
+        
     }
 
     public String getUseremail() {
@@ -46,6 +55,18 @@ public class UserLogin {
     }
 
     public String verification() {
+        // encrypt password
+        String encryptedPassword = "";
+        
+        UserPlay loggedUser = userPlayFacade.getUser(useremail, encryptedPassword);
+        
+        if(loggedUser != null) {
+            // user correctly logged
+            userManagerBean.setLoggedUser(loggedUser);
+        } else {
+            
+        }
+        
         switch (userPlayFacade.userIsDataBase(getUseremail(), getPassword())) {
             case 0:
                 setErro("Este Email não está na BD");
@@ -53,18 +74,13 @@ public class UserLogin {
             case 1:
                 setErro("Password mal inserida");
                 return "index";
-           case 2:  
+           case 2:
+               //userManagerBean.setLoggedUser( userPlayFacade.getUser(getUseremail()) );//instancia o user
                 return "main";//ligado
                 
             default:
                 throw new AssertionError();
         }
-//        if (userPlayFacade.userIsDataBase(getUseremail(), getPassword())) {
-//            return "main";
-//        } else {
-//            setErro("Sorry");
-//            return "index"   ;
-//        }
     }
 
     /**
@@ -79,5 +95,9 @@ public class UserLogin {
      */
     public void setErro(String erro) {
         this.erro = erro;
-    }
+    } 
+
+   
+
+  
 }

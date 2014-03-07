@@ -8,6 +8,7 @@ package manager;
 import entities.UserPlay;
 import facades.UserPlayFacade;
 import javax.ejb.EJB;
+import javax.ejb.Stateful;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -16,17 +17,12 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Aires
  */
-@ManagedBean(name = "UserManagerBean")
-@SessionScoped
+@Stateful
 public class UserManagerBean {
 
-    @ManagedProperty(value = "#{UserLogin}")
-    private UserLogin userLogin;
-    private UserPlay userPlay;
-    
-     @EJB
-    private UserPlayFacade userPlayFacade;
+    private UserPlay loggedUser;
 
+    
     /**
      * Creates a new instance of UserMangerBean
      */
@@ -34,18 +30,15 @@ public class UserManagerBean {
 
     }
 
-    public UserLogin getUserLogin() {
-        return userLogin;
+   
+    public UserPlay getLoggedUser() {
+        return loggedUser;
     }
 
-    public void setUserLogin(UserLogin userLogin) {
-        this.userLogin = userLogin;
+    public void setLoggedUser(UserPlay loggedUser) {
+        this.loggedUser = loggedUser;
     }
-    
-    public UserPlay setUserPlay(){
-    return userPlayFacade.
-    
-    }
+
     
     
 }
