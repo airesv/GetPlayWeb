@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package facades;
+package pt.uc.dei.ipj.grupoa.facades;
 
-import entities.Playlist;
+import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

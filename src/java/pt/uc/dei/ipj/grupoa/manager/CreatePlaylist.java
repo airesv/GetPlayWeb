@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package manager;
+package pt.uc.dei.ipj.grupoa.manager;
 
-import facades.PlaylistFacade;
+import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

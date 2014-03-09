@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package manager;
+package pt.uc.dei.ipj.grupoa.manager;
 
-import facades.UserPlayFacade;
+import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;

@@ -6,11 +6,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package manager;
+package pt.uc.dei.ipj.grupoa.manager;
 
-import EJB.EncryptPassword;
-import entities.UserPlay;
-import facades.UserPlayFacade;
+import pt.uc.dei.ipj.grupoa.EJB.EncryptPassword;
+import pt.uc.dei.ipj.grupoa.entities.UserPlay;
+import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;

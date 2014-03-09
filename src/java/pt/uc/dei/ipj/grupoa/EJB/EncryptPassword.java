@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package EJB;
+package pt.uc.dei.ipj.grupoa.EJB;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

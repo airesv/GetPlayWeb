@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package facades;
+package pt.uc.dei.ipj.grupoa.facades;
 
 import java.util.List;
 import javax.persistence.EntityManager;

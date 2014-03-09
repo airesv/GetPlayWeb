@@ -2,11 +2,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package facades;
+package pt.uc.dei.ipj.grupoa.facades;
 
 
-import EJB.EncryptPassword;
-import entities.UserPlay;
+import pt.uc.dei.ipj.grupoa.EJB.EncryptPassword;
+import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.EJB;

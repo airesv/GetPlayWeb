@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entities;
+package pt.uc.dei.ipj.grupoa.entities;
 
 import java.io.Serializable;
 import java.util.List;

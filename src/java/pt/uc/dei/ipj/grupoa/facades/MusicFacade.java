@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package facades;
+package pt.uc.dei.ipj.grupoa.facades;
 
-import entities.Music;
+import pt.uc.dei.ipj.grupoa.entities.Music;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import manager.UserLogin;
-import manager.UserManagerBean;
+import pt.uc.dei.ipj.grupoa.manager.UserLogin;
+import pt.uc.dei.ipj.grupoa.manager.UserManagerBean;
 
 /**
  *
