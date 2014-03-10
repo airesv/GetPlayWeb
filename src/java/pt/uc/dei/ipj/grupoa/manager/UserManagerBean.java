@@ -5,13 +5,8 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
-import pt.uc.dei.ipj.grupoa.entities.UserPlay;
-import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
-import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 
 /**
  *
@@ -39,6 +34,10 @@ public class UserManagerBean {
         this.loggedUser = loggedUser;
     }
 
+    public String getLoggedUserName(){
+        
+    return loggedUser.getName();
+    }
     
     
 }
