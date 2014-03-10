@@ -39,34 +39,69 @@ public class UserLogin implements Serializable {
     @EJB
     private EncryptPassword encryptPassword;
 
+    /**
+     *
+     */
     public UserLogin() {
         erro = "";
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUseremail() {
         return useremail;
     }
 
+    /**
+     *
+     * @param useremail
+     */
     public void setUseremail(String useremail) {
         this.useremail = useremail;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
     ////////////////////////
-    public String getName() {
+
+    /**
+     *
+     * @return
+     */
+        public String getName() {
        return loggedUser.getName();
     }
 
-   
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public void setEncryptPassword(EncryptPassword encryptPassword) {
+        this.encryptPassword = encryptPassword;
+    }
+        
+
+    /**
+     *
+     * @return
+     */
     public long getId() {
         return loggedUser.getId();
     }
@@ -77,7 +112,12 @@ public class UserLogin implements Serializable {
     
     
 ///////////////////////
-    public String verification() {
+
+    /**
+     *
+     * @return
+     */
+        public String verification() {
          loggedUser = userPlayFacade.getUser(useremail/*, encryptPassword.cryptWithMD5(password)*/);
 
         if (loggedUser != null) {
@@ -117,18 +157,35 @@ public class UserLogin implements Serializable {
         this.erro = erro;
     }
 
+    /**
+     *
+     * @return
+     */
     public UserPlay getLoggedUser() {
         return loggedUser;
     }
 
+    /**
+     *
+     * @param loggedUser
+     */
     public void setLoggedUser(UserPlay loggedUser) {
         this.loggedUser = loggedUser;
     }
 
+    /**
+     *
+     * @param loggedUser
+     * @return
+     */
     public String getNameUserLogged(UserPlay loggedUser) {
         return loggedUser.getName();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmailUserLogged() {
         return loggedUser.getEmail();
     }

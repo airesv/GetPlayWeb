@@ -32,54 +32,106 @@ public class CreateMusic {
     public CreateMusic() {
     }
 
+    /**
+     *
+     * @return
+     */
     public int getYearOfRelease() {
         return yearOfRelease;
     }
 
+    /**
+     *
+     * @param yearOfRelease
+     */
     public void setYearOfRelease(int yearOfRelease) {
         this.yearOfRelease = yearOfRelease;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAuthor() {
         return author;
     }
 
+    /**
+     *
+     * @param author
+     */
     public void setAuthor(String author) {
         this.author = author;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAlbum() {
         return album;
     }
 
+    /**
+     *
+     * @param album
+     */
     public void setAlbum(String album) {
         this.album = album;
     }
 
+    /**
+     *
+     * @return
+     */
     public MusicFacade getMusicFacade() {
         return musicFacade;
     }
 
+    /**
+     *
+     * @param musicFacade
+     */
     public void setMusicFacade(MusicFacade musicFacade) {
         this.musicFacade = musicFacade;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPathSound() {
         return pathSound;
     }
 
+    /**
+     *
+     * @param pathSound
+     */
     public void setPathSound(String pathSound) {
         this.pathSound = pathSound;
     }
     
+    /**
+     *
+     * @return
+     */
     public String createMusic(){
         musicFacade.createMusic(getYearOfRelease(), getName(), getAuthor(), getAlbum(),getPathSound());
         return "main";

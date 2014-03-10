@@ -5,6 +5,7 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -15,15 +16,23 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "MainBean")
 @SessionScoped
-public class MainBean {
+public class MainBean implements Serializable{
 
     @ManagedProperty(value = "#{UserLogin}")
     private UserLogin userlogin;
 
+    /**
+     *
+     * @return
+     */
     public UserLogin getUserlogin() {
         return userlogin;
     }
 
+    /**
+     *
+     * @param userlogin
+     */
     public void setUserlogin(UserLogin userlogin) {
         this.userlogin = userlogin;
     }
@@ -32,21 +41,32 @@ public class MainBean {
     private String email;
     private long id;
 
+    /**
+     *
+     */
     public MainBean() {
     }
 
-
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return userlogin.getName();
     }
 
-   
-
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return userlogin.getUseremail();
     }
 
- 
+    /**
+     *
+     * @return
+     */
     public long getid(){
     return userlogin.getId();
     

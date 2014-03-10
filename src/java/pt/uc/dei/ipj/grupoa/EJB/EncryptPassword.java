@@ -14,14 +14,19 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author Aires
+ * @author Alvaro/Vitor
  */
 @Stateless
 public class EncryptPassword {
 
    private static MessageDigest md;
 
-   public String cryptWithMD5(String pass){
+    /**
+     *
+     * @param pass
+     * @return
+     */
+    public String cryptWithMD5(String pass){
     try {
         md = MessageDigest.getInstance("MD5");
         byte[] passBytes = pass.getBytes();

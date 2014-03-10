@@ -22,6 +22,10 @@ public class PlaylistFacade extends AbstractFacade<Playlist> {
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -32,12 +36,18 @@ public class PlaylistFacade extends AbstractFacade<Playlist> {
     
     @EJB
     private UserPlayFacade userPlayFacade;
-    
 
+    /**
+     *
+     */
     public PlaylistFacade() {
         super(Playlist.class);
     }
 
+    /**
+     *
+     * @param name
+     */
     public void createPlayList(String name) {
         Playlist playlist = new Playlist(name);
         userManagedBean.getLoggedUser().getPlaylists().add(playlist);

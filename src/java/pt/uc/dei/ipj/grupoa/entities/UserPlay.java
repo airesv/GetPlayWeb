@@ -59,23 +59,44 @@ public class UserPlay implements Serializable {
     @JoinColumn(name = "userCreatorPlaylist")
     private List<Playlist> playlists;
 
+    /**
+     *
+     */
     public UserPlay() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public UserPlay(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @param name
+     * @param email
+     * @param password
+     */
     public UserPlay(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }

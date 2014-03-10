@@ -36,54 +36,106 @@ public class UserRegister implements Serializable {
         message = "";
     }
 
+    /**
+     *
+     * @return
+     */
     public UserPlayFacade getUserPlayFacade() {
         return userPlayFacade;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
+    /**
+     *
+     * @param confirmPassword
+     */
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
 
+    /**
+     *
+     * @param userPlayFacade
+     */
     public void setUserPlayFacade(UserPlayFacade userPlayFacade) {
         this.userPlayFacade = userPlayFacade;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     *
+     * @param message
+     */
     public void setMessage(String message) {
         this.message = message;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUseremail() {
         return useremail;
     }
 
+    /**
+     *
+     * @param useremail
+     */
     public void setUseremail(String useremail) {
         this.useremail = useremail;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     *
+     * @return
+     */
     public String verification() {
         if (userPlayFacade.existsUser(getUseremail())) {
             message = "This user already exists!";
