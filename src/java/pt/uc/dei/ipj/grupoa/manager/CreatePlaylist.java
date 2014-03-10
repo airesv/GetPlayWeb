@@ -10,6 +10,8 @@ import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import pt.uc.dei.ipj.grupoa.entities.Music;
+import pt.uc.dei.ipj.grupoa.entities.Playlist;
 
 /**
  *
@@ -22,11 +24,14 @@ public class CreatePlaylist {
     @EJB
     private PlaylistFacade playlistFacade;
 
-
+    @EJB
+    private UserManagerBean userManagedBean;
+    
     private String name;
 
     /**
      * Creates a new instance of CreatePlaylist
+     * @return 
      */
     public PlaylistFacade getPlaylistFacade() {
         return playlistFacade;
@@ -47,8 +52,10 @@ public class CreatePlaylist {
     public CreatePlaylist() {
     }
     
-    private String createPlaylist(){
+    public String createPlaylist(){
+//        Playlist pl=new Playlist(getName());
+//        userManagedBean.getLoggedUser().getPlaylists().add(pl);
         playlistFacade.createPlayList(getName());
-        return "main";
+        return "createplaylist";
     }    
 }

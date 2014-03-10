@@ -57,9 +57,8 @@ public class Playlist implements Serializable {
         this.id = id;
     }
 
-    public Playlist(String namePlaylist, Collection<Music> musicList) {
+    public Playlist(String namePlaylist) {
         this.namePlaylist = namePlaylist;
-        this.musicList = musicList;
     }
 
     public Long getId() {

@@ -80,9 +80,7 @@ public class CreateMusic {
         this.pathSound = pathSound;
     }
     
-    
-    
-    private String createMusic(){
+    public String createMusic(){
         musicFacade.createMusic(getYearOfRelease(), getName(), getAuthor(), getAlbum(),getPathSound());
         return "main";
     }
