@@ -5,23 +5,28 @@
  */
 package pt.uc.dei.ipj.grupoa.facades;
 
+import java.io.Serializable;
 import javax.ejb.EJB;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import pt.uc.dei.ipj.grupoa.manager.UserManagerBean;
+import javax.persistence.Query;
+import pt.uc.dei.ipj.grupoa.entities.UserPlay;
+import pt.uc.dei.ipj.grupoa.manager.CreatePlaylist;
 
 /**
  *
  * @author alvaro
  */
 @Stateless
-public class PlaylistFacade extends AbstractFacade<Playlist> {
-
+public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializable{
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
 
+  
     /**
      *
      * @return
@@ -30,12 +35,10 @@ public class PlaylistFacade extends AbstractFacade<Playlist> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
-    @EJB
-    private UserManagerBean userManagedBean;
     
-    @EJB
-    private UserPlayFacade userPlayFacade;
+
+
+  
 
     /**
      *
@@ -44,13 +47,32 @@ public class PlaylistFacade extends AbstractFacade<Playlist> {
         super(Playlist.class);
     }
 
+      public UserPlay getUser() {
+        Query query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
+        //query.setParameter("email", createPlaylist.getUserlogin().getUseremail());
+        try {
+            return (UserPlay) query.getSingleResult();
+        } catch (NoResultException ex) {
+           return null;
+        }
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
+
     /**
      *
      * @param name
      */
-    public void createPlayList(String name) {
-        Playlist playlist = new Playlist(name);
-        userManagedBean.getLoggedUser().getPlaylists().add(playlist);
+    public void createPlayList1(String name) {
+        Playlist playlist = new Playlist();
+        getUser().getPlaylists().add(playlist);
         em.persist(playlist);
     }
 

@@ -25,26 +25,17 @@
             </div>
             <div id="content" class="left_content">
                 <ui:insert>
-                    <h:form> 
+                    <h2>Create Playlist: </h2>
+                    <h:form>
+                        <h:panelGrid columns="2" cellpadding="0" cellspacing="2">
+                            <h:outputText value="Name : "/>
+                            <h:inputText value="#{CreatePlaylist.name}" required="true"/>
 
-                        <h2>Create Playlist:</h2>
-                        <table width="250" border="0" cellspacing="0" cellpadding="2">
-                            <tbody>
-                                <tr>
-                                    <td><h:outputText value="Name : "/></td>
-                                    <td><h:inputText value="#{createPlaylist.name}" required="true"/></td>
-                                </tr>       
-                                <tr>
-
-                                    <td><h:commandButton value="Insert" action="#{createPlaylist.createPlaylist()}" /></td>
-                                    <td><h:commandButton value="Cancel" immediate="true" action="main" /></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><h:outputText value="#{UserRegister.message}"/></td>                                       
-                                </tr>
-                            </tbody>
-                        </table>
-                    </h:form> </ui:insert>
+                            <h:commandButton value="Insert" action="#{CreatePlaylist.createPlaylist()}" />
+                            <h:commandButton value="Cancel" immediate="true" action="main" />                   
+                        </h:panelGrid>  
+                    </h:form>
+                </ui:insert>
             </div>
         </div>
     </h:body>

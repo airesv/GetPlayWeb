@@ -6,27 +6,36 @@
 
 package pt.uc.dei.ipj.grupoa.manager;
 
+import java.io.Serializable;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import pt.uc.dei.ipj.grupoa.entities.Music;
-import pt.uc.dei.ipj.grupoa.entities.Playlist;
 
 /**
  *
  * @author alvaro
  */
-@ManagedBean
+@ManagedBean(name = "CreatePlaylist")
 @SessionScoped
-public class CreatePlaylist {
+public class CreatePlaylist implements Serializable {
     
     @EJB
     private PlaylistFacade playlistFacade;
 
-    @EJB
-    private UserManagerBean userManagedBean;
     
+    @ManagedProperty(value = "#{UserLogin}")
+    private UserLogin userlogin;
+
+    public UserLogin getUserlogin() {
+        return userlogin;
+    }
+
+    public void setUserlogin(UserLogin userlogin) {
+        this.userlogin = userlogin;
+    }
+
     private String name;
 
     /**
@@ -36,7 +45,7 @@ public class CreatePlaylist {
     public PlaylistFacade getPlaylistFacade() {
         return playlistFacade;
     }
-
+    
     /**
      *
      * @param playlistFacade
@@ -71,10 +80,8 @@ public class CreatePlaylist {
      *
      * @return
      */
-    public String createPlaylist(){
-//        Playlist pl=new Playlist(getName());
-//        userManagedBean.getLoggedUser().getPlaylists().add(pl);
-        playlistFacade.createPlayList(getName());
-        return "createplaylist";
+    public String createPlaylist(){       
+        playlistFacade.createPlayList1(getName());
+        return "main";
     }    
 }
