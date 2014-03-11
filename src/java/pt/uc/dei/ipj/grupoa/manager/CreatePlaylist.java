@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pt.uc.dei.ipj.grupoa.manager;
 
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import pt.uc.dei.ipj.grupoa.entities.Playlist;
+import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 
 /**
  *
@@ -20,13 +22,38 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "CreatePlaylist")
 @SessionScoped
 public class CreatePlaylist implements Serializable {
-    
+
     @EJB
     private PlaylistFacade playlistFacade;
 
-    
+    @EJB
+    private UserPlayFacade up;
+
+//    @EJB
+//    private Playlist pl;
+
     @ManagedProperty(value = "#{UserLogin}")
     private UserLogin userlogin;
+    private long id;
+    private String name;
+    private String email;
+
+    private String namePlayL;
+
+    /**
+     *
+     */
+    public CreatePlaylist() {
+    }
+
+    @PostConstruct
+    public void init() {
+
+        setId((long) userlogin.getLoggedUser().getId());
+        setName(userlogin.getLoggedUser().getName());
+        setEmail(userlogin.getLoggedUser().getEmail());
+
+    }
 
     public UserLogin getUserlogin() {
         return userlogin;
@@ -36,16 +63,15 @@ public class CreatePlaylist implements Serializable {
         this.userlogin = userlogin;
     }
 
-    private String name;
-
     /**
      * Creates a new instance of CreatePlaylist
-     * @return 
+     *
+     * @return
      */
     public PlaylistFacade getPlaylistFacade() {
         return playlistFacade;
     }
-    
+
     /**
      *
      * @param playlistFacade
@@ -55,33 +81,64 @@ public class CreatePlaylist implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * @return the id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the name
      */
     public String getName() {
         return name;
     }
 
     /**
-     *
-     * @param name
+     * @param name the name to set
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     *
+     * @return the email
      */
-    public CreatePlaylist() {
+    public String getEmail() {
+        return email;
     }
-    
+
     /**
-     *
-     * @return
+     * @param email the email to set
      */
-    public String createPlaylist(){       
-        playlistFacade.createPlayList1(getName());
-        return "main";
-    }    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the namePlayL
+     */
+    public String getNamePlayL() {
+        return namePlayL;
+    }
+
+    /**
+     * @param namePlayL the namePlayL to set
+     */
+    public void setNamePlayL(String namePlayL) {
+        this.namePlayL = namePlayL;
+    }
+
+    public void createNewPlaylist() {
+        playlistFacade.createPlayList(getNamePlayL(), userlogin.getLoggedUser());
+
+    }
+
 }

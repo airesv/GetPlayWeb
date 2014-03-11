@@ -55,9 +55,8 @@ public class UserPlay implements Serializable {
     private String password;
     @OneToMany
     @JoinColumn(name = "userCreatorMusic")
-    private List<Music> music; 
-    @OneToMany
-    @JoinColumn(name = "userCreatorPlaylist")
+    private List<Music> music;
+    @OneToMany(mappedBy = "userOwner")    
     private List<Playlist> playlists;
 
     /**
@@ -183,6 +182,10 @@ public class UserPlay implements Serializable {
      */
     public void setPlaylists(List<Playlist> playlists) {
         this.playlists = playlists;
+    }
+
+    public void setPlaylistsItem(Playlist pl) {
+        playlists.add(pl);
     }
 
     /**

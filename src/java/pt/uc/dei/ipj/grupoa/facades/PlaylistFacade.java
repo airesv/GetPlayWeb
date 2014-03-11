@@ -14,8 +14,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import pt.uc.dei.ipj.grupoa.EJB.TodayDate;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
-import pt.uc.dei.ipj.grupoa.manager.CreatePlaylist;
+
 
 /**
  *
@@ -26,7 +27,10 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
 
-  
+    @EJB
+    private TodayDate diaHoje;
+//    @EJB
+//    private UserPlayFacade up;
     /**
      *
      * @return
@@ -36,10 +40,6 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         return em;
     }
     
-
-
-  
-
     /**
      *
      */
@@ -70,10 +70,16 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
      *
      * @param name
      */
-    public void createPlayList1(String name) {
-        Playlist playlist = new Playlist();
-        getUser().getPlaylists().add(playlist);
-        em.persist(playlist);
+    public void createPlayList(String name, UserPlay up) {
+        Playlist pl = new Playlist();
+        pl.setNamePlaylist(name);
+        pl.setDateCreation(diaHoje.getToday());
+        
+        em.persist(pl);//cria pl
+        up.setPlaylistsItem(pl);//atualliza no UserPlay
+        
     }
+    
+        
 
 }

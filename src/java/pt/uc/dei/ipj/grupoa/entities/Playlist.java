@@ -6,14 +6,18 @@
 package pt.uc.dei.ipj.grupoa.entities;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -25,16 +29,21 @@ import javax.validation.constraints.Size;
  */
 @Entity
 
-//@NamedQueries({
-//    @NamedQuery(name = "Playlist.findAll", query = "SELECT p FROM Playlist p"),
+@NamedQueries({
+ //@NamedQuery(name = "Playlist.findByNameUser", query = "SELECT p FROM Playlist p where p.nameplaylist=:name and p.userCreatorPlaylist ")
+        
+   // @NamedQuery(name = "Playlist.findByNameUser", query = "SELECT p FROM Playlist where p.nameplaylist=:name and p.userCreatorPlaylist=:id")
+        
 //    @NamedQuery(name = "Playlist.findAllOrderByDateAsc", query = "SELECT p FROM Playlist p ORDER by p.dateCreation ASC"),
 //    @NamedQuery(name = "Playlist.findAllOrderByDateDesc", query = "SELECT p FROM Playlist p ORDER by p.dateCreation DESC"),
 //    @NamedQuery(name = "Playlist.findAllOrderBySizeDesc", query = "SELECT count(p.musicList.id)  FROM Playlist p ORDER by p.dateCreation DESC"),
 //    @NamedQuery(name = "Playlist.findAllOrderByNameAsc", query = "SELECT p FROM Playlist p ORDER by p.namePlaylist ASC"),
 //    @NamedQuery(name = "Playlist.findAllOrderByNameDesc", query = "SELECT p FROM Playlist p ORDER by p.namePlaylist DESC"),
 //
-//    @NamedQuery(name = "Playlist.findAllByUser", query = "SELECT p FROM Playlist p WHERE p.userPlay.email=:email"),})
+//    @NamedQuery(name = "Playlist.findAllByUser", query = "SELECT p FROM Playlist p WHERE p.userPlay.email=:email"),
+})
 public class Playlist implements Serializable {
+      
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,8 +55,14 @@ public class Playlist implements Serializable {
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreation;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="userID")
+    private UserPlay userOwner;
 
     @ManyToMany
+    @JoinTable (name="hasMusic",joinColumns = @JoinColumn(name="idMusic"),
+            inverseJoinColumns = @JoinColumn(name="idPlaylist") )
     private Collection<Music> musicList;
 
     /**
@@ -68,8 +83,10 @@ public class Playlist implements Serializable {
      *
      * @param namePlaylist
      */
-    public Playlist(String namePlaylist) {
+    public Playlist(String namePlaylist, Date hoje) {
+        
         this.namePlaylist = namePlaylist;
+     
     }
 
     /**

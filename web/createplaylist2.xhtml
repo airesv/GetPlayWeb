@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+
+        <div>
+            <div id="left">
+                <ui:include src="/webpages/lateral.xhtml"/>
+            </div>
+            <div id="content" class="left_content">
+                <ui:insert>
+                    <h2>Create Playlist: </h2>
+                    <h:form>
+                        <h:panelGrid columns="2" cellpadding="0" cellspacing="2">
+                            <h:outputText value="Name : "/>
+                            <h:inputText value="#{CreatePlaylist.name}" required="true"/>
+
+                            <h:commandButton value="Insert" action="#{CreatePlaylist.createPlaylist()}" />
+                            <h:commandButton value="Cancel" immediate="true" action="main" />                   
+                        </h:panelGrid>  
+                    </h:form>
+                </ui:insert>
+            </div>
+        </div>
+    </h:body>
+
+</html>
+
+
