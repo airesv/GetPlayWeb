@@ -119,7 +119,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         userlogin.setName(name);
         userlogin.setPassword(encryptPassword.cryptWithMD5(Password));
         if (existsUser(email) == false) {
-            em.persist(userlogin);
+            em.refresh(userlogin);
         
         em.persist(userlogin);}
 
