@@ -74,7 +74,7 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         Playlist pl = new Playlist();
         pl.setNamePlaylist(name);
         pl.setDateCreation(diaHoje.getToday());
-        
+        pl.setUserOwner(up);
         em.persist(pl);//cria pl
         up.setPlaylistsItem(pl);//atualliza no UserPlay
         

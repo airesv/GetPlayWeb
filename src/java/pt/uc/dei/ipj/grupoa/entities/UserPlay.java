@@ -53,9 +53,10 @@ public class UserPlay implements Serializable {
     @Size(min = 1, message = "Password is mandatory and cannot contain"
             + " more than 10 characters")
     private String password;
-    @OneToMany
-    @JoinColumn(name = "userCreatorMusic")
+   
+    @OneToMany(mappedBy="userOwner")
     private List<Music> music;
+    
     @OneToMany(mappedBy = "userOwner")    
     private List<Playlist> playlists;
 

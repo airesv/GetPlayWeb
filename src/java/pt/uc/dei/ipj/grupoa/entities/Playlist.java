@@ -60,9 +60,11 @@ public class Playlist implements Serializable {
     @JoinColumn(name="userID")
     private UserPlay userOwner;
 
+    
+
     @ManyToMany
-    @JoinTable (name="hasMusic",joinColumns = @JoinColumn(name="idMusic"),
-            inverseJoinColumns = @JoinColumn(name="idPlaylist") )
+    @JoinTable (name="hasMusic",joinColumns ={@JoinColumn(name="idMusic",referencedColumnName="id")},
+            inverseJoinColumns = @JoinColumn(name="idPlaylist",referencedColumnName="id") )
     private Collection<Music> musicList;
 
     /**
@@ -134,6 +136,14 @@ public class Playlist implements Serializable {
         this.dateCreation = dateCreation;
     }
 
+    public UserPlay getUserOwner() {
+        return userOwner;
+    }
+
+    public void setUserOwner(UserPlay userOwner) {
+        this.userOwner = userOwner;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

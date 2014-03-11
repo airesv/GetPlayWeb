@@ -67,6 +67,7 @@ public class Music implements Serializable {
     @NotNull
     @Column(name = "PathSound")
     private String pathSound;
+   
     @ManyToMany(mappedBy = "musicList")
     private List<Playlist> lsyPlaylist;
     
@@ -222,10 +223,24 @@ public class Music implements Serializable {
         }
         return true;
     }
+ /**
+     * @return the userOwner
+     */
+    public UserPlay getUserOwner() {
+        return userOwner;
+    }
 
+    /**
+     * @param userOwner the userOwner to set
+     */
+    public void setUserOwner(UserPlay userOwner) {
+        this.userOwner = userOwner;
+    }
     @Override
     public String toString() {
         return "entities.Music[ id=" + id + " ]";
     }
+
+   
 
 }
