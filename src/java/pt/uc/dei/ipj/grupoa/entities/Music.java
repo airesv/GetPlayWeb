@@ -67,13 +67,28 @@ public class Music implements Serializable {
     @Column(name = "PathSound")
     private String pathSound;
 
+    /**
+     *
+     */
     public Music() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public Music(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @param yearOfRelease
+     * @param name
+     * @param author
+     * @param album
+     * @param pathSound
+     */
     public Music(int yearOfRelease, String name, String author, String album, String pathSound) {
         this.yearOfRelease = yearOfRelease;
         this.name = name;
@@ -83,50 +98,98 @@ public class Music implements Serializable {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public int getYearOfRelease() {
         return yearOfRelease;
     }
 
+    /**
+     *
+     * @param yearOfRelease
+     */
     public void setYearOfRelease(int yearOfRelease) {
         this.yearOfRelease = yearOfRelease;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAuthor() {
         return author;
     }
 
+    /**
+     *
+     * @param author
+     */
     public void setAuthor(String author) {
         this.author = author;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAlbum() {
         return album;
     }
 
+    /**
+     *
+     * @param album
+     */
     public void setAlbum(String album) {
         this.album = album;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPathSound() {
         return pathSound;
     }
 
+    /**
+     *
+     * @param pathSound
+     */
     public void setPathSound(String pathSound) {
         this.pathSound = pathSound;
     }

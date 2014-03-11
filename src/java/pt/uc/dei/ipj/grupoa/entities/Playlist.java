@@ -50,25 +50,48 @@ public class Playlist implements Serializable {
     @ManyToMany
     private Collection<Music> musicList;
 
+    /**
+     *
+     */
     public Playlist() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public Playlist(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @param namePlaylist
+     */
     public Playlist(String namePlaylist) {
         this.namePlaylist = namePlaylist;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNamePlaylist() {
         return namePlaylist;
     }

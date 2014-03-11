@@ -25,15 +25,26 @@ public class UserManagerBean {
 
     }
 
-   
+    /**
+     *
+     * @return
+     */
     public UserPlay getLoggedUser() {
         return loggedUser;
     }
 
+    /**
+     *
+     * @param loggedUser
+     */
     public void setLoggedUser(UserPlay loggedUser) {
         this.loggedUser = loggedUser;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLoggedUserName(){
         
     return loggedUser.getName();

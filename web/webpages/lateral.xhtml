@@ -13,9 +13,9 @@
                         <h:form>
                             <h:panelGrid columns="2" cellpadding="0" cellspacing="1" >
                                 <h:outputText value="#{MainBean.name}"/>
-                                <h:commandButton value="Editar" action="register" styleClass="btn_user"/> 
+                                <h:commandButton value="Edit" action="edituser" styleClass="btn_user"/> 
                                 <h:outputText value="#{MainBean.email}"/>
-                                <h:commandButton value="Logout" action="register" styleClass="btn_user"/> 
+                                <h:commandButton value="Logout" action="#{userLogout.logout()}" styleClass="btn_user"/> 
 
                             </h:panelGrid>
                         </h:form>  
@@ -32,7 +32,7 @@
                         <h:form>
                             <h:panelGrid columns="2" cellpadding="0" cellspacing="2" >
                                 <h:commandButton value="View All Music" action="register" styleClass="btn_user"/>
-                                <h:commandButton value="Insert Music" action="register" styleClass="btn_user"/>
+                                <h:commandButton value="Insert Music" action="createmusic" styleClass="btn_user"/>
                                 <h:commandButton value="Edit Music" action="register" styleClass="btn_user"/>
                                 <h:commandButton value="Delete Music" action="register" styleClass="btn_user"/>
                             </h:panelGrid>
@@ -55,9 +55,9 @@
                     <td>
                         <h:form>
                             <h:panelGrid columns="3" cellspacing="0" >
-                                <h:commandButton value="Insert" action="#{createPlaylist.createPlaylist()}" styleClass="btn_user"/> 
-                                <h:commandButton value="Editar" action="register" styleClass="btn_user"/> 
-                                <h:commandButton value="Apagar" action="register" styleClass="btn_user"/>
+                                <h:commandButton value="Insert" action="createplaylist" styleClass="btn_user"/> 
+                                <h:commandButton value="Edit" action="register" styleClass="btn_user"/> 
+                                <h:commandButton value="Delete" action="register" styleClass="btn_user"/>
                             </h:panelGrid>
                         </h:form>
                     </td></tr>

@@ -37,21 +37,40 @@ public class CreatePlaylist {
         return playlistFacade;
     }
 
+    /**
+     *
+     * @param playlistFacade
+     */
     public void setPlaylistFacade(PlaylistFacade playlistFacade) {
         this.playlistFacade = playlistFacade;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
-    }    
-    
+    }
+
+    /**
+     *
+     */
     public CreatePlaylist() {
     }
     
+    /**
+     *
+     * @return
+     */
     public String createPlaylist(){
 //        Playlist pl=new Playlist(getName());
 //        userManagedBean.getLoggedUser().getPlaylists().add(pl);

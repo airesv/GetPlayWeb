@@ -26,15 +26,30 @@ public class MusicFacade extends AbstractFacade<Music> {
     @ManagedProperty(value = "#{UserManagerBean}")
     private UserManagerBean userManager;
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    /**
+     *
+     */
     public MusicFacade() {
         super(Music.class);
     }
 
+    /**
+     *
+     * @param yearOfRelease
+     * @param name
+     * @param author
+     * @param album
+     * @param pathSound
+     */
     public void createMusic(int yearOfRelease, String name, String author, String album, String pathSound) {
         Music music = new Music(yearOfRelease, name, author, album, pathSound);
         userManager.getLoggedUser().getMusic().add(music);
