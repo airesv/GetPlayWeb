@@ -5,6 +5,8 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
+import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -22,8 +24,7 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
  */
 @ManagedBean
 @SessionScoped
-public class EditUser {
-
+public class EditUser implements Serializable {
 
     @ManagedProperty(value = "#{UserLogin}")
     private UserLogin userlogin;
@@ -34,20 +35,30 @@ public class EditUser {
     @EJB
     private UserPlayFacade userPlayFacade;
 
-    private String message;
+    private String message = "";
     private String confirmPassword;
-    private String name;
-    private String newEmail;
-    private String newName;
-
-    private String email;
     private long id;
+    private String name;
+    private String email;
     private String password;
 
     /**
      *
      * @return
      */
+    public EditUser() {
+       
+    }
+
+    @PostConstruct
+    public void init() {
+         message = "";
+        id = userlogin.getLoggedUser().getId();
+        name = userlogin.getLoggedUser().getName();
+        email = userlogin.getLoggedUser().getEmail();
+
+    }
+
     public UserLogin getUserlogin() {
         return userlogin;
     }
@@ -71,10 +82,6 @@ public class EditUser {
     /**
      * Creates a new instance of EditUser
      */
-    public EditUser() {
-        message = "";
-    }
-
     public String getMessage() {
         return message;
     }
@@ -92,31 +99,7 @@ public class EditUser {
      * @return
      */
     public String getName() {
-        return userlogin.getName();
-    }
-
-    public EncryptPassword getEncryptPassword() {
-        return encryptPassword;
-    }
-
-    public String getNewEmail() {
-        return newEmail;
-    }
-
-    public void setNewEmail(String newEmail) {
-        this.newEmail = newEmail;
-    }
-
-    public String getNewName() {
-        return newName;
-    }
-
-    public void setNewName(String newName) {
-        this.newName = newName;
-    }
-
-    public void setEncryptPassword(EncryptPassword encryptPassword) {
-        this.encryptPassword = encryptPassword;
+        return name;
     }
 
     public UserPlayFacade getUserPlayFacade() {
@@ -127,20 +110,12 @@ public class EditUser {
         this.userPlayFacade = userPlayFacade;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     /**
      *
      * @return
      */
     public String getEmail() {
-        return userlogin.getUseremail();
+        return email;
     }
 
     public String getPassword() {
@@ -163,16 +138,25 @@ public class EditUser {
      *
      * @return
      */
-    public long getid() {
+    public long getId() {
         return userlogin.getId();
 
     }
 
     public String verification() {
-        userPlayFacade.editUser(getName(), getEmail(), getPassword());
-        message = "Successfully inserted";
+//        userPlayFacade.editUser(getName(), getEmail(), getPassword());
+//        message = "Successfully inserted";
         return "edituser";
 
+    }
+
+    public String insertEditUser() {
+        if (password.equals(confirmPassword)) {
+            message = userPlayFacade.editnewUser(getId(), getName(), getEmail(), getPassword());
+        } else {
+            message = "Password does´t match";
+        }
+        return "edituser";
     }
 
 }

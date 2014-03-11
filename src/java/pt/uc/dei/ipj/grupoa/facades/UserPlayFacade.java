@@ -105,36 +105,50 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         return (result > 0);
     }
 
-        public void editUser(String name, String email, String Password) {
-        /* if (userPlayFacade.existsUser(getEmail())) {
-         message = "This user already exists!";
-         return "edituser";
-         }*/
-        /* if (!getPassword().equals(getConfirmPassword())) {
-         message = "Passwords do not match";
-         return "edituser";
-         } else {
-         if (!getEmail().equals(newEmail)) {*/
-        userlogin.setUseremail(email);
-        userlogin.setName(name);
-        userlogin.setPassword(encryptPassword.cryptWithMD5(Password));
-        if (existsUser(email) == false) {
-            em.refresh(userlogin);
+   
+    
+    public void editUser(long id,String name, String email, String Password) {
+       
+//        userlogin.setUseremail(email);
+//        userlogin.setName(name);
+//        userlogin.setPassword(encryptPassword.cryptWithMD5(Password));
+        UserPlay up= em.find(UserPlay.class, id);
         
-        em.persist(userlogin);}
-
-        //  }
+        System.out.println("------>"+ name);
+        up.setName(name);
+        up.setEmail(email);
+        up.setPassword(encryptPassword.cryptWithMD5(Password));
+        
+        em.merge(up);
+    }
+    
+    public String editnewUser(long id, String name, String email, String Password){
+        //pesquisar pelo antigo utilizador
+        Query query = em.createNamedQuery("UserPlay.findById", UserPlay.class);
+        query.setParameter("id", id);
+        
+        UserPlay olduser=(UserPlay) query.getSingleResult();
+        //verifica. se há outo utilizador com o mesmo email
+        if (!olduser.getEmail().equals(email)){
+            query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
+            query.setParameter("email", email);
+            int tamanho= query.getResultList().size();
+            //caso não exista outro user com o mesmo email
+            if (tamanho==0){
+                editUser(id,name, email, Password);  
+                return("Sucesseful inserted");
+            } else{
+                return("Email: "+email+" is in Database ");
+            }
+        } else{
+        // não há problema com o email.
+            editUser(id,name, email, Password);      
+            return("Sucesseful inserted");
+        }
     }
     
     
-    
-    
-    
-    /**
-     *
-     * @param email
-     * @return
-     */
+  
     /**
      *
      * @param email
