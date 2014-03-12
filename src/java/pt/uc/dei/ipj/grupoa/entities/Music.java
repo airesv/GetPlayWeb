@@ -48,10 +48,11 @@ public class Music implements Serializable {
     @NotNull
 
     private Long id;
-//    @Pattern(regexp = "(19|20)\\d\\d",
-//            message = "{invalid.yearOfRelease}")
-    @Column(name = "YEAR_OF_RELEASE")
-//    @NotNull
+//  @Pattern(regexp = "(19|20)\\d\\d",
+//           message = "{invalid.yearOfRelease}")
+//    @Pattern(regexp = "/^(199\d|200\d|2010)$/")
+   @Column(name = "YEAR_OF_RELEASE")
+    @NotNull
     private Integer yearOfRelease;
     @Size(min = 1, max = 20, message = "Name is mandatory and cannot contain "
             + "more than 20 characters")
