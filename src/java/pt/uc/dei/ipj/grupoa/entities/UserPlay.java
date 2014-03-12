@@ -28,6 +28,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "UserPlay.findAll", query = "SELECT u FROM UserPlay u"),
     @NamedQuery(name = "UserPlay.findByName", query = "SELECT u FROM UserPlay u WHERE u.name=:name"),
     @NamedQuery(name = "UserPlay.findById", query = "SELECT u FROM UserPlay u WHERE u.id=:id"),
+
 //    @NamedQuery(name = "UserPlay.findByCredentials", query = "SELECT u FROM UserPlay u WHERE u.email = :email, u.password = :u.password"),
     @NamedQuery(name = "UserPlay.findByEmail", query = "SELECT u FROM UserPlay u WHERE u.email=:email"),
     @NamedQuery(name = "UserPlay.getPassByEmail", query = "SELECT u.password FROM UserPlay u WHERE u.email=:email"),

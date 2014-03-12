@@ -4,17 +4,18 @@
  */
 package pt.uc.dei.ipj.grupoa.facades;
 
+import java.util.List;
 import pt.uc.dei.ipj.grupoa.EJB.EncryptPassword;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.faces.bean.ManagedProperty;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
-import pt.uc.dei.ipj.grupoa.manager.UserLogin;
+import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 
 /**
  *
@@ -25,7 +26,6 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
 
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
-
 
     /**
      *
@@ -40,7 +40,6 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
 
 //    @EJB
 //    private Playlist pl;
-
     /**
      *
      */
@@ -104,39 +103,39 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         return (result > 0);
     }
 
-    public void editUser(long id, String name, String email, String Password) {
+    public void editUser(long id, String name, String email, String Password,UserPlay up) {
 
 //        userlogin.setUseremail(email);
 //        userlogin.setName(name);
 //        userlogin.setPassword(encryptPassword.cryptWithMD5(Password));
-        UserPlay up = em.find(UserPlay.class, id);
+      
         up.setName(name);
         up.setEmail(email);
         up.setPassword(encryptPassword.cryptWithMD5(Password));
         em.merge(up);
     }
 
-    public String editnewUser(long id, String name, String email, String Password) {
+    public String editnewUser(long id, String name, String email, String Password, UserPlay up) {
         //pesquisar pelo antigo utilizador
-        Query query = em.createNamedQuery("UserPlay.findById", UserPlay.class);
-        query.setParameter("id", id);
+                //Query query = em.createNamedQuery("UserPlay.findById", UserPlay.class);
+                //query.setParameter("id", id);
 
-        UserPlay olduser = (UserPlay) query.getSingleResult();
+                //UserPlay olduser = (UserPlay) query.getSingleResult();
         //verifica. se há outo utilizador com o mesmo email
-        if (!olduser.getEmail().equals(email)) {
-            query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
+        if (!up.getEmail().equals(email)) {
+            Query query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
             query.setParameter("email", email);
             int tamanho = query.getResultList().size();
             //caso não exista outro user com o mesmo email
             if (tamanho == 0) {
-                editUser(id, name, email, Password);
+                editUser(id, name, email, Password, up);
                 return ("Sucesseful inserted");
             } else {
                 return ("Email: " + email + " is in Database ");
             }
         } else {
             // não há problema com o email.
-            editUser(id, name, email, Password);
+            editUser(id, name, email, Password, up);
             return ("Sucesseful inserted");
         }
     }
@@ -161,16 +160,9 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
             return null;
         }
     }
-    /* public UserPlay getUser(String email, String encryptedPassword) {
-     Query query = em.createNamedQuery("UserPlay.getUserByCredentials", UserPlay.class);
-     query.setParameter("email", email);
-     query.setParameter("password", encryptedPassword);
 
-     try {
-     return (UserPlay) query.getSingleResult();
-     } catch (NoResultException e) {
-     return null;
-     }
-     }*/
+    public List<Playlist> lstPlaylist(UserPlay up) {
+        return up.getPlaylists();
+    }
 
 }
