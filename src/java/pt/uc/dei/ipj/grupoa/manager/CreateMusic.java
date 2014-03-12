@@ -5,33 +5,104 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
+import java.io.Serializable;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 
 /**
  *
  * @author alvaro
  */
-@ManagedBean
+@ManagedBean(name="CreateMusic") 
 @SessionScoped
-public class CreateMusic {
-    
+public class CreateMusic implements Serializable{
+
     @EJB
-    private MusicFacade musicFacade;     
-    
+    private UserPlayFacade up;
+
+    @EJB
+    private MusicFacade musicFacade;
+
     private int yearOfRelease;
-    private String name;
+    private String nameMusic;
     private String author;
     private String album;
     private String pathSound;
     /**
      * Creates a new instance of CreateMusic
      */
+    @ManagedProperty(value = "#{UserLogin}")
+    private UserLogin userlogin;
+    private long id;
+    private String name;
+    private String email;
+
+    private String namePlayL;
+
     public CreateMusic() {
     }
+//   @PostConstruct
+//    public void init() {
+////        yearOfRelease=Integer.parseInt(null);
+//        setId((long) userlogin.getLoggedUser().getId());
+//        setName(userlogin.getLoggedUser().getName());
+//        setEmail(userlogin.getLoggedUser().getEmail());
+//
+//    }
 
+    public UserPlayFacade getUp() {
+        return up;
+    }
+
+    public void setUp(UserPlayFacade up) {
+        this.up = up;
+    }
+
+    public String getNameMusic() {
+        return nameMusic;
+    }
+
+    public void setNameMusic(String nameMusic) {
+        this.nameMusic = nameMusic;
+    }
+
+    public UserLogin getUserlogin() {
+        return userlogin;
+    }
+
+    public void setUserlogin(UserLogin userlogin) {
+        this.userlogin = userlogin;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNamePlayL() {
+        return namePlayL;
+    }
+
+    public void setNamePlayL(String namePlayL) {
+        this.namePlayL = namePlayL;
+    }
+    
+    
     /**
      *
      * @return
@@ -127,13 +198,13 @@ public class CreateMusic {
     public void setPathSound(String pathSound) {
         this.pathSound = pathSound;
     }
-    
+
     /**
      *
      * @return
      */
-    public String createMusic(){
-        musicFacade.createMusic(getYearOfRelease(), getName(), getAuthor(), getAlbum(),getPathSound());
+    public String createNewMusic( ) {
+        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(),userlogin.getLoggedUser());
         return "main";
     }
 

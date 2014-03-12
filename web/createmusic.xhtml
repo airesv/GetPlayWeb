@@ -1,59 +1,39 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title><h:outputText value="#{MainBean.name}"/></title>
-    </h:head>
+    <body>
 
-    <h:body  class="fundo">
+        <ui:composition template="./main.xhtml">
+            <ui:define name="content">
+                <h:form enctype="multipart/form-data">
+                    <h:panelGrid columns="2" cellpadding="0" cellspacing="2">
+                        <h:outputText value="Name : "/>
+                        <h:inputText value="#{CreateMusic.nameMusic}" required="true"/>
+                        <h:outputText value="Year of Release : "/>
+                        <h:inputText value="#{CreateMusic.yearOfRelease}"/>
+                        <h:outputText value="Album : "/>
+                        <h:inputText value="#{CreateMusic.album}"/>
+                        <h:outputText value="Author : "/>
+                        <h:inputText value="#{CreateMusic.author}" required="true"/>
+                        <h:form id="form" enctype="multipart/form-data">
+                            <h:inputFile value="#{CreateMusic.pathSound}"> </h:inputFile>
+                            <h:commandButton value="Upload"
+                                             action="#{uploadBean.upload()}">
+                             
+                            </h:commandButton>
+                        </h:form>
+                        <p></p>
+                        <h:commandButton value="Insert" action="#{CreateMusic.createNewMusic()}" />
+                        <h:commandButton value="Cancel" immediate="true" action="main" />                   
+                    </h:panelGrid>  
+                </h:form>
+            </ui:define>
 
+        </ui:composition>
 
-        <div id="top" class="top">
-            <ui:insert name="top">
-                <ui:include src="/webpages/cabecalho.xhtml"/>              
-            </ui:insert>
-        </div>
-        <div>
-            <div id="left">
-                <ui:include src="/webpages/lateral.xhtml"/>
-            </div>
-
-            <div id="content" class="left_content">
-                <ui:insert>
-                    <h2>Create Music: </h2>
-                    <h:form>
-                        <h:panelGrid columns="2" cellpadding="0" cellspacing="2">
-                            <h:outputText value="Name : "/>
-                            <h:inputText value="#{createMusic.name}" required="true"/>
-                            <h:outputText value="Year of Release : "/>
-                            <h:inputText value="#{createMusic.yearOfRelease}"/>
-                            <h:outputText value="Album : "/>
-                            <h:inputSecret value="#{createMusic.album}"/>
-                            <h:outputText value="Author : "/>
-                            <h:inputSecret value="#{createMusic.author}" required="true"/>
-                            <h:form id="form" enctype="multipart/form-data">
-                                <h:inputFile id="file" value="#{uploadBean.file}"
-                                             validator="#{uploadBean.validateFile(ctx, comp, value)}"/>
-                                <h:commandButton value="Upload"
-                                                 action="#{uploadBean.upload()}">
-                                    <f:ajax execute="file" render="@all"/>
-                                </h:commandButton>
-                            </h:form>
-                            <p></p>
-                            <h:commandButton value="Insert" action="#{createMusic.createMusic()}" />
-                            <h:commandButton value="Cancel" immediate="true" action="main" />                   
-                        </h:panelGrid>  
-                    </h:form>
-                </ui:insert>
-            </div>
-        </div>
-    </h:body>
-
+    </body>
 </html>

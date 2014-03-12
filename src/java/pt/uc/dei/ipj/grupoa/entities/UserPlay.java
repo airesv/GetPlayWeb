@@ -188,6 +188,9 @@ public class UserPlay implements Serializable {
     public void setPlaylistsItem(Playlist pl) {
         playlists.add(pl);
     }
+    public void setMusicItem(Music m) {
+        music.add(m);
+    }
 
     /**
      * @return the music

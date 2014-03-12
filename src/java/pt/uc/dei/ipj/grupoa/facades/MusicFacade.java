@@ -8,10 +8,9 @@ package pt.uc.dei.ipj.grupoa.facades;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedProperty;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pt.uc.dei.ipj.grupoa.manager.UserLogin;
+import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 import pt.uc.dei.ipj.grupoa.manager.UserManagerBean;
 
 /**
@@ -49,13 +48,18 @@ public class MusicFacade extends AbstractFacade<Music> {
      * @param author
      * @param album
      * @param pathSound
+     * @param up
      */
-    public void createMusic(int yearOfRelease, String name, String author, String album, String pathSound) {
-        Music music = new Music(yearOfRelease, name, author, album, pathSound);
-        userManager.getLoggedUser().getMusic().add(music);
-
-// loggedUserPlay.musics.add(music);
-        em.merge(userManager.getLoggedUser());//u
+    public void createMusic(int yearOfRelease, String name, String author, String album, String pathSound, UserPlay up) {
+        Music music = new Music();
+        music.setAlbum(album);
+        music.setAuthor(author);
+        music.setPathSound(pathSound);
+        music.setName(name);
+        music.setYearOfRelease(yearOfRelease);      
+        music.setUserOwner(up);
+        em.persist(music);//cria pl
+        up.setMusicItem(music);//atualliza no UserPlay
     }
 
 }
