@@ -33,19 +33,24 @@ public class UploadBean implements Serializable {
     private String fileContent;
     private String path;
 
-//    public String getRandomName(int numchars) {
-//       Random generator=new Random();
-//       
-//        return text;
-//    }
+    public String getRandomName(int numchars) {
+        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String output = sb.toString();
+        return output;
+    }
 
     // getters and setters for file1 and file2  
-    public String upload() throws IOException {
+    public void upload() throws IOException {
         InputStream inputStream = file.getInputStream();
-
         File f = new File("a");
         path = f.getAbsolutePath().substring(0, f.getAbsolutePath().length() - 1);
-//        path = path + getRandomName(30) + ".mp3";
+        path = path + getRandomName(30) + ".mp3";
         File d = new File(path);
         FileOutputStream outputStream = new FileOutputStream(d);
 
@@ -61,8 +66,6 @@ public class UploadBean implements Serializable {
         }
         outputStream.close();
         inputStream.close();
-
-        return "success";
     }
 
     public String getPath() {
