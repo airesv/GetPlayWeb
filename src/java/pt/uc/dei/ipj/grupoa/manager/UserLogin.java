@@ -30,9 +30,11 @@ public class UserLogin implements Serializable {
 
     private UserPlay loggedUser;
 
-    private String useremail;
-    private String password;
+    private String useremail = "jo@gmail.com";
+    private String password = "12";
     private String name;
+    
+    
     private String erro;
     private long id;
 

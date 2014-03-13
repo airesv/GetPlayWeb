@@ -27,3 +27,10 @@ a:link:hover, a:visited:hover  {
   font-weight : bold;
   text-decoration : underline;
 }
+.leftalign{
+    text-align: left
+}
+
+.rightalign{
+   text-align: right
+}

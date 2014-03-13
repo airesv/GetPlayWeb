@@ -8,13 +8,11 @@ import pt.uc.dei.ipj.grupoa.EJB.EncryptPassword;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.faces.bean.ManagedProperty;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
-import pt.uc.dei.ipj.grupoa.manager.UserLogin;
 
 /**
  *
