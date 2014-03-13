@@ -8,6 +8,7 @@ package pt.uc.dei.ipj.grupoa.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -50,10 +51,10 @@ public class UserPlay implements Serializable {
             + " more than 10 characters")
     private String password;
    
-    @OneToMany(mappedBy="userOwner")
+    @OneToMany(cascade = CascadeType.PERSIST,mappedBy="userOwner")
     private List<Music> music;
     
-    @OneToMany(mappedBy = "userOwner")    
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "userOwner")    
     private List<Playlist> playlists;
 
     /**

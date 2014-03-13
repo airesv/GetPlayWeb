@@ -74,7 +74,7 @@ public class Music implements Serializable {
     private List<Playlist> lsyPlaylist;
     
     //
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY ,optional = false, targetEntity=UserPlay.class)
     @JoinColumn(name = "userID")
     private UserPlay userOwner;
 

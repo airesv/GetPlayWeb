@@ -29,11 +29,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 
-@NamedQueries({
- //@NamedQuery(name = "Playlist.findByNameUser", query = "SELECT p FROM Playlist p where p.nameplaylist=:name and p.userCreatorPlaylist ")
-        
-   // @NamedQuery(name = "Playlist.findByNameUser", query = "SELECT p FROM Playlist where p.nameplaylist=:name and p.userCreatorPlaylist=:id")
-        
+@NamedQueries({ //@NamedQuery(name = "Playlist.findByNameUser", query = "SELECT p FROM Playlist p where p.nameplaylist=:name and p.userCreatorPlaylist ")
+// @NamedQuery(name = "Playlist.findByNameUser", query = "SELECT p FROM Playlist where p.nameplaylist=:name and p.userCreatorPlaylist=:id")
 //    @NamedQuery(name = "Playlist.findAllOrderByDateAsc", query = "SELECT p FROM Playlist p ORDER by p.dateCreation ASC"),
 //    @NamedQuery(name = "Playlist.findAllOrderByDateDesc", query = "SELECT p FROM Playlist p ORDER by p.dateCreation DESC"),
 //    @NamedQuery(name = "Playlist.findAllOrderBySizeDesc", query = "SELECT count(p.musicList.id)  FROM Playlist p ORDER by p.dateCreation DESC"),
@@ -43,7 +40,6 @@ import javax.validation.constraints.Size;
 //    @NamedQuery(name = "Playlist.findAllByUser", query = "SELECT p FROM Playlist p WHERE p.userPlay.email=:email"),
 })
 public class Playlist implements Serializable {
-      
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,16 +51,15 @@ public class Playlist implements Serializable {
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreation;
-    
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="userID")
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = UserPlay.class)
+    @JoinColumn(name = "userID")
     private UserPlay userOwner;
 
-    
-
     @ManyToMany
-    @JoinTable (name="hasMusic",joinColumns ={@JoinColumn(name="idMusic",referencedColumnName="id")},
-            inverseJoinColumns = @JoinColumn(name="idPlaylist",referencedColumnName="id") )
+    @JoinTable(name = "hasMusic", joinColumns = {
+        @JoinColumn(name = "idMusic", referencedColumnName = "id")},
+            inverseJoinColumns = @JoinColumn(name = "idPlaylist", referencedColumnName = "id"))
     private Collection<Music> musicList;
 
     /**
@@ -86,9 +81,9 @@ public class Playlist implements Serializable {
      * @param namePlaylist
      */
     public Playlist(String namePlaylist, Date hoje) {
-        
+
         this.namePlaylist = namePlaylist;
-     
+
     }
 
     /**
@@ -143,7 +138,12 @@ public class Playlist implements Serializable {
     public void setUserOwner(UserPlay userOwner) {
         this.userOwner = userOwner;
     }
-    
+
+    public int playlistSize() {
+       return  this.musicList.size();
+
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
