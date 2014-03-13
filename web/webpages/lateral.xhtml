@@ -47,8 +47,41 @@
         <table width="250">
             <thead><tr><th>Playlist</th></tr></thead>
             <tbody>
-                <tr><td align="center" valign="middle"><a href="main.xhtml">MAIN1</a></td></tr>
-                <tr><td align="center" valign="middle"> <a href="main2.xhtml">MAIN2</a></td></tr> 
+                          
+                <f:view>
+                    <h:form>
+                        <h:dataTable value="#{PLTable.lstplay}" var="item" class="dataplay" >
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:commandLink action="#{PLTable.sort}"> 
+                                    <h:outputText value="NamePlaylist"/>
+                                    </h:commandLink>
+                                </f:facet>
+                                <h:outputText value="#{item.namePlaylist}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="DateCreation"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dateCreation}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
 
 
                 <tr>

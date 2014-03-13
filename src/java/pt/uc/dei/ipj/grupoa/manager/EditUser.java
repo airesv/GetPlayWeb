@@ -35,7 +35,7 @@ public class EditUser implements Serializable {
     @EJB
     private UserPlayFacade userPlayFacade;
 
-    private String message = "";
+    private String message ;
     private String confirmPassword;
     private long id;
     private String name;
@@ -152,7 +152,8 @@ public class EditUser implements Serializable {
 
     public String insertEditUser() {
         if (password.equals(confirmPassword)) {
-            message = userPlayFacade.editnewUser(getId(), getName(), getEmail(), getPassword());
+//            message = userPlayFacade.editnewUser(getId(), getName(), getEmail(), getPassword());
+            message = userPlayFacade.editnewUser(getId(), getName(), getEmail(), getPassword(), userlogin.getLoggedUser());
         } else {
             message = "Password does´t match";
         }
