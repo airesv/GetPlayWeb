@@ -77,9 +77,6 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         pl.setUserOwner(up);
         em.persist(pl);//cria pl
         up.setPlaylistsItem(pl);//atualliza no UserPlay
-        
     }
     
-        
-
 }

@@ -11,8 +11,9 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -25,16 +26,12 @@ public class UserLogin implements Serializable {
     @EJB
     private UserPlayFacade userPlayFacade;
 
-    @EJB
-    private UserManagerBean userManagerBean;
-
     private UserPlay loggedUser;
 
     private String useremail = "jo@gmail.com";
     private String password = "12";
     private String name;
-    
-    
+
     private String erro;
     private long id;
 
@@ -82,13 +79,12 @@ public class UserLogin implements Serializable {
     }
 
     ////////////////////////
-
     /**
      *
      * @return
      */
-        public String getName() {
-       return loggedUser.getName();
+    public String getName() {
+        return loggedUser.getName();
     }
 
     public void setName(String name) {
@@ -98,7 +94,6 @@ public class UserLogin implements Serializable {
     public void setEncryptPassword(EncryptPassword encryptPassword) {
         this.encryptPassword = encryptPassword;
     }
-        
 
     /**
      *
@@ -108,40 +103,23 @@ public class UserLogin implements Serializable {
         return loggedUser.getId();
     }
 
- 
-    
-    
-    
-    
 ///////////////////////
-
     /**
      *
      * @return
      */
-        public String verification() {
-         loggedUser = userPlayFacade.getUser(useremail/*, encryptPassword.cryptWithMD5(password)*/);
+    public String verification() {
+        UserPlay user = userPlayFacade.getUser(useremail);
 
-        if (loggedUser != null) {
-            // user correctly logged
-            userManagerBean.setLoggedUser(loggedUser);
+        if (user == null) {
+            setErro("Este Email não está na BD");
+            return "index";
+        } else if (userPlayFacade.authValidation(getPassword(), user)) {
+            this.loggedUser = user;
+            return "main";
         } else {
-
-        }
-
-        switch (userPlayFacade.userIsDataBase(getUseremail(), getPassword())) {
-            case 0:
-                setErro("Este Email não está na BD");
-                return "index";
-            case 1:
-                setErro("Password mal inserida");
-                return "index";
-            case 2:
-                //userManagerBean.setLoggedUser( userPlayFacade.getUser(getUseremail()) );//instancia o user
-                return "main";//ligado
-
-            default:
-                throw new AssertionError();
+            setErro("Password mal inserida");
+            return "index";
         }
     }
 
@@ -190,5 +168,12 @@ public class UserLogin implements Serializable {
      */
     public String getEmailUserLogged() {
         return loggedUser.getEmail();
+    }
+    
+    public String logout() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+        session.invalidate();
+        return "index";
     }
 }

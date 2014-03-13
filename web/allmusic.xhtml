@@ -9,58 +9,59 @@
     <body>
 
         <ui:composition template="./main.xhtml">
-            <f:view>
-                <h:form>
-                    <h1><h:outputText value="List"/></h1>
-                    <h:dataTable value="#{AllMusic.showAllMusics()}" var="item">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="YearOfRelease"/>
-                            </f:facet>
-                            <h:outputText value="#{item.yearOfRelease}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Name"/>
-                            </f:facet>
-                            <h:outputText value="#{item.name}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Author"/>
-                            </f:facet>
-                            <h:outputText value="#{item.author}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Album"/>
-                            </f:facet>
-                            <h:outputText value="#{item.album}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Id"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="PathSound"/>
-                            </f:facet>
-                            <h:outputText value="#{item.pathSound}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="UserOwner"/>
-                            </f:facet>
-                            <h:outputText value="#{item.userOwner}"/>
-                        </h:column>
-                    </h:dataTable>
-                    
-                </h:form>
-            </f:view>
+            <ui:define name="content">
+                <f:view>
+                    <h:form>
+                        <h1><h:outputText value="List"/></h1>
+                        <h:dataTable value="#{AllMusic.showAllMusics()}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="YearOfRelease"/>
+                                </f:facet>
+                                <h:outputText value="#{item.yearOfRelease}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.name}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Author"/>
+                                </f:facet>
+                                <h:outputText value="#{item.author}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Album"/>
+                                </f:facet>
+                                <h:outputText value="#{item.album}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{item.id}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="PathSound"/>
+                                </f:facet>
+                                <h:outputText value="#{item.pathSound}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="UserOwner"/>
+                                </f:facet>
+                                <h:outputText value="#{item.userOwner}"/>
+                            </h:column>
+                        </h:dataTable>
 
+                    </h:form>
+                </f:view>
 
+            </ui:define>
         </ui:composition>
 
     </body>

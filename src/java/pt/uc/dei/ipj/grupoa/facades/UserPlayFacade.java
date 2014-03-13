@@ -6,7 +6,6 @@ package pt.uc.dei.ipj.grupoa.facades;
 
 import java.util.List;
 import pt.uc.dei.ipj.grupoa.EJB.EncryptPassword;
-import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -35,47 +34,12 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     protected EntityManager getEntityManager() {
         return em;
     }
+
     @EJB
     private EncryptPassword encryptPassword;
 
-//    @EJB
-//    private Playlist pl;
-    /**
-     *
-     */
     public UserPlayFacade() {
         super(UserPlay.class);
-    }
-
-    /**
-     *
-     * @param email - email from User
-     * @param pass
-     * @return
-     */
-    public int userIsDataBase(String email, String pass) {
-
-        if (!existsUser(email)) {
-            return 0;//não há email na BD
-        } else {
-
-            Query query = em.createNamedQuery("UserPlay.getPassByEmail", UserPlay.class);
-            query.setParameter("email", email);
-            String result;
-
-            try {
-                result = (String) query.getSingleResult();
-            } catch (Exception e) {
-                return 1;
-            }
-
-            if (!encryptPassword.cryptWithMD5(pass).equals(result)) {
-                return 1; //a password está errada
-
-            } else {
-                return 2;//está tudo correto está logsdo
-            }
-        }
     }
 
     /**
@@ -91,24 +55,26 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         }
     }
 
+    public boolean authValidation(String attempt, UserPlay up) {
+        String encryptedAttempt = encryptPassword.cryptWithMD5(attempt);
+        return (encryptedAttempt.equals(up.getPassword()));
+    }
+
     /**
      *
      * @param email
      * @return
      */
     public boolean existsUser(String email) {
-        Query query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
-        query.setParameter("email", email);
-        int result = query.getResultList().size();
-        return (result > 0);
+        UserPlay up = getUser(email);
+        return (up != null);
     }
 
-    public void editUser(long id, String name, String email, String Password,UserPlay up) {
+    public void editUser(long id, String name, String email, String Password, UserPlay up) {
 
 //        userlogin.setUseremail(email);
 //        userlogin.setName(name);
 //        userlogin.setPassword(encryptPassword.cryptWithMD5(Password));
-      
         up.setName(name);
         up.setEmail(email);
         up.setPassword(encryptPassword.cryptWithMD5(Password));
@@ -117,17 +83,14 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
 
     public String editnewUser(long id, String name, String email, String Password, UserPlay up) {
         //pesquisar pelo antigo utilizador
-                //Query query = em.createNamedQuery("UserPlay.findById", UserPlay.class);
-                //query.setParameter("id", id);
+        //Query query = em.createNamedQuery("UserPlay.findById", UserPlay.class);
+        //query.setParameter("id", id);
 
-                //UserPlay olduser = (UserPlay) query.getSingleResult();
+        //UserPlay olduser = (UserPlay) query.getSingleResult();
         //verifica. se há outo utilizador com o mesmo email
         if (!up.getEmail().equals(email)) {
-            Query query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
-            query.setParameter("email", email);
-            int tamanho = query.getResultList().size();
             //caso não exista outro user com o mesmo email
-            if (tamanho == 0) {
+            if (!existsUser(email)) {
                 editUser(id, name, email, Password, up);
                 return ("Sucesseful inserted");
             } else {

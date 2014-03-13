@@ -9,10 +9,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.inject.Inject;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 
@@ -23,15 +23,17 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 @ManagedBean(name = "PLTable")
 @RequestScoped
 public class PLTable {
-
+    
     @ManagedProperty(value = "#{UserLogin}")
     private UserLogin userlogin;
     private long id;
     private String name;
     private String email;
     private String password;
-    @Inject
+    
+    @EJB
     private UserPlayFacade userplayFacade;
+    
     private List<Playlist> lstplay;
     
     private boolean sortAscending;
@@ -41,14 +43,22 @@ public class PLTable {
      */
     public PLTable() {
     }
-
+    
+    public boolean isSortAscending() {
+        return sortAscending;
+    }
+    
+    public void setSortAscending(boolean sortAscending) {
+        this.sortAscending = sortAscending;
+    }
+    
     @PostConstruct
     public void init() {
-        sortAscending=false;
+        setSortAscending(false);
         setId((long) getUserlogin().getLoggedUser().getId());
         setName(getUserlogin().getLoggedUser().getName());
         setEmail(getUserlogin().getLoggedUser().getEmail());
-
+        
         setLstplay(userplayFacade.lstPlaylist(userlogin.getLoggedUser()));
     }
 
@@ -149,24 +159,31 @@ public class PLTable {
     public void setLstplay(List<Playlist> lstplay) {
         this.lstplay = lstplay;
     }
-
+    
     private final Comparator NAME_SORT_ASC = new Comparator<Playlist>() {
         @Override
         public int compare(Playlist o1, Playlist o2) {
             return o1.getNamePlaylist().compareTo(o2.getNamePlaylist());
         }
     };
-
+    
     private final Comparator NAME_SORT_DESC = new Comparator<Playlist>() {
         @Override
         public int compare(Playlist o1, Playlist o2) {
             return o2.getNamePlaylist().compareTo(o1.getNamePlaylist());
         }
     };
-
-    public void sort() {
-        sortAscending=!sortAscending;
-        Collections.sort(lstplay, sortAscending ? NAME_SORT_ASC : NAME_SORT_DESC);      
+    
+    public String sort() {
+        if (isSortAscending()) {
+            Collections.sort(lstplay, NAME_SORT_ASC);            
+            
+            setSortAscending(false);
+        } else {
+            Collections.sort(lstplay, NAME_SORT_DESC);
+            setSortAscending(false);
+        }        
+        return null;
     }
-
+    
 }
