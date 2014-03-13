@@ -5,15 +5,17 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Random;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
@@ -23,19 +25,29 @@ import javax.servlet.http.Part;
  *
  * @author alvaro
  */
-@ManagedBean
-@RequestScoped
-public class UploadBean {
+@ManagedBean(name = "UploadBean")
+@SessionScoped
+public class UploadBean implements Serializable {
 
     private Part file;
     private String fileContent;
-    private Part file1;
+    private String path;
 
+//    public String getRandomName(int numchars) {
+//       Random generator=new Random();
+//       
+//        return text;
+//    }
 
     // getters and setters for file1 and file2  
     public String upload() throws IOException {
-        InputStream inputStream = file1.getInputStream();
-        FileOutputStream outputStream = new FileOutputStream(getFilename(file1));
+        InputStream inputStream = file.getInputStream();
+
+        File f = new File("a");
+        path = f.getAbsolutePath().substring(0, f.getAbsolutePath().length() - 1);
+//        path = path + getRandomName(30) + ".mp3";
+        File d = new File(path);
+        FileOutputStream outputStream = new FileOutputStream(d);
 
         byte[] buffer = new byte[4096];
         int bytesRead = 0;
@@ -51,6 +63,14 @@ public class UploadBean {
         inputStream.close();
 
         return "success";
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     private static String getFilename(Part part) {
@@ -71,14 +91,6 @@ public class UploadBean {
         this.fileContent = fileContent;
     }
 
-    public Part getFile1() {
-        return file1;
-    }
-
-    public void setFile1(Part file1) {
-        this.file1 = file1;
-    }
-
 //    public void upload() {
 //        try {
 //            fileContent = new Scanner(file.getInputStream())
@@ -87,7 +99,6 @@ public class UploadBean {
 //            // Error handling
 //        }
 //    }
-
     public Part getFile() {
         return file;
     }

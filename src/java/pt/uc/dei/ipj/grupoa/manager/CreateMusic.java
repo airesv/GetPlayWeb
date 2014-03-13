@@ -27,6 +27,19 @@ public class CreateMusic implements Serializable{
     @EJB
     private MusicFacade musicFacade;
 
+    public UploadBean getUploadBean() {
+        return uploadBean;
+    }
+
+    public void setUploadBean(UploadBean uploadBean) {
+        this.uploadBean = uploadBean;
+    }
+    
+    @ManagedProperty(value = "#{UploadBean}")
+    private UploadBean uploadBean;
+     
+     
+
     private int yearOfRelease;
     private String nameMusic;
     private String author;
@@ -107,7 +120,7 @@ public class CreateMusic implements Serializable{
      *
      * @return
      */
-    public int getYearOfRelease() {
+    public Integer getYearOfRelease() {
         return yearOfRelease;
     }
 
@@ -115,7 +128,7 @@ public class CreateMusic implements Serializable{
      *
      * @param yearOfRelease
      */
-    public void setYearOfRelease(int yearOfRelease) {
+    public void setYearOfRelease(Integer yearOfRelease) {
         this.yearOfRelease = yearOfRelease;
     }
 
@@ -204,7 +217,7 @@ public class CreateMusic implements Serializable{
      * @return
      */
     public String createNewMusic( ) {
-        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(),userlogin.getLoggedUser());
+        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(),uploadBean.getPath(),userlogin.getLoggedUser());
         return "main";
     }
 

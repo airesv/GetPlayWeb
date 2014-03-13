@@ -6,27 +6,34 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
         <ui:composition template="./main.xhtml">
             <ui:define name="content">
+
+                <td style="vertical-align: middle;">
+                    <h2 style="position:relative;left: 25%;">Creat Music</h2>
+                </td>
                 <h:form enctype="multipart/form-data">
-                    <h:panelGrid columns="2" cellpadding="0" cellspacing="2">
-                        <h:outputText value="Name : " />
-                        <h:inputText value="#{CreateMusic.nameMusic}" required="true"/>                     
-                        <h:outputText value="Year of Release : "/>
-                        <h:inputText value="#{CreateMusic.yearOfRelease}"/>
-                        <h:outputText value="Album : "/>
-                        <h:inputText value="#{CreateMusic.album}"/>
-                        <h:outputText value="Author : "/>
-                        <h:inputText value="#{CreateMusic.author}" required="true"/>
-                        <h:form id="form" enctype="multipart/form-data">
-                            <h:inputFile value="#{CreateMusic.pathSound}"> </h:inputFile>
-                            <h:commandButton value="Upload"
-                                             action="#{uploadBean.upload()}">
-                             
-                            </h:commandButton>
-                        </h:form>
-                        <p></p>
+                    <h:panelGrid columns="3" cellpadding="0" columnClasses="rightalign,leftalign,leftalign" cellspacing="2">
+                        <h:outputLabel value="Name : " for="NameMusic" />
+                        <h:inputText id="NameMusic" label="Name of Music" value="#{CreateMusic.nameMusic}" required="true"/> 
+                        <h:message for="NameMusic"/>
+                        <h:outputLabel value="Year of Release : " for="YearOfRelease" />
+                        <h:inputText id= "YearOfRelease" value="#{CreateMusic.yearOfRelease}" label="YearOfRelease"/>
+                        <h:message for="YearOfRelease"/>
+                        <h:outputLabel value="Album : " for="Album"/>
+                        <h:inputText id="Album" value="#{CreateMusic.album}" required="true" label="Album"/>
+                        <h:message for="Album"/>
+                        <h:outputLabel value="Author : " for="Author"/>
+                        <h:inputText id="Author" value="#{CreateMusic.author}" required="true" label="Author"/>
+                        <h:message for="Author"/>
+
+                        <h:inputFile value="#{UploadBean.file}"> </h:inputFile>
+                        <h:commandButton value="Upload"
+                                         action="#{UploadBean.upload}">
+                        </h:commandButton>
+
+                        <h:outputText value=""/>
+
                         <h:commandButton value="Insert" action="#{CreateMusic.createNewMusic()}" />
                         <h:commandButton value="Cancel" immediate="true" action="main" />                   
                     </h:panelGrid>  
