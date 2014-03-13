@@ -6,6 +6,7 @@
 package pt.uc.dei.ipj.grupoa.manager;
 
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -23,6 +24,8 @@ public class AllMusic {
     @EJB
     private MusicFacade musicFacade;
 
+    private List<Music> lstMusic;
+
     /**
      * Creates a new instance of AllMusic
      */
@@ -34,12 +37,17 @@ public class AllMusic {
         return musicFacade;
     }
 
-    public void setMusicFacade(MusicFacade musicFacade) {
-        this.musicFacade = musicFacade;
+    @PostConstruct
+    public void init() {
+        setLstMusic(musicFacade.listOfAllMusics());
     }
 
-    public List<Music> showAllMusics() {
-        return musicFacade.listOfAllMusics();   
+    public List<Music> getLstMusic() {
+        return lstMusic;
+    }
+
+    public void setLstMusic(List<Music> lstMusic) {
+        this.lstMusic = lstMusic;
     }
 
 }

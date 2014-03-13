@@ -45,7 +45,9 @@ public class UploadBean implements Serializable {
 
         File f = new File("a");
         path = f.getAbsolutePath().substring(0, f.getAbsolutePath().length() - 1);
-//        path = path + getRandomName(30) + ".mp3";
+
+        path = path + getRandomName(30) + ".mp3";
+       
         File d = new File(path);
         FileOutputStream outputStream = new FileOutputStream(d);
 

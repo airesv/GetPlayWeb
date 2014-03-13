@@ -6,17 +6,12 @@
 package pt.uc.dei.ipj.grupoa.facades;
 
 import java.util.List;
-import javax.ejb.EJB;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import javax.ejb.Stateless;
-import javax.faces.bean.ManagedProperty;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
-import pt.uc.dei.ipj.grupoa.manager.UploadBean;
-import pt.uc.dei.ipj.grupoa.manager.UserManagerBean;
 
 /**
  *
@@ -27,16 +22,12 @@ public class MusicFacade extends AbstractFacade<Music> {
 
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
-    
-    
+
 //    @ManagedProperty(value = "#{UserManagerBean}")
 //    private UserManagerBean userManager;
-
-
-    
     private long id;
 
-    /** 
+    /**
      *
      * @return
      */
@@ -46,22 +37,11 @@ public class MusicFacade extends AbstractFacade<Music> {
     }
 
     public List<Music> listOfAllMusics() {
-        if (!existsMusic()) {
-            return null;//There are no Musics in Database
-        } else {
-            Query query = em.createNamedQuery("Music.findAll", Music.class);
-            return query.getResultList();
-        }
-    }
-
-    public boolean existsMusic() {
-        UserPlay up = em.find(UserPlay.class, id);          
-        int result = up.getMusic().size();
-        return (result > 0);
+        Query query = em.createNamedQuery("Music.findAll", Music.class);
+        return query.getResultList();
     }
 
     /**
-     *
      */
     public MusicFacade() {
         super(Music.class);
