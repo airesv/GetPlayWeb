@@ -4,7 +4,19 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
 
+    <div class="cxbox">
+        <p class="cxbox">User</p>
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="0" cellspacing="1" >
+                <h:outputText value="#{MainBean.name}"/>
+                <h:commandButton value="Edit" action="edituser" styleClass="btn_user"/> 
+                <h:outputText value="#{MainBean.email}"/>
+                <h:commandButton value="Logout" action="#{UserLogin.logout()}" styleClass="btn_user"/> 
 
+            </h:panelGrid>
+        </h:form>     
+
+    </div>
     <div class="datagrid">
         <table width="250">
             <thead><tr><th>User</th></tr></thead>
@@ -43,10 +55,35 @@
             </tbody>
         </table></div>
     <p></p>
+
+
+
+
+
+
     <div class="datagrid">
         <table width="250">
             <thead><tr><th>Playlist</th></tr></thead>
             <tbody>
+
+
+                <tr>
+                    <td>
+                        <h:form>
+                            <h:panelGrid columns="3" cellspacing="0" >
+                                <h:commandButton value="Insert" action="createplaylist.xhtml" styleClass="btn_user"/> 
+                                <h:commandButton value="Edit" action="register" styleClass="btn_user"/> 
+                                <h:commandButton value="Delete" action="register" styleClass="btn_user"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </td></tr>
+
+                <p></p>
+
+
+
+
+
 
                 <f:view>
                     <h:form>
@@ -79,38 +116,29 @@
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Action"/></f:facet>
-                                <h:commandLink value="edit" action="#{PLTable.editPlaylist}"/>
+                                <h:commandLink value="Edit" action="#{PLGestao.showPL()}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Action"/></f:facet>
+                                <h:commandLink value="Remove" action="#{PLTable.removePl()}"/>
                             </h:column>
-                            
-
 
                         </h:dataTable>
                     </h:form>
                 </f:view>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-                <tr>
-                    <td>
-                        <h:form>
-                            <h:panelGrid columns="3" cellspacing="0" >
-                                <h:commandButton value="Insert" action="createplaylist.xhtml" styleClass="btn_user"/> 
-                                <h:commandButton value="Edit" action="register" styleClass="btn_user"/> 
-                                <h:commandButton value="Delete" action="register" styleClass="btn_user"/>
-                            </h:panelGrid>
-                        </h:form>
-                    </td></tr>
+                <!--            <tr>
+                                <td>
+                                    <h:form>
+                                        <h:panelGrid columns="3" cellspacing="0" >
+                                            <h:commandButton value="Insert" action="createplaylist.xhtml" styleClass="btn_user"/> 
+                                            <h:commandButton value="Edit" action="register" styleClass="btn_user"/> 
+                                            <h:commandButton value="Delete" action="register" styleClass="btn_user"/>
+                                        </h:panelGrid>
+                                    </h:form>
+                                </td></tr>-->
 
 
             </tbody>

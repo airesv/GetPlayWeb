@@ -5,19 +5,16 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlDataTable;
 import pt.uc.dei.ipj.grupoa.EJB.OrdenaPL;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
+import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 
 /**
@@ -30,44 +27,39 @@ public class PLTable {
 
     @ManagedProperty(value = "#{UserLogin}")
     private UserLogin userlogin;
-    private long id;
-    private String name;
-    private String email;
-    private String password;
+//    private long id;
+//    private String name;
+//    private String email;
+//    private String password;
 
     @EJB
     private UserPlayFacade userplayFacade;
-    
+
     @EJB
     private OrdenaPL ordenaPL;
-    
+
+    @EJB
+    private PlaylistFacade plfacade;
 
     private List<Playlist> lstplay;
     private HtmlDataTable tabela;
     private Playlist pl;
-    
+
     private String namePL;
     private boolean asc;
-    
-    
-    
-    
-    
-     /**
+
+    /**
      * Creates a new instance of PLTable
      */
     public PLTable() {
     }
-    
-    
-     @PostConstruct
+
+    @PostConstruct
     public void init() {
-        asc=false;
+        asc = false;
         setLstplay(userplayFacade.lstPlaylist(userlogin.getLoggedUser()));
     }
-    
-    
-    
+
     ///////////////////////////Getter & Setters/////////////////////
     public Playlist getPl() {
         return pl;
@@ -99,7 +91,6 @@ public class PLTable {
         this.userlogin = userlogin;
     }
 
-    
     /**
      * @return the userplayFacade
      */
@@ -127,8 +118,7 @@ public class PLTable {
     public void setLstplay(List<Playlist> lstplay) {
         this.lstplay = lstplay;
     }
-    
-    
+
     public HtmlDataTable getTabela() {
         return tabela;
     }
@@ -139,23 +129,25 @@ public class PLTable {
     public void setTabela(HtmlDataTable tabela) {
         this.tabela = tabela;
     }
- 
-    
-    
+
 ///////////////////////////////////////////////////////////////
-
-
     public String editPlaylist() {
-         pl = (Playlist) tabela.getRowData();
+        pl = (Playlist) tabela.getRowData();
+        //   System.out.println("Playlist é do " + pl.getUserOwner().getName() + " e chama-se " + pl.getNamePlaylist());
         setNamePL(pl.getNamePlaylist());
-       return "teste";
+        return pl.getNamePlaylist();
     }
-    
-    
-    public void ordenaBYName(){
+
+    public void removePl() {
+        pl = (Playlist) tabela.getRowData();
+        plfacade.removePlaylist(pl, userlogin.getLoggedUser());
+        init();//recomeça
+
+    }
+
+    public void ordenaBYName() {
         setLstplay(ordenaPL.ordena(lstplay, asc));
-        asc=!asc;
+        asc = !asc;
     }
-    
-    
+
 }

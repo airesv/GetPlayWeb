@@ -17,13 +17,13 @@ import javax.persistence.Query;
 import pt.uc.dei.ipj.grupoa.EJB.TodayDate;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 
-
 /**
  *
  * @author alvaro
  */
 @Stateless
-public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializable{
+public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializable {
+
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
 
@@ -31,6 +31,7 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
     private TodayDate diaHoje;
 //    @EJB
 //    private UserPlayFacade up;
+
     /**
      *
      * @return
@@ -39,7 +40,7 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
     /**
      *
      */
@@ -47,13 +48,13 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         super(Playlist.class);
     }
 
-      public UserPlay getUser() {
+    public UserPlay getUser() {
         Query query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
         //query.setParameter("email", createPlaylist.getUserlogin().getUseremail());
         try {
             return (UserPlay) query.getSingleResult();
         } catch (NoResultException ex) {
-           return null;
+            return null;
         }
     }
 
@@ -64,7 +65,6 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
     public void setEm(EntityManager em) {
         this.em = em;
     }
-
 
     /**
      *
@@ -78,5 +78,10 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         em.persist(pl);//cria pl
         up.setPlaylistsItem(pl);//atualliza no UserPlay
     }
-    
+
+    public void removePlaylist(Playlist pl, UserPlay up) {
+        up.removePlaylistItem(pl.getId());
+        remove(pl);
+    }
+
 }

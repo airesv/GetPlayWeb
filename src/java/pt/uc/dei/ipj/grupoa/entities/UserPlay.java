@@ -50,11 +50,11 @@ public class UserPlay implements Serializable {
     @Size(min = 1, message = "Password is mandatory and cannot contain"
             + " more than 10 characters")
     private String password;
-   
-    @OneToMany(cascade = CascadeType.PERSIST,mappedBy="userOwner")
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "userOwner")
     private List<Music> music;
-    
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "userOwner")    
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "userOwner")
     private List<Playlist> playlists;
 
     /**
@@ -185,6 +185,22 @@ public class UserPlay implements Serializable {
     public void setPlaylistsItem(Playlist pl) {
         playlists.add(pl);
     }
+
+    public void removePlaylistItem(long id) {
+        boolean exists=true;
+        for (int i = 0; i < playlists.size() && exists ; i++) {
+            if(playlists.get(i).getId()==id){
+                playlists.remove(i);
+                exists=false;
+            
+            }
+            
+        }
+        
+        
+
+    }
+
     public void setMusicItem(Music m) {
         music.add(m);
     }
