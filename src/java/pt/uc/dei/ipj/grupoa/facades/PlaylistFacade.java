@@ -94,7 +94,7 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
     }
 
     public void setNewMusicPlaylist(Music mus, Playlist pl) {
-        mus.setPlaylistItem(pl);
+        pl.setPlaylistItem(mus);
     }
 
 }
