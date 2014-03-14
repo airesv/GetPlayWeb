@@ -87,11 +87,14 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         remove(pl);
         em.flush();
     }
-    
-    public List<Music> createListMusic(Playlist pl){
+
+    public List<Music> createListMusic(Playlist pl) {
         return pl.getMusicList();
-    
+
     }
-            
+
+    public void setNewMusicPlaylist(Music mus, Playlist pl) {
+        pl.setPlaylistItem(mus);
+    }
 
 }

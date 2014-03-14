@@ -243,6 +243,8 @@ public class Music implements Serializable {
         return "entities.Music[ id=" + id + " ]";
     }
 
-   
+   public void setPlaylistItem(Playlist pl){
+       lsyPlaylist.add(pl);
+   }
 
 }

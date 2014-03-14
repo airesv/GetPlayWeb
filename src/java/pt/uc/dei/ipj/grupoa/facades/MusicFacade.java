@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 
 /**
@@ -79,4 +80,12 @@ public class MusicFacade extends AbstractFacade<Music> {
         up.setMusicItem(music);//atualliza no UserPlay
     }
 
+    
+    
+    public void setNewMusicPlaylist(Music mus, Playlist pl) {
+        mus.setPlaylistItem(pl);
+    }
+    
+    
+    
 }
