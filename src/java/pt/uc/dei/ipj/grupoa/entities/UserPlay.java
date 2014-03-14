@@ -186,19 +186,8 @@ public class UserPlay implements Serializable {
         playlists.add(pl);
     }
 
-    public void removePlaylistItem(long id) {
-        boolean exists=true;
-        for (int i = 0; i < playlists.size() && exists ; i++) {
-            if(playlists.get(i).getId()==id){
-                playlists.remove(i);
-                exists=false;
-            
-            }
-            
-        }
-        
-        
-
+    public void removePlaylistItem(Playlist pl) {
+        playlists.remove(pl);
     }
 
     public void setMusicItem(Music m) {
@@ -219,4 +208,9 @@ public class UserPlay implements Serializable {
         this.music = music;
     }
 
+    public void alterNamePL(String oldName, String newName){
+      
+    
+    }
+    
 }

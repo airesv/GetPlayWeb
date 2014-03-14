@@ -127,5 +127,12 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     public List<Playlist> lstPlaylist(UserPlay up) {
         return up.getPlaylists();
     }
+    
+    public void editPlaylist(UserPlay up, Playlist pl){
+   
+        
+        
+        
+    }
 
 }
