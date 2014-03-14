@@ -9,9 +9,9 @@ package pt.uc.dei.ipj.grupoa.manager;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import org.josql.QueryExecutionException;
-import org.josql.QueryParseException;
-import static pt.uc.dei.ipj.grupoa.entities.UserPlay_.music;
+//import org.josql.QueryExecutionException;
+//import org.josql.QueryParseException;
+//import static pt.uc.dei.ipj.grupoa.entities.UserPlay_.music;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 
 /**
@@ -39,7 +39,7 @@ public class SearchMusicBean {
     }
     
     public String showSpecificAuthor(){
-       musicFacade.searchedAuthor(getIntroducedText());
+   //    musicFacade.searchedAuthor();
        return "searchMusic";
     }
 

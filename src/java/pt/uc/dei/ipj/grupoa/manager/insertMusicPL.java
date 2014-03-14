@@ -17,6 +17,7 @@ import javax.faces.model.DataModel;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
+import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 
 /**
  *
@@ -34,7 +35,12 @@ public class insertMusicPL {
 
     @EJB
     private MusicFacade musicFacade;
-
+    
+    @EJB
+    private PlaylistFacade playlistFacade;
+    
+   
+    private Music mus;
     private List<Music> lstMusic;
     private DataModel<Music> tabelaM;
     private Playlist playlist;
@@ -61,10 +67,9 @@ public class insertMusicPL {
     
     
     public void addMusicToPlaylist(){
-    
-        
-        
-        
+      mus= (Music) tabelaM.getRowData();
+      musicFacade.setNewMusicPlaylist(mus, getPlaylist());
+      playlistFacade.setNewMusicPlaylist(mus, getPlaylist());
     }
 
     //////getters e Setters
