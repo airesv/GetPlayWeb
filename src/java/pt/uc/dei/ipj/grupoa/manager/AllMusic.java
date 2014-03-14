@@ -9,7 +9,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 
@@ -18,7 +18,7 @@ import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
  * @author alvaro
  */
 @ManagedBean(name = "AllMusic")
-@SessionScoped
+@RequestScoped
 public class AllMusic {
 
     @EJB

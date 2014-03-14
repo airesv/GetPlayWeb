@@ -19,8 +19,9 @@
         <td>
             <div align="center" valign="buttom">
 
-                <input type="text" name="textfield" id="textfield" />
-                <input type="submit" name="submit" id="submit" value="Submit" />
+                <input type="text" name="textfield" id="textfield" action="#{SearchMusicBean.introducedText}" />
+                <input type="submit" name="submit" id="submitMusic" value="Find by music" action="#{SearchMusicBean.showSpecificMusic()}" />
+                <input type="submit" name="submit" id="submitAuthor" value="Find by author" action="#{SearchMusicBean.showSpecificAuthor()}"/>
             </div></td>
             
         </tr>
@@ -29,7 +30,7 @@
             <td><div align="center" valign="buttom" >
                     <table width="200">
                         <tr>
-                            <td><input type="checkbox" name="CheckboxGroup1" value="checkbox" id="CheckboxGroup1_0" />
+                            <td><input type="radio" name="CheckboxGroup1" value="checkbox" id="CheckboxGroup1_0" />
                                 Music</td>
                             <td><input type="checkbox" name="CheckboxGroup1_" value="checkbox" id="CheckboxGroup1_1" />
                                 Artist</td>

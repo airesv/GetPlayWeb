@@ -187,19 +187,18 @@ public class UserPlay implements Serializable {
     }
 
     public void removePlaylistItem(long id) {
-        boolean exists=true;
-        for (int i = 0; i < playlists.size() && exists ; i++) {
-            if(playlists.get(i).getId()==id){
+        boolean exists = true;
+        for (int i = 0; i < playlists.size() && exists; i++) {
+            if (playlists.get(i).getId() == id) {
                 playlists.remove(i);
-                exists=false;
-            
-            }
-            
-        }
-        
-        
+                exists = false;
 
+            }
+
+        }
+          
     }
+   
 
     public void setMusicItem(Music m) {
         music.add(m);

@@ -3,29 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.uc.dei.ipj.grupoa.manager;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import pt.uc.dei.ipj.grupoa.entities.Music;
-import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
+import pt.uc.dei.ipj.grupoa.manager.UserLogin;
 
 /**
  *
  * @author alvaro
  */
-@ManagedBean(name = "EditMusic")
-@SessionScoped
-public class EditMusic implements Serializable {
+@ManagedBean
+@RequestScoped
+public class ListMusicDeleteUser {
 
     @EJB
     private UserPlayFacade up;
@@ -52,20 +50,11 @@ public class EditMusic implements Serializable {
 
     private Music selectedMusic;
 
-    public String saveMusic() {
-        musicFacade.edit(selectedMusic);
-        return "editmusic";
-    }
-
-
-    public String removeMusic() {      
+    public String saveAction() {
         musicFacade.remove(selectedMusic);
         return "editmusic";
     }
 
-   
-    
-    
     public MusicFacade getMusicFacade() {
         return musicFacade;
     }

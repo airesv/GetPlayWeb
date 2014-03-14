@@ -23,8 +23,6 @@ public class MusicFacade extends AbstractFacade<Music> {
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
 
-//    @ManagedProperty(value = "#{UserManagerBean}")
-//    private UserManagerBean userManager;
     private long id;
  
 
@@ -38,21 +36,12 @@ public class MusicFacade extends AbstractFacade<Music> {
     }
     private boolean editable;
 
-    public void editMusic(long id, String name, String album, String author, int yearOfRelease, Music m) {
-
-        m.setName(name);
-        m.setAlbum(album);
-        m.setAuthor(author);
-        m.setYearOfRelease(yearOfRelease);
-        em.merge(m);
-    }
 
     public boolean isEditable() {
         return editable;
     }
 
     public void setEditable(boolean editable) {
-
         this.editable = editable;
     }
 
@@ -66,6 +55,8 @@ public class MusicFacade extends AbstractFacade<Music> {
     public MusicFacade() {
         super(Music.class);
     }
+    
+   
 
     /**
      *
@@ -74,7 +65,6 @@ public class MusicFacade extends AbstractFacade<Music> {
      * @param author
      * @param album
      * @param path
-     * @param pathSound
      * @param up
      */
     public void createMusic(int yearOfRelease, String name, String author, String album, String path, UserPlay up) {

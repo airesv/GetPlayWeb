@@ -12,7 +12,8 @@
                 <f:view>
                     <h:form>
                         <h1><h:outputText value="Musics"/></h1>
-                        <h:dataTable value="#{EditMusic.rowSelectedMusic()}" var="item"
+
+                        <h:dataTable value="#{EditMusic.selectedMusic}" var="item"
                                    >
                             <h:column>
                                 <f:facet name="header">Year of Release</f:facet>
@@ -22,7 +23,6 @@
                             <h:column>
                                 <f:facet name="header">Name of Music</f:facet>
                                 <h:inputText value="#{item.name}" />
-
                             </h:column>
                             <h:column>
                                 <f:facet name="header">Author</f:facet>
@@ -35,7 +35,8 @@
 
                             </h:column>
                         </h:dataTable>
-                        <h:commandButton value="Save Changes" action="#{EditMusic.saveAction()}" />
+                        <h:commandButton value="Edit Music" action="#{EditMusic.saveMusic()}" />
+                        <h:commandButton value="Delete Music" action="#{EditMusic.removeMusic()}" />
 
                     </h:form>
                 </f:view>
