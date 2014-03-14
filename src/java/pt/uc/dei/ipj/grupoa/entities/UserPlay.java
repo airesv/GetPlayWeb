@@ -8,6 +8,7 @@ package pt.uc.dei.ipj.grupoa.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -49,11 +50,11 @@ public class UserPlay implements Serializable {
     @Size(min = 1, message = "Password is mandatory and cannot contain"
             + " more than 10 characters")
     private String password;
-   
-    @OneToMany(mappedBy="userOwner")
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "userOwner")
     private List<Music> music;
-    
-    @OneToMany(mappedBy = "userOwner")    
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "userOwner")
     private List<Playlist> playlists;
 
     /**
@@ -184,6 +185,22 @@ public class UserPlay implements Serializable {
     public void setPlaylistsItem(Playlist pl) {
         playlists.add(pl);
     }
+
+    public void removePlaylistItem(long id) {
+        boolean exists=true;
+        for (int i = 0; i < playlists.size() && exists ; i++) {
+            if(playlists.get(i).getId()==id){
+                playlists.remove(i);
+                exists=false;
+            
+            }
+            
+        }
+        
+        
+
+    }
+
     public void setMusicItem(Music m) {
         music.add(m);
     }

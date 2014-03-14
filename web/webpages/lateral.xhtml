@@ -4,12 +4,24 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
 
+    <div class="cxbox">
+        <p class="cxbox">User</p>
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="0" cellspacing="1" >
+                <h:outputText value="#{MainBean.name}"/>
+                <h:commandButton value="Edit" action="edituser" styleClass="btn_user"/> 
+                <h:outputText value="#{MainBean.email}"/>
+                <h:commandButton value="Logout" action="#{UserLogin.logout()}" styleClass="btn_user"/> 
 
+            </h:panelGrid>
+        </h:form>     
+
+    </div>
     <div class="datagrid">
         <table width="250">
             <thead><tr><th>User</th></tr></thead>
             <tbody><tr><td>
-                        
+
                         <h:form>
                             <h:panelGrid columns="2" cellpadding="0" cellspacing="1" >
                                 <h:outputText value="#{MainBean.name}"/>
@@ -43,45 +55,16 @@
             </tbody>
         </table></div>
     <p></p>
+
+
+
+
+
+
     <div class="datagrid">
         <table width="250">
             <thead><tr><th>Playlist</th></tr></thead>
             <tbody>
-                          
-                <f:view>
-                    <h:form>
-                        <h:dataTable value="#{PLTable.lstplay}" var="item" class="dataplay" >
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:commandLink action="#{PLTable.sort}"> 
-                                    <h:outputText value="NamePlaylist"/>
-                                    </h:commandLink>
-                                </f:facet>
-                                <h:outputText value="#{item.namePlaylist}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="DateCreation"/>
-                                </f:facet>
-                                <h:outputText value="#{item.dateCreation}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                                </h:outputText>
-                            </h:column>
-                        </h:dataTable>
-                    </h:form>
-                </f:view>
-
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
 
 
                 <tr>
@@ -94,6 +77,68 @@
                             </h:panelGrid>
                         </h:form>
                     </td></tr>
+
+                <p></p>
+
+
+
+
+
+
+                <f:view>
+                    <h:form>
+                        <h:dataTable value="#{PLTable.lstplay}" var="item"  class="dataplay" 
+                                     binding="#{PLTable.tabela}"     
+                                     >
+                            <h:column >
+                                <f:facet name="header" rendered="false" >
+                                    <h:commandLink action="#{PLTable.ordenaBYName()}"> 
+                                        <h:outputText value="NamePlaylist"/>
+                                    </h:commandLink>
+                                </f:facet>
+                                <h:outputText value="#{item.namePlaylist}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Size"/>
+                                </f:facet>
+                                <h:outputText value="#{item.playlistSize()}">
+                                </h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="DateCreation"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dateCreation}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Action"/></f:facet>
+                                <h:commandLink value="Edit" action="#{PLGestao.showPL()}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Action"/></f:facet>
+                                <h:commandLink value="Remove" action="#{PLTable.removePl()}"/>
+                            </h:column>
+
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+
+
+                <!--            <tr>
+                                <td>
+                                    <h:form>
+                                        <h:panelGrid columns="3" cellspacing="0" >
+                                            <h:commandButton value="Insert" action="createplaylist.xhtml" styleClass="btn_user"/> 
+                                            <h:commandButton value="Edit" action="register" styleClass="btn_user"/> 
+                                            <h:commandButton value="Delete" action="register" styleClass="btn_user"/>
+                                        </h:panelGrid>
+                                    </h:form>
+                                </td></tr>-->
 
 
             </tbody>

@@ -5,15 +5,16 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlDataTable;
+import pt.uc.dei.ipj.grupoa.EJB.OrdenaPL;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
+import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 
 /**
@@ -21,45 +22,59 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
  * @author Aires
  */
 @ManagedBean(name = "PLTable")
-@RequestScoped
+@ViewScoped
 public class PLTable {
-    
+
     @ManagedProperty(value = "#{UserLogin}")
     private UserLogin userlogin;
-    private long id;
-    private String name;
-    private String email;
-    private String password;
-    
+//    private long id;
+//    private String name;
+//    private String email;
+//    private String password;
+
     @EJB
     private UserPlayFacade userplayFacade;
-    
+
+    @EJB
+    private OrdenaPL ordenaPL;
+
+    @EJB
+    private PlaylistFacade plfacade;
+
     private List<Playlist> lstplay;
-    
-    private boolean sortAscending;
+    private HtmlDataTable tabela;
+    private Playlist pl;
+
+    private String namePL;
+    private boolean asc;
 
     /**
      * Creates a new instance of PLTable
      */
     public PLTable() {
     }
-    
-    public boolean isSortAscending() {
-        return sortAscending;
-    }
-    
-    public void setSortAscending(boolean sortAscending) {
-        this.sortAscending = sortAscending;
-    }
-    
+
     @PostConstruct
     public void init() {
-        setSortAscending(false);
-        setId((long) getUserlogin().getLoggedUser().getId());
-        setName(getUserlogin().getLoggedUser().getName());
-        setEmail(getUserlogin().getLoggedUser().getEmail());
-        
+        asc = false;
         setLstplay(userplayFacade.lstPlaylist(userlogin.getLoggedUser()));
+    }
+
+    ///////////////////////////Getter & Setters/////////////////////
+    public Playlist getPl() {
+        return pl;
+    }
+
+    public void setPl(Playlist pl) {
+        this.pl = pl;
+    }
+
+    public String getNamePL() {
+        return namePL;
+    }
+
+    public void setNamePL(String namePL) {
+        this.namePL = namePL;
     }
 
     /**
@@ -74,62 +89,6 @@ public class PLTable {
      */
     public void setUserlogin(UserLogin userlogin) {
         this.userlogin = userlogin;
-    }
-
-    /**
-     * @return the id
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     /**
@@ -159,31 +118,36 @@ public class PLTable {
     public void setLstplay(List<Playlist> lstplay) {
         this.lstplay = lstplay;
     }
-    
-    private final Comparator NAME_SORT_ASC = new Comparator<Playlist>() {
-        @Override
-        public int compare(Playlist o1, Playlist o2) {
-            return o1.getNamePlaylist().compareTo(o2.getNamePlaylist());
-        }
-    };
-    
-    private final Comparator NAME_SORT_DESC = new Comparator<Playlist>() {
-        @Override
-        public int compare(Playlist o1, Playlist o2) {
-            return o2.getNamePlaylist().compareTo(o1.getNamePlaylist());
-        }
-    };
-    
-    public String sort() {
-        if (isSortAscending()) {
-            Collections.sort(lstplay, NAME_SORT_ASC);            
-            
-            setSortAscending(false);
-        } else {
-            Collections.sort(lstplay, NAME_SORT_DESC);
-            setSortAscending(false);
-        }        
-        return null;
+
+    public HtmlDataTable getTabela() {
+        return tabela;
     }
-    
+
+    /**
+     * @param tabela the tabela to set
+     */
+    public void setTabela(HtmlDataTable tabela) {
+        this.tabela = tabela;
+    }
+
+///////////////////////////////////////////////////////////////
+    public String editPlaylist() {
+        pl = (Playlist) tabela.getRowData();
+        //   System.out.println("Playlist é do " + pl.getUserOwner().getName() + " e chama-se " + pl.getNamePlaylist());
+        setNamePL(pl.getNamePlaylist());
+        return pl.getNamePlaylist();
+    }
+
+    public void removePl() {
+        pl = (Playlist) tabela.getRowData();
+        plfacade.removePlaylist(pl, userlogin.getLoggedUser());
+        init();//recomeça
+
+    }
+
+    public void ordenaBYName() {
+        setLstplay(ordenaPL.ordena(lstplay, asc));
+        asc = !asc;
+    }
+
 }
