@@ -128,8 +128,22 @@
 }
 
 
- .cxbox  h1{background-color:#00ff00;}
- .cxbox  p {background-color:#006699}
+.cxbox  h1{    color:#FFFFFF; font-size: 13px; font-weight: bold;
+               alignment-adjust: central;
+               background-color:#006699; -moz-border-radius: 0px;
+               -webkit-border-radius: 0px;
+               border-radius: 0px;
+               /*IE 7 AND 8 DO NOT SUPPORT BORDER RADIUS*/
+               -moz-box-shadow: 0px 0px 0px #000000;
+               -webkit-box-shadow: 0px 0px 0 #000000;}
+.cxbox  p {
+    color:#FFFFFF; font-size: 12px; font-weight: bold;
+    background-color:#006699; -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    /*IE 7 AND 8 DO NOT SUPPORT BORDER RADIUS*/
+    -moz-box-shadow: 0px 0px 0px #000000;
+    -webkit-box-shadow: 0px 0px 0 #000000;}
 
 
 

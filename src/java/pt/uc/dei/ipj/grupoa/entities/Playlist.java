@@ -6,8 +6,8 @@
 package pt.uc.dei.ipj.grupoa.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -60,7 +60,7 @@ public class Playlist implements Serializable {
     @JoinTable(name = "hasMusic", joinColumns = {
         @JoinColumn(name = "idMusic", referencedColumnName = "id")},
             inverseJoinColumns = @JoinColumn(name = "idPlaylist", referencedColumnName = "id"))
-    private Collection<Music> musicList;
+    private List<Music> musicList;
 
     /**
      *
@@ -110,6 +110,14 @@ public class Playlist implements Serializable {
         return namePlaylist;
     }
 
+    public List<Music> getMusicList() {
+        return musicList;
+    }
+
+    public void setMusicList(List<Music> musicList) {
+        this.musicList = musicList;
+    }
+
     /**
      * @param namePlaylist the namePlaylist to set
      */
@@ -119,6 +127,7 @@ public class Playlist implements Serializable {
 
     /**
      * @return the dateCreation
+     * 
      */
     public Date getDateCreation() {
         return dateCreation;
@@ -139,8 +148,10 @@ public class Playlist implements Serializable {
         this.userOwner = userOwner;
     }
 
+
+
     public int playlistSize() {
-       return  this.musicList.size();
+        return this.musicList.size();
 
     }
 

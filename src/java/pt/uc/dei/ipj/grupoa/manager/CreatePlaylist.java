@@ -27,7 +27,9 @@ public class CreatePlaylist implements Serializable {
 
     @EJB
     private UserPlayFacade up;
-
+    
+    
+ 
 //    @EJB
 //    private Playlist pl;
 
@@ -137,7 +139,7 @@ public class CreatePlaylist implements Serializable {
 
     public void createNewPlaylist() {
         playlistFacade.createPlayList(getNamePlayL(), userlogin.getLoggedUser());
-
+        
     }
 
 }

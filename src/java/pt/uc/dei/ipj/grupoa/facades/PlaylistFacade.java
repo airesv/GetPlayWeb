@@ -6,6 +6,7 @@
 package pt.uc.dei.ipj.grupoa.facades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 
@@ -15,6 +16,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pt.uc.dei.ipj.grupoa.EJB.TodayDate;
+import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 
 /**
@@ -77,11 +79,19 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         pl.setUserOwner(up);
         em.persist(pl);//cria pl
         up.setPlaylistsItem(pl);//atualliza no UserPlay
+        em.flush();
     }
 
     public void removePlaylist(Playlist pl, UserPlay up) {
-        up.removePlaylistItem(pl.getId());
+        //up.removePlaylistItem(pl);
         remove(pl);
+        em.flush();
     }
+    
+    public List<Music> createListMusic(Playlist pl){
+        return pl.getMusicList();
+    
+    }
+            
 
 }

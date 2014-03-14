@@ -17,8 +17,11 @@
         </h:form>     
 
     </div>
+    <p></p>
+
     <div class="datagrid">
         <table width="250">
+            
             <thead><tr><th>User</th></tr></thead>
             <tbody><tr><td>
 
@@ -41,11 +44,10 @@
             <tbody><tr>
                     <td align="center">
                         <h:form>
-                            <h:panelGrid columns="2" cellpadding="0" cellspacing="2" >
+                            <h:panelGrid columns="3" cellpadding="0" cellspacing="2" >
                                 <h:commandButton value="View All Music" action="allmusic" styleClass="btn_user"/>
                                 <h:commandButton value="Insert Music" action="createmusic" styleClass="btn_user"/>
-                                <h:commandButton value="Edit Music" action="editmusic" styleClass="btn_user"/>
-                                <h:commandButton value="Delete Music" action="deletemusic" styleClass="btn_user"/>
+                                <h:commandButton value="Edit Music" action="edittmusic" styleClass="btn_user"/>
                             </h:panelGrid>
                         </h:form>
                     </td></tr>
@@ -53,7 +55,8 @@
 
             </tbody>
         </table></div>
-    <p></p>
+    
+   <p></p>
 
 
 
@@ -66,43 +69,21 @@
             <tbody>
 
 
-                <tr>
-                    <td>
-                        <h:form>
-                            <h:panelGrid columns="3" cellspacing="0" >
-                                <h:commandButton value="Insert" action="createplaylist.xhtml" styleClass="btn_user"/> 
-                                <h:commandButton value="Edit" action="register" styleClass="btn_user"/> 
-                                <h:commandButton value="Delete" action="register" styleClass="btn_user"/>
-                            </h:panelGrid>
-                        </h:form>
-                    </td></tr>
-
-                <p></p>
-
-
 
 
 
 
                 <f:view>
                     <h:form>
-                        <h:dataTable value="#{PLTable.lstplay}" var="item"  class="dataplay" 
-                                     binding="#{PLTable.tabela}"     
-                                     >
-                            <h:column >
-                                <f:facet name="header" rendered="false" >
+                        <h:dataTable value="#{PLTable.tabela}" var="item">
+                           
+                            <h:column>
+                                <f:facet name="header">
                                     <h:commandLink action="#{PLTable.ordenaBYName()}"> 
-                                        <h:outputText value="NamePlaylist"/>
+                                    <h:outputText value="NamePlaylist"/>
                                     </h:commandLink>
                                 </f:facet>
                                 <h:outputText value="#{item.namePlaylist}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Size"/>
-                                </f:facet>
-                                <h:outputText value="#{item.playlistSize()}">
-                                </h:outputText>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
@@ -112,8 +93,8 @@
                                     <f:convertDateTime pattern="MM/dd/yyyy" />
                                 </h:outputText>
                             </h:column>
-                            <h:column>
-                                <f:facet name="header">
+                             <h:column>
+                           <f:facet name="header">
                                     <h:outputText value="Action"/></f:facet>
                                 <h:commandLink value="Edit" action="#{PLGestao.showPL()}"/>
                             </h:column> 
@@ -122,22 +103,27 @@
                                     <h:outputText value="Action"/></f:facet>
                                 <h:commandLink value="Remove" action="#{PLTable.removePl()}"/>
                             </h:column>
-
+                            
+                            
+                            
                         </h:dataTable>
                     </h:form>
+
+                    
+                    
+                    
                 </f:view>
 
 
-                <!--            <tr>
+                            <tr>
                                 <td>
                                     <h:form>
-                                        <h:panelGrid columns="3" cellspacing="0" >
+                                        <h:panelGrid columns="1" cellspacing="0" >
                                             <h:commandButton value="Insert" action="createplaylist.xhtml" styleClass="btn_user"/> 
-                                            <h:commandButton value="Edit" action="register" styleClass="btn_user"/> 
-                                            <h:commandButton value="Delete" action="register" styleClass="btn_user"/>
+                                         
                                         </h:panelGrid>
                                     </h:form>
-                                </td></tr>-->
+                                </td></tr>
 
 
             </tbody>
