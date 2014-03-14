@@ -83,7 +83,7 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
     }
 
     public void removePlaylist(Playlist pl, UserPlay up) {
-        //up.removePlaylistItem(pl);
+        up.removePlaylistItem(pl);
         remove(pl);
         em.flush();
     }
