@@ -8,16 +8,20 @@
     <body>
 
         <ui:composition template="./main.xhtml">
+
+          
+
             <ui:define name="content">
                 <f:view>
                     <h:form>
-                        <h1><h:outputText value="List of All Musics"/></h1>
-                        <h:dataTable value="#{AllMusic.lstMusic}" var="item">
+                        <h1><h:outputText value="List"/></h1>
+                        <h:dataTable value="#{EditMusic.musicsLoggedInUser}" var="item"  >
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="YearOfRelease"/>
                                 </f:facet>
                                 <h:outputText value="#{item.yearOfRelease}"/>
+                                
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
@@ -37,18 +41,21 @@
                                 </f:facet>
                                 <h:outputText value="#{item.album}"/>
                             </h:column>
-                            <h:column>
+                              <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="UserOwner"/>
+                                    <h:outputText value="Please, edit"/>
                                 </f:facet>
-                                <h:outputText value="#{item.userOwner.name}"/>
+                                <h:commandButton value="edit" action="editthatmusic"/>
                             </h:column>
+                          
+                           
+                        
                         </h:dataTable>
-
                     </h:form>
                 </f:view>
 
             </ui:define>
+
         </ui:composition>
 
     </body>

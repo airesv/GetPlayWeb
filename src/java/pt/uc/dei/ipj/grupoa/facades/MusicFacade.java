@@ -26,6 +26,7 @@ public class MusicFacade extends AbstractFacade<Music> {
 //    @ManagedProperty(value = "#{UserManagerBean}")
 //    private UserManagerBean userManager;
     private long id;
+ 
 
     /**
      *
@@ -34,6 +35,25 @@ public class MusicFacade extends AbstractFacade<Music> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    private boolean editable;
+
+    public void editMusic(long id, String name, String album, String author, int yearOfRelease, Music m) {
+
+        m.setName(name);
+        m.setAlbum(album);
+        m.setAuthor(author);
+        m.setYearOfRelease(yearOfRelease);
+        em.merge(m);
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+
+        this.editable = editable;
     }
 
     public List<Music> listOfAllMusics() {

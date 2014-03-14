@@ -6,20 +6,22 @@
 package pt.uc.dei.ipj.grupoa.manager;
 
 import java.io.Serializable;
+import java.util.List;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 
 /**
  *
  * @author alvaro
  */
-@ManagedBean(name="CreateMusic") 
+@ManagedBean(name = "CreateMusic")
 @SessionScoped
-public class CreateMusic implements Serializable{
+public class CreateMusic implements Serializable {
 
     @EJB
     private UserPlayFacade up;
@@ -31,14 +33,25 @@ public class CreateMusic implements Serializable{
         return uploadBean;
     }
 
+    @ManagedProperty(value = "#{UserLogin}")
+    private UserLogin userlogin;
+
     public void setUploadBean(UploadBean uploadBean) {
         this.uploadBean = uploadBean;
     }
-    
+
     @ManagedProperty(value = "#{UploadBean}")
     private UploadBean uploadBean;
-     
-     
+
+    private boolean editable;
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
 
     private int yearOfRelease;
     private String nameMusic;
@@ -48,13 +61,12 @@ public class CreateMusic implements Serializable{
     /**
      * Creates a new instance of CreateMusic
      */
-    @ManagedProperty(value = "#{UserLogin}")
-    private UserLogin userlogin;
+  
     private long id;
     private String name;
     private String email;
 
-    private String namePlayL;
+
 
     public CreateMusic() {
     }
@@ -66,6 +78,8 @@ public class CreateMusic implements Serializable{
 //        setEmail(userlogin.getLoggedUser().getEmail());
 //
 //    }
+
+
 
     public UserPlayFacade getUp() {
         return up;
@@ -107,15 +121,8 @@ public class CreateMusic implements Serializable{
         this.email = email;
     }
 
-    public String getNamePlayL() {
-        return namePlayL;
-    }
 
-    public void setNamePlayL(String namePlayL) {
-        this.namePlayL = namePlayL;
-    }
-    
-    
+
     /**
      *
      * @return
@@ -216,8 +223,8 @@ public class CreateMusic implements Serializable{
      *
      * @return
      */
-    public String createNewMusic( ) {
-        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(),uploadBean.getPath(),userlogin.getLoggedUser());
+    public String createNewMusic() {
+        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), uploadBean.getPath(), userlogin.getLoggedUser());
         return "main";
     }
 
