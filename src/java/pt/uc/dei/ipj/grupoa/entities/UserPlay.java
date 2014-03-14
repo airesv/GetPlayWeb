@@ -218,4 +218,9 @@ public class UserPlay implements Serializable {
         this.music = music;
     }
 
+    public void alterNamePL(String oldName, String newName){
+      
+    
+    }
+    
 }
