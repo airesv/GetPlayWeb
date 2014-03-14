@@ -56,6 +56,11 @@ public class MusicFacade extends AbstractFacade<Music> {
     public MusicFacade() {
         super(Music.class);
     }
+    public List<Music>  searchedAuthor() {
+        Query query = em.createNamedQuery("Music.findByAuthorAsc", Music.class);
+        return query.getResultList();
+    }
+    
     
    
 
