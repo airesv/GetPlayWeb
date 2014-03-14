@@ -182,7 +182,8 @@ public class Playlist implements Serializable {
         return "entities.Playlist[ id=" + id + " ]";
     }
 
-    /**
-     * @return the namePlaylist
-     */
+    public void setPlaylistItem(Music mus){
+       musicList.add(mus);
+   }
+
 }

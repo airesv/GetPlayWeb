@@ -79,4 +79,12 @@ public class MusicFacade extends AbstractFacade<Music> {
         up.setMusicItem(music);//atualliza no UserPlay
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
 }
