@@ -49,10 +49,6 @@ public class PLGestao {
      @EJB
     private MusicFacade musicFacade;
 
-
-
-    
-
     /**
      * Creates a new instance of PLGestao
      */

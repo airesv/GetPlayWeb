@@ -39,9 +39,8 @@ public class insertMusicPL {
     @EJB
     private PlaylistFacade playlistFacade;
     
-    @EJB
+   
     private Music mus;
-    
     private List<Music> lstMusic;
     private DataModel<Music> tabelaM;
     private Playlist playlist;
