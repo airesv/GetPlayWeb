@@ -25,7 +25,6 @@ public class MusicFacade extends AbstractFacade<Music> {
     private EntityManager em;
 
     private long id;
- 
 
     /**
      *
@@ -36,7 +35,6 @@ public class MusicFacade extends AbstractFacade<Music> {
         return em;
     }
     private boolean editable;
-
 
     public boolean isEditable() {
         return editable;
@@ -56,13 +54,18 @@ public class MusicFacade extends AbstractFacade<Music> {
     public MusicFacade() {
         super(Music.class);
     }
-    public List<Music>  searchedAuthor() {
-        Query query = em.createNamedQuery("Music.findByAuthorAsc", Music.class);
+
+    public List<Music> searchedMusic(String name) {
+        Query query = em.createNamedQuery("Music.findByNameAsc", Music.class);
+        query.setParameter("name", name);
         return query.getResultList();
     }
-    
-    
-   
+
+    public List<Music> searchedAuthor(String author) {
+        Query query = em.createNamedQuery("Music.findByAuthorAsc", Music.class);
+        query.setParameter("author", author);
+        return query.getResultList();
+    }
 
     /**
      *
@@ -85,12 +88,8 @@ public class MusicFacade extends AbstractFacade<Music> {
         up.setMusicItem(music);//atualliza no UserPlay
     }
 
-    
-    
     public void setNewMusicPlaylist(Music mus, Playlist pl) {
         mus.setPlaylistItem(pl);
     }
-    
-    
-    
+
 }

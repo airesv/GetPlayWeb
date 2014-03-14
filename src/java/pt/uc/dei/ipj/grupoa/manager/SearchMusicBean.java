@@ -34,12 +34,12 @@ public class SearchMusicBean {
     private String introducedText;
    
     public String showSpecificMusic() {
-        musicFacade.listOfAllMusics();
+        musicFacade.searchedMusic(getIntroducedText());
         return "searchmusic";
     }
     
     public String showSpecificAuthor(){
-       musicFacade.searchedAuthor();
+       musicFacade.searchedAuthor(getIntroducedText());
        return "searchMusic";
     }
 
