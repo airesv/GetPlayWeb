@@ -12,7 +12,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.josql.QueryExecutionException;
 import org.josql.QueryParseException;
-import pt.uc.dei.ipj.grupoa.EJB.SearchMusic;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 
 /**
@@ -31,17 +30,16 @@ public class SearchMusicBean {
     
     private String introducedText;
     
-    @EJB
-    private SearchMusic searchMusic;
+
     
    
     
-//    public String showSpecificMusic() throws QueryParseException, QueryExecutionException{
-//
-//        List<Music>=searchMusic.searchByMusic(getIntroducedText());
-//        
-//        return "searchmusic";
-//    }
+    /*public String showSpecificMusic() throws QueryParseException, QueryExecutionException{
+
+        List <Music> musics=searchMusic.searchByMusic(getIntroducedText());
+        
+        return "searchmusic";
+    }*/
     
     public String showSpecificAuthor(){
         
