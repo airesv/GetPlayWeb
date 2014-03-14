@@ -6,13 +6,13 @@
 
 package pt.uc.dei.ipj.grupoa.manager;
 
-import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.josql.QueryExecutionException;
 import org.josql.QueryParseException;
-import pt.uc.dei.ipj.grupoa.entities.Music;
+import static pt.uc.dei.ipj.grupoa.entities.UserPlay_.music;
+import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 
 /**
  *
@@ -28,22 +28,18 @@ public class SearchMusicBean {
     public SearchMusicBean() {
     }
     
+    @EJB
+    private MusicFacade musicFacade;
+
     private String introducedText;
-    
-
-    
    
-    
-    /*public String showSpecificMusic() throws QueryParseException, QueryExecutionException{
-
-        List <Music> musics=searchMusic.searchByMusic(getIntroducedText());
-        
+    public String showSpecificMusic() {
+        musicFacade.listOfAllMusics();
         return "searchmusic";
-    }*/
+    }
     
     public String showSpecificAuthor(){
-        
-        
+       musicFacade.searchedAuthor();
        return "searchMusic";
     }
 
@@ -54,8 +50,4 @@ public class SearchMusicBean {
     public void setIntroducedText(String introducedText) {
         this.introducedText = introducedText;
     }
-
-  
-    
-    
 }
