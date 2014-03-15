@@ -48,10 +48,9 @@ public class Music implements Serializable {
     @NotNull
 
     private Long id;
-//  @Pattern(regexp = "(19|20)\\d\\d",
-//           message = "{invalid.yearOfRelease}")
-//    @Pattern(regexp = "/^(199\d|200\d|2010)$/")
-   @Column(name = "YEAR_OF_RELEASE")
+   /* @Pattern(regexp = "(19|20)\\d\\d",
+            message = "{invalid.yearOfRelease}")*/
+    @Column(name = "YEAR_OF_RELEASE")
     @NotNull
     private Integer yearOfRelease;
     @Size(min = 1, max = 20, message = "Name is mandatory and cannot contain "
@@ -69,12 +68,12 @@ public class Music implements Serializable {
     @NotNull
     @Column(name = "PathSound")
     private String pathSound;
-   
+
     @ManyToMany(mappedBy = "musicList")
     private List<Playlist> lsyPlaylist;
-    
+
     //
-    @ManyToOne(fetch = FetchType.LAZY ,optional = false, targetEntity=UserPlay.class)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = UserPlay.class)
     @JoinColumn(name = "userID")
     private UserPlay userOwner;
 
@@ -225,7 +224,8 @@ public class Music implements Serializable {
         }
         return true;
     }
- /**
+
+    /**
      * @return the userOwner
      */
     public UserPlay getUserOwner() {
@@ -238,13 +238,14 @@ public class Music implements Serializable {
     public void setUserOwner(UserPlay userOwner) {
         this.userOwner = userOwner;
     }
+
     @Override
     public String toString() {
         return "entities.Music[ id=" + id + " ]";
     }
 
-   public void setPlaylistItem(Playlist pl){
-       lsyPlaylist.add(pl);
-   }
+    public void setPlaylistItem(Playlist pl) {
+        lsyPlaylist.add(pl);
+    }
 
 }

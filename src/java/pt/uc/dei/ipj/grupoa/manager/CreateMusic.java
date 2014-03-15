@@ -5,14 +5,14 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import pt.uc.dei.ipj.grupoa.entities.Music;
+import javax.faces.bean.RequestScoped;
+import javax.servlet.http.Part;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 
 /**
@@ -20,7 +20,7 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
  * @author alvaro
  */
 @ManagedBean(name = "CreateMusic")
-@SessionScoped
+@RequestScoped
 public class CreateMusic implements Serializable {
 
     @EJB
@@ -29,57 +29,23 @@ public class CreateMusic implements Serializable {
     @EJB
     private MusicFacade musicFacade;
 
-    public UploadBean getUploadBean() {
-        return uploadBean;
-    }
-
     @ManagedProperty(value = "#{UserLogin}")
     private UserLogin userlogin;
 
-    public void setUploadBean(UploadBean uploadBean) {
-        this.uploadBean = uploadBean;
-    }
-
-    @ManagedProperty(value = "#{UploadBean}")
-    private UploadBean uploadBean;
-
-    private boolean editable;
-
-    public boolean isEditable() {
-        return editable;
-    }
-
-    public void setEditable(boolean editable) {
-        this.editable = editable;
-    }
-
-    private int yearOfRelease;
+    private int yearOfRelease=1920;
     private String nameMusic;
     private String author;
     private String album;
     private String pathSound;
-    /**
-     * Creates a new instance of CreateMusic
-     */
-  
-    private long id;
-    private String name;
-    private String email;
-
-
+    private Part file;
 
     public CreateMusic() {
     }
-//   @PostConstruct
-//    public void init() {
-////        yearOfRelease=Integer.parseInt(null);
-//        setId((long) userlogin.getLoggedUser().getId());
-//        setName(userlogin.getLoggedUser().getName());
-//        setEmail(userlogin.getLoggedUser().getEmail());
-//
-//    }
 
-
+    public String createNewMusic() throws IOException {
+        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), userlogin.getLoggedUser(), getFile());
+        return "main";
+    }
 
     public UserPlayFacade getUp() {
         return up;
@@ -105,60 +71,8 @@ public class CreateMusic implements Serializable {
         this.userlogin = userlogin;
     }
 
-    public long getId() {
-        return id;
-    }
+   
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-
-    /**
-     *
-     * @return
-     */
-    public Integer getYearOfRelease() {
-        return yearOfRelease;
-    }
-
-    /**
-     *
-     * @param yearOfRelease
-     */
-    public void setYearOfRelease(Integer yearOfRelease) {
-        this.yearOfRelease = yearOfRelease;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     *
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     *
-     * @return
-     */
     public String getAuthor() {
         return author;
     }
@@ -219,13 +133,20 @@ public class CreateMusic implements Serializable {
         this.pathSound = pathSound;
     }
 
-    /**
-     *
-     * @return
-     */
-    public String createNewMusic() {
-        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), uploadBean.getPath(), userlogin.getLoggedUser());
-        return "main";
+    public int getYearOfRelease() {
+        return yearOfRelease;
+    }
+
+    public void setYearOfRelease(int yearOfRelease) {
+        this.yearOfRelease = yearOfRelease;
+    }
+
+    public Part getFile() {
+        return file;
+    }
+
+    public void setFile(Part file) {
+        this.file = file;
     }
 
 }

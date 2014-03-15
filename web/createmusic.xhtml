@@ -26,14 +26,9 @@
                         <h:outputLabel value="Author : " for="Author"/>
                         <h:inputText id="Author" value="#{CreateMusic.author}" required="true" label="Author"/>
                         <h:message for="Author"/>
-
-                        <h:inputFile value="#{UploadBean.file}"> </h:inputFile>
-                        <h:commandButton value="Upload"
-                                         action="#{UploadBean.upload}">
-                        </h:commandButton>
-
+                        <h:inputFile id="file" value="#{CreateMusic.file}"> </h:inputFile>                
                         <h:outputText value=""/>
-
+                        <h:outputText value=""/>
                         <h:commandButton value="Insert" action="#{CreateMusic.createNewMusic()}" />
                         <h:commandButton value="Cancel" immediate="true" action="main" />                   
                     </h:panelGrid>  

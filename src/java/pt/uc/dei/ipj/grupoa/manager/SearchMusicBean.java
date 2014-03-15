@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pt.uc.dei.ipj.grupoa.manager;
 
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,27 +20,27 @@ import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
  */
 @ManagedBean(name = "SearchMusicBean")
 @SessionScoped
-public class SearchMusicBean {
+public class SearchMusicBean implements Serializable {
 
     /**
      * Creates a new instance of SearchMusic
      */
     public SearchMusicBean() {
     }
-    
+
     @EJB
     private MusicFacade musicFacade;
 
     private String introducedText;
-   
+
     public String showSpecificMusic() {
-        musicFacade.searchedMusic(getIntroducedText());
+        musicFacade.searchedMusic(introducedText);
         return "searchmusic";
     }
-    
-    public String showSpecificAuthor(){
-   //    musicFacade.searchedAuthor();
-       return "searchMusic";
+
+    public String showMusicsAuthor() {
+        //    musicFacade.searchedAuthor();
+        return "searchMusic";
     }
 
     public String getIntroducedText() {
