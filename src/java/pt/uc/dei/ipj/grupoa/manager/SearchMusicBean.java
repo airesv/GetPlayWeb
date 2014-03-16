@@ -6,9 +6,12 @@
 package pt.uc.dei.ipj.grupoa.manager;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
+import pt.uc.dei.ipj.grupoa.entities.Music;
 //import org.josql.QueryExecutionException;
 //import org.josql.QueryParseException;
 //import static pt.uc.dei.ipj.grupoa.entities.UserPlay_.music;
@@ -19,28 +22,30 @@ import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
  * @author alvaro
  */
 @ManagedBean(name = "SearchMusicBean")
-@SessionScoped
+@RequestScoped
 public class SearchMusicBean implements Serializable {
 
     /**
      * Creates a new instance of SearchMusic
      */
-    public SearchMusicBean() {
-    }
-
     @EJB
     private MusicFacade musicFacade;
 
     private String introducedText;
+    private List<Music> lstMusic;
 
-    public String showSpecificMusic() {
-        musicFacade.searchedMusic(introducedText);
-        return "searchmusic";
+    public SearchMusicBean() {
     }
 
     public String showMusicsAuthor() {
         //    musicFacade.searchedAuthor();
         return "searchMusic";
+    }
+
+    @PostConstruct
+    public void init() {
+        setLstMusic(musicFacade.searchedMusic(introducedText));
+        setLstMusic(musicFacade.searchedAuthor(introducedText));
     }
 
     public String getIntroducedText() {
@@ -50,4 +55,23 @@ public class SearchMusicBean implements Serializable {
     public void setIntroducedText(String introducedText) {
         this.introducedText = introducedText;
     }
+
+    public MusicFacade getMusicFacade() {
+        return musicFacade;
+    }
+
+    public void setMusicFacade(MusicFacade musicFacade) {
+        this.musicFacade = musicFacade;
+    }
+
+    public List<Music> getLstMusic() {
+        lstMusic = musicFacade.searchedMusic(introducedText);
+        lstMusic = musicFacade.searchedAuthor(introducedText);
+        return lstMusic;
+    }
+
+    public void setLstMusic(List<Music> lstMusic) {
+        this.lstMusic = lstMusic;
+    }
+
 }

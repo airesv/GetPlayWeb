@@ -44,7 +44,7 @@ public class CreateMusic implements Serializable {
 
     public String createNewMusic() throws IOException {
         musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), userlogin.getLoggedUser(), getFile());
-        return "main";
+        return "allmusic";
     }
 
     public UserPlayFacade getUp() {

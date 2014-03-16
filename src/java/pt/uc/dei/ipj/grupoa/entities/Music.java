@@ -30,15 +30,15 @@ import javax.validation.constraints.Size;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Music.findAll", query = "SELECT m FROM Music m order by m asc"),
-    @NamedQuery(name = "Music.findById", query = "SELECT m FROM Music m WHERE m.id = :Id"),
-    @NamedQuery(name = "Music.findByAlbumAsc", query = "SELECT m FROM Music m WHERE m.album = :Album order by m.album asc"),
-    @NamedQuery(name = "Music.findByAlbumDesc", query = "SELECT m FROM Music m WHERE m.album = :Album order by m.album desc"),
-    @NamedQuery(name = "Music.findByNameAsc", query = "SELECT m FROM Music m WHERE m.name = :Name order by m.name asc"),
-    @NamedQuery(name = "Music.findByNameDesc", query = "SELECT m FROM Music m WHERE m.name = :Name order by m.name desc"),
-    @NamedQuery(name = "Music.findByAuthorAsc", query = "SELECT m FROM Music m WHERE m.author = :Author order by m.author asc"),
-    @NamedQuery(name = "Music.findByAuthorDesc", query = "SELECT m FROM Music m WHERE m.author = :Author order by m.author desc"),
-    @NamedQuery(name = "Music.findByYearOfReleaseAsc", query = "SELECT m FROM Music m WHERE m.yearOfRelease = :YearOfRelease order by m.yearOfRelease asc"),
-    @NamedQuery(name = "Music.findByYearOfReleaseDesc", query = "SELECT m FROM Music m WHERE m.yearOfRelease = :YearOfRelease order by m.yearOfRelease desc")
+    @NamedQuery(name = "Music.findById", query = "SELECT m FROM Music m WHERE m.id = :id"),
+    @NamedQuery(name = "Music.findByAlbumAsc", query = "SELECT m FROM Music m WHERE m.album = :album order by m.album asc"),
+    @NamedQuery(name = "Music.findByAlbumDesc", query = "SELECT m FROM Music m WHERE m.album = :album order by m.album desc"),
+    @NamedQuery(name = "Music.findByName", query = "SELECT m FROM Music m WHERE m.name = :name"),
+    @NamedQuery(name = "Music.findByNameDesc", query = "SELECT m FROM Music m WHERE m.name = :name order by m.name desc"),
+    @NamedQuery(name = "Music.findByAuthorAsc", query = "SELECT m FROM Music m WHERE m.author = :author order by m.author asc"),
+    @NamedQuery(name = "Music.findByAuthorDesc", query = "SELECT m FROM Music m WHERE m.author = :author order by m.author desc"),
+    @NamedQuery(name = "Music.findByYearOfReleaseAsc", query = "SELECT m FROM Music m WHERE m.yearOfRelease = :yearOfRelease order by m.yearOfRelease asc"),
+    @NamedQuery(name = "Music.findByYearOfReleaseDesc", query = "SELECT m FROM Music m WHERE m.yearOfRelease = :yearOfRelease order by m.yearOfRelease desc")
 })
 public class Music implements Serializable {
 

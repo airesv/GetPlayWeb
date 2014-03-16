@@ -11,21 +11,23 @@
                 <img src="../webpages/soundpeq.png" width="149" height="120" alt=""/>
             </td>
             <td></td>
-             <td align="center" valign="middle" width="250" rowspan="3">
+            <td align="center" valign="middle" width="250" rowspan="3">
                 <img src="../webpages/soundpeqd.png" width="149" height="120" alt=""/>
             </td>
         </tr>
         <tr>
-        <td>
-            <div align="center" valign="buttom">
-                <input type="text" name="textfield" id="textfield" action="#{SearchMusicBean.introducedText}" />
-                <input type="submit" name="submit" id="submitMusic" value="Find by music" action="#{SearchMusicBean.showSpecificMusic()}" />
-                <input type="submit" name="submit" id="submitAuthor" value="Find by author" action="#{SearchMusicBean.showMusicsAuthor()}"/>
-            </div></td>
-            
+            <td>
+                <div align="center" valign="buttom">
+                    <h:form> 
+                        <h:inputText value="#{SearchMusicBean.introducedText}"  />
+                        <h:commandButton  value="Search by music" action="searchmusic" />
+                        <h:commandButton value="Search by author" action="searchmusic"/>
+                    </h:form>
+                </div></td>
+
         </tr>
 
-        <tr>
+<!--        <tr>
             <td><div align="center" valign="buttom" >
                     <table width="200">
                         <tr>
@@ -37,6 +39,6 @@
                     </table>
                 </div>
             </td>
-        </tr>
+        </tr>-->
     </table>
 </ui:composition>  

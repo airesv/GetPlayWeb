@@ -34,6 +34,11 @@ a:link:hover, a:visited:hover  {
 .rightalign{
    text-align: right
 }
+
+.centered-text{
+    text-align: center
+}
+
 .order-table{   
 	border-collapse:collapse;
 }

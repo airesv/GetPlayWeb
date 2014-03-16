@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.http.Part;
@@ -66,17 +67,17 @@ public class MusicFacade extends AbstractFacade<Music> {
     }
 
     public List<Music> searchedMusic(String name) {
-        if (name != null) {
-            return em.createNamedQuery("Music.findByNameAsc", Music.class).setParameter("name", name).getResultList();
-        } else {
-            return null;
-        }
+        Query query = em.createNamedQuery("Music.findByName", Music.class);
+        query.setParameter("name", name);
+        return query.getResultList();
+
     }
-    /* public List<Music> searchedAuthor(String author) {
-     Query query = em.createNamedQuery("Music.findByAuthorAsc", Music.class);
-     query.setParameter("author", author);
-     return query.getResultList();
-     }*/
+
+    public List<Music> searchedAuthor(String author) {
+        Query query = em.createNamedQuery("Music.findByAuthorAsc", Music.class);
+        query.setParameter("author", author);
+        return query.getResultList();
+    }
 
     // getters and setters for file1 and file2
     public void createMusic(int yearOfRelease, String name, String author, String album, String path, UserPlay up, Part file) throws IOException {
