@@ -66,6 +66,10 @@ public class SearchMusicBean implements Serializable {
 
     public List<Music> getLstMusic() {
         lstMusic = musicFacade.searchedMusic(introducedText);
+        return lstMusic;
+    }
+
+    public List<Music> getLstMusicByAuthor() {
         lstMusic = musicFacade.searchedAuthor(introducedText);
         return lstMusic;
     }
