@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 
 /**
@@ -18,7 +18,7 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
  * @author alvaro
  */
 @ManagedBean(name = "EditUser")
-@SessionScoped
+@RequestScoped
 public class EditUser implements Serializable {
 
     @ManagedProperty(value = "#{UserLogin}")

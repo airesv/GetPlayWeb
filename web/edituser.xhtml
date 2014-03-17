@@ -5,51 +5,33 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
-
         <ui:composition template="./main.xhtml">
-
-
             <ui:define name="content">
-                <ui:insert>
-                    
+                <td style="vertical-align: middle;">
+                    <h2 style="position:relative;left: 15%;">Edit User</h2>
+                </td>
                 <h:form> 
-
-                        <h2>Please, edit:</h2>
-                        <table width="250" border="0" cellspacing="0" cellpadding="2">
-                            <tbody>
-                                <tr>
-                                    <td><h:outputText value="Name : "/></td>
-                                    <td><h:inputText value="#{EditUser.name}" required="true"/></td>
-                                </tr>
-                                <tr>
-                                    <td><h:outputText value="Email : "/></td>
-                                    <td><h:inputText value="#{EditUser.email}"/></td>
-                                </tr>
-                                <tr>
-                                    <td><h:outputText value="Password : "/></td>
-                                    <td><h:inputSecret value="#{EditUser.password}"/></td>
-                                </tr>
-                                <tr>
-                                    <td><h:outputText value="Confirm Password : "/></td>
-                                    <td><h:inputSecret value="#{EditUser.confirmPassword}" required="true"/></td>
-                                </tr>
-                                <tr>
-
-                                    <td><h:commandButton value="Confirm" action="#{EditUser.insertEditUser()}" /></td>
-                                    <td><h:commandButton value="Cancel" immediate="true" action="main" /></td>
-                                    <td><h:commandButton value="Remove Account"  action="index" /></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><h:outputText value="#{EditUser.message}"/></td>                                       
-                                </tr>
-                            </tbody>
-                        </table>
-                    </h:form> 
-                </ui:insert>
-            
-     </ui:define>
-
+                    <h:panelGrid columns="3" columnClasses="rightalign" cellpadding="0" cellspacing="2">
+                        <h:outputLabel value="Name : " for="NameUser" />
+                        <h:inputText label="Name of User" id="NameUser" value="#{EditUser.name}" required="true"/>
+                        <h:message for="NameUser"/>
+                        <h:outputLabel value="Email: " for="EmailUser" />
+                        <h:inputText label="Email of user" id="EmailUser" value="#{EditUser.email}" required="true"/>
+                        <h:message for="EmailUser"/>
+                        <h:outputLabel value="Password : " for="PasswordUser"/>
+                        <h:inputSecret  label="Password" id="PasswordUser" value="#{EditUser.password}" required="true"/>
+                        <h:message for="PasswordUser"/>
+                        <h:outputLabel value="Confirm Password: " for="ConfirmPassword"/>
+                        <h:inputSecret label="Confirm Password" id="ConfirmPassword" value="#{EditUser.confirmPassword}" required="true"/>
+                        <h:message for="ConfirmPassword"/>
+                        <h:commandButton value="Confirm" action="#{EditUser.insertEditUser()}" />
+                        <h:commandButton value="Cancel" immediate="true" action="main" />
+                        <h:commandButton value="Remove Account"  action="index" />
+                        <h:outputText value="#{EditUser.message}"/>                                      
+                    </h:panelGrid> 
+                </h:form> 
+            </ui:define>
         </ui:composition>
-
     </body>
 </html>
+
