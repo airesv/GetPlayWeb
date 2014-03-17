@@ -8,8 +8,8 @@ package pt.uc.dei.ipj.grupoa.manager;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.ejb.Stateful;
+import javax.inject.Named;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 
@@ -17,13 +17,12 @@ import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
  *
  * @author alvaro
  */
-@ManagedBean(name = "AllMusic")
-@RequestScoped
+@Named("AllMusic")
+@Stateful
 public class AllMusic {
 
     @EJB
     private MusicFacade musicFacade;
-
     private List<Music> lstMusic;
 
     /**
