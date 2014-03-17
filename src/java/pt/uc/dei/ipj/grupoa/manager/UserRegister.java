@@ -10,8 +10,6 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,6 +32,22 @@ public class UserRegister implements Serializable {
      */
     public UserRegister() {
         message = "";
+    }
+
+    public String verification() {
+        if (userPlayFacade.existsUser(getUseremail())) {
+            message = "This user already exists!";
+            return "register";
+        }
+        if (!password.equals(confirmPassword)) {
+            message = "Passwords do not match";
+            return "register";
+        } else {
+            userPlayFacade.createUser(getName(), getUseremail(), getPassword());
+            message = "Successfully inserted";
+            return "register";
+
+        }
     }
 
     /**
@@ -136,20 +150,4 @@ public class UserRegister implements Serializable {
      *
      * @return
      */
-    public String verification() {
-        if (userPlayFacade.existsUser(getUseremail())) {
-            message = "This user already exists!";
-            return "register";
-        }
-        if (!password.equals(confirmPassword)) {
-            message = "Passwords do not match";
-            return "register";
-        } else {
-            userPlayFacade.createUser(getName(), getUseremail(), getPassword());
-            message = "Successfully inserted";
-            return "register";
-
-        }
-    }
-
 }

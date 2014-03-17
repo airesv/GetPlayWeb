@@ -14,6 +14,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class RandomName {
+
+    public RandomName() {
+    }
     
     public String getRandomName(int numchars) {
         char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();

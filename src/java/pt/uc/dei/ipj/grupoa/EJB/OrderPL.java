@@ -16,31 +16,31 @@ import pt.uc.dei.ipj.grupoa.entities.Playlist;
  * @author Aires
  */
 @Stateless
-public class OrdenaPL {
+public class OrderPL {
 
     private List<Playlist> lstPL;
-
-    public List<Playlist> ordena(List<Playlist> lista, boolean asc) {
+    
+    public List<Playlist> order(List<Playlist> list, boolean asc) {
 
         if (asc) {
-            Collections.sort(lista, new Comparator<Playlist>() {
+            Collections.sort(list, new Comparator<Playlist>() {
                 @Override
                 public int compare(Playlist o1, Playlist o2) {
                     return o1.getNamePlaylist().compareTo(o2.getNamePlaylist());
                 }
             });
 
-            return lista;
+            return list;
         } else {
 
-            Collections.sort(lista, new Comparator<Playlist>() {
+            Collections.sort(list, new Comparator<Playlist>() {
                 @Override
                 public int compare(Playlist o1, Playlist o2) {
                     return o2.getNamePlaylist().compareTo(o1.getNamePlaylist());
                 }
             });
 
-            return lista;
+            return list;
 
         }
 

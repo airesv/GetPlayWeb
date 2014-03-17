@@ -15,7 +15,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import pt.uc.dei.ipj.grupoa.entities.Music;
-import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 
@@ -27,18 +26,16 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 @SessionScoped
 public class EditMusic implements Serializable {
 
-    @EJB
-    private UserPlayFacade up;
-
-    @EJB
-    private MusicFacade musicFacade;
-
-    @ManagedProperty(value = "#{UserLogin}")
-    private UserLogin userlogin;
-
     private static final long serialVersionUID = 1L;
 
-    DataModel<Music> musicsLoggedInUser;
+    @EJB
+    private UserPlayFacade up;
+    @EJB
+    private MusicFacade musicFacade;
+    @ManagedProperty(value = "#{UserLogin}")
+    private UserLogin userlogin;
+    DataModel<Music> musicsLoggedInUser;   
+    private Music selectedMusic;
 
     @PostConstruct
     public void init() {
@@ -46,26 +43,20 @@ public class EditMusic implements Serializable {
         musicsLoggedInUser = new CollectionDataModel<>(musicList);
     }
 
-    public DataModel<Music> getMusicsLoggedInUser() {
-        return musicsLoggedInUser;
-    }
-
-    private Music selectedMusic;
-
     public String saveMusic() {
         musicFacade.edit(selectedMusic);
         return "editmusic";
     }
 
-
-    public String removeMusic() {      
+    public String removeMusic() {
         musicFacade.remove(selectedMusic);
         return "editmusic";
     }
 
-   
-    
-    
+    public DataModel<Music> getMusicsLoggedInUser() {
+        return musicsLoggedInUser;
+    }
+
     public MusicFacade getMusicFacade() {
         return musicFacade;
     }

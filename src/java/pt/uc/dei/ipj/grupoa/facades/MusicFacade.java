@@ -13,11 +13,9 @@ import javax.ejb.EJB;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.http.Part;
-import pt.uc.dei.ipj.grupoa.EJB.RandomName;
 import pt.uc.dei.ipj.grupoa.EJB.UploadBean;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
@@ -30,30 +28,19 @@ import pt.uc.dei.ipj.grupoa.manager.CreateMusic;
 @Stateless
 public class MusicFacade extends AbstractFacade<Music> {
 
-    @EJB
-    private RandomName randomName;
-
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
 
     @EJB
     private UploadBean uploadBean;
 
-    private long id;
+    
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    private boolean editable;
-
-    public boolean isEditable() {
-        return editable;
-    }
-
-    public void setEditable(boolean editable) {
-        this.editable = editable;
-    }
+  
 
     public List<Music> listOfAllMusics() {
         Query query = em.createNamedQuery("Music.findAll", Music.class);
@@ -82,7 +69,6 @@ public class MusicFacade extends AbstractFacade<Music> {
     // getters and setters for file1 and file2
     public void createMusic(int yearOfRelease, String name, String author, String album, String path, UserPlay up, Part file) throws IOException {
         Music music = new Music();
-
         //Possible exception when trying to upload a music
         try {
             uploadBean.upload(file);

@@ -30,13 +30,7 @@ public class UserLogin implements Serializable {
 
     private String useremail = "jo@gmail.com";
     private String password = "12";
-    private String name;
-
     private String erro;
-    private long id;
-
-    @EJB
-    private EncryptPassword encryptPassword;
 
     /**
      *
@@ -83,18 +77,7 @@ public class UserLogin implements Serializable {
      *
      * @return
      */
-    public String getName() {
-        return loggedUser.getName();
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEncryptPassword(EncryptPassword encryptPassword) {
-        this.encryptPassword = encryptPassword;
-    }
-
+ 
     /**
      *
      * @return

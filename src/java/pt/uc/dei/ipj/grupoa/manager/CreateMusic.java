@@ -25,10 +25,8 @@ public class CreateMusic implements Serializable {
 
     @EJB
     private UserPlayFacade up;
-
     @EJB
     private MusicFacade musicFacade;
-
     @ManagedProperty(value = "#{UserLogin}")
     private UserLogin userlogin;
 

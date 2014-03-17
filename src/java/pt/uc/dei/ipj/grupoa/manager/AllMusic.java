@@ -33,10 +33,6 @@ public class AllMusic {
 
     }
 
-    public MusicFacade getMusicFacade() {
-        return musicFacade;
-    }
-
     @PostConstruct
     public void init() {
         setLstMusic(musicFacade.listOfAllMusics());
@@ -48,6 +44,10 @@ public class AllMusic {
 
     public void setLstMusic(List<Music> lstMusic) {
         this.lstMusic = lstMusic;
+    }
+
+    public MusicFacade getMusicFacade() {
+        return musicFacade;
     }
 
 }

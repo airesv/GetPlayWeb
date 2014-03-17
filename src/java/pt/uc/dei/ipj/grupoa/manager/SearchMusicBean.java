@@ -12,9 +12,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import pt.uc.dei.ipj.grupoa.entities.Music;
-//import org.josql.QueryExecutionException;
-//import org.josql.QueryParseException;
-//import static pt.uc.dei.ipj.grupoa.entities.UserPlay_.music;
+
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 
 /**
@@ -30,18 +28,13 @@ public class SearchMusicBean implements Serializable {
      */
     @EJB
     private MusicFacade musicFacade;
-
     private String introducedText;
     private List<Music> lstMusic;
 
     public SearchMusicBean() {
     }
 
-    public String showMusicsAuthor() {
-        //    musicFacade.searchedAuthor();
-        return "searchMusic";
-    }
-
+  
     @PostConstruct
     public void init() {
         setLstMusic(musicFacade.searchedMusic(introducedText));

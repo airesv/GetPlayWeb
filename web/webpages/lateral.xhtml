@@ -8,9 +8,9 @@
         <p class="cxbox">User</p>
         <h:form>
             <h:panelGrid columns="2" cellpadding="0" cellspacing="1" >
-                <h:outputText value="#{MainBean.name}"/>
+                <h:outputText value="#{UserLogin.loggedUser.name}"/>
                 <h:commandButton value="Edit" action="edituser" styleClass="btn_user"/> 
-                <h:outputText value="#{MainBean.email}"/>
+                <h:outputText value="#{UserLogin.loggedUser.email}"/>
                 <h:commandButton value="Logout" action="#{UserLogin.logout()}" styleClass="btn_user"/> 
 
             </h:panelGrid>
@@ -27,9 +27,9 @@
 
                         <h:form>
                             <h:panelGrid columns="2" cellpadding="0" cellspacing="1" >
-                                <h:outputText value="#{MainBean.name}"/>
+                                <h:outputText value="#{UserLogin.loggedUser.name}"/>
                                 <h:commandButton value="Edit" action="edituser" styleClass="btn_user"/> 
-                                <h:outputText value="#{MainBean.email}"/>
+                                <h:outputText value="#{UserLogin.loggedUser.email}"/>
                                 <h:commandButton value="Logout" action="#{UserLogin.logout()}" styleClass="btn_user"/> 
                             </h:panelGrid>
                         </h:form>  
@@ -75,11 +75,11 @@
 
                 <f:view>
                     <h:form>
-                        <h:dataTable value="#{PLTable.tabela}" var="item">
+                        <h:dataTable value="#{PLTable.table}" var="item">
                            
                             <h:column>
                                 <f:facet name="header">
-                                    <h:commandLink action="#{PLTable.ordenaBYName()}"> 
+                                    <h:commandLink action="#{PLTable.orderByName()}"> 
                                     <h:outputText value="NamePlaylist"/>
                                     </h:commandLink>
                                 </f:facet>

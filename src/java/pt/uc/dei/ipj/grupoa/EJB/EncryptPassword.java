@@ -21,6 +21,9 @@ public class EncryptPassword {
 
    private static MessageDigest md;
 
+    public EncryptPassword() {
+    }
+
     /**
      *
      * @param pass
