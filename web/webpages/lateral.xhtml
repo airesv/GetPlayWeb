@@ -8,9 +8,9 @@
         <p class="cxbox">User</p>
         <h:form>
             <h:panelGrid columns="2" cellpadding="0" cellspacing="1" >
-                <h:outputText value="#{UserLogin.loggedUser.name}"/>
+                <h:outputText value="#{UserLogin.userlogged.nameUserLogged}"/>
                 <h:commandButton value="Edit" action="edituser" styleClass="btn_user"/> 
-                <h:outputText value="#{UserLogin.loggedUser.email}"/>
+                <h:outputText value="#{userlogged.nameUserLogged}"/>
                 <h:commandButton value="Logout" action="#{UserLogin.logout()}" styleClass="btn_user"/> 
 
             </h:panelGrid>
