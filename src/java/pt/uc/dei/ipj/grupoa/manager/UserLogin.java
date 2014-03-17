@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,92 +6,44 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
-import pt.uc.dei.ipj.grupoa.EJB.EncryptPassword;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import pt.uc.dei.ipj.grupoa.EJB.UserLogged;
 
 /**
  *
  * @author Aires
  */
-@ManagedBean(name = "UserLogin")
+//@ManagedBean(name = "UserLogin")
+@Named("UserLogin")
 @SessionScoped
 public class UserLogin implements Serializable {
 
     @EJB
     private UserPlayFacade userPlayFacade;
 
+    @Inject
+    private UserLogged userlogged;
+    
     private UserPlay loggedUser;
 
     private String useremail = "jo@gmail.com";
     private String password = "12";
     private String erro;
 
-    /**
-     *
-     */
+    
     public UserLogin() {
         erro = "";
 
     }
-
-    /**
-     *
-     * @return
-     */
-    public String getUseremail() {
-        return useremail;
-    }
-
-    /**
-     *
-     * @param useremail
-     */
-    public void setUseremail(String useremail) {
-        this.useremail = useremail;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     *
-     * @param password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    ////////////////////////
-    /**
-     *
-     * @return
-     */
- 
-    /**
-     *
-     * @return
-     */
-    public long getId() {
-        return loggedUser.getId();
-    }
-
-///////////////////////
-    /**
-     *
-     * @return
-     */
+    
     public String verification() {
         UserPlay user = userPlayFacade.getUser(useremail);
 
@@ -98,42 +51,67 @@ public class UserLogin implements Serializable {
             setErro("Este Email não está na BD");
             return "index";
         } else if (userPlayFacade.authValidation(getPassword(), user)) {
-            this.loggedUser = user;
+           this.loggedUser = user;
+           userlogged.setNameUserLogged(user.getName());
+            //userlogged.setUserlogged(user);
             return "main";
         } else {
             setErro("Password mal inserida");
             return "index";
         }
     }
+    
+    
+    
+    
+    public String getUseremail() {
+        return useremail;
+    }
 
-    /**
-     * @return the erro
-     */
+    
+    public void setUseremail(String useremail) {
+        this.useremail = useremail;
+    }
+
+    
+    public String getPassword() {
+        return password;
+    }
+
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
+  public long getId() {
+        
+        return loggedUser.getId();
+    }
+
+  
     public String getErro() {
         return erro;
     }
 
-    /**
-     * @param erro the erro to set
-     */
+   
     public void setErro(String erro) {
         this.erro = erro;
     }
 
-    /**
-     *
-     * @return
-     */
     public UserPlay getLoggedUser() {
         return loggedUser;
     }
 
-    /**
-     *
-     * @param loggedUser
-     */
+    
     public void setLoggedUser(UserPlay loggedUser) {
         this.loggedUser = loggedUser;
+    }
+
+    public UserLogged getUserlogged() {
+        return userlogged;
+    }
+
+    public void setUserlogged(UserLogged userlogged) {
+        this.userlogged = userlogged;
     }
 
     /**
