@@ -13,7 +13,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.Part;
-import pt.uc.dei.ipj.grupoa.EJB.UserLogged;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 
 /**
@@ -31,8 +30,7 @@ public class CreateMusic implements Serializable {
     //@ManagedProperty(value = "#{UserLogin}")
     private UserLogin userlogin;
     
-    @Inject
-    private UserLogged userlogged;
+
 
     private int yearOfRelease=1920;
     private String nameMusic;
@@ -46,7 +44,7 @@ public class CreateMusic implements Serializable {
 
     public String createNewMusic() throws IOException {
        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), userlogin.getLoggedUser(), getFile());
-         musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), userlogged.getNameUserLogged(), getFile());
+       //  musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), userlogged.getNameUserLogged(), getFile());
         return "allmusic";
     }
 

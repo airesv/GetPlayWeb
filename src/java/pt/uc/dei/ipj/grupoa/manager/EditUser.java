@@ -8,24 +8,27 @@ package pt.uc.dei.ipj.grupoa.manager;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 
 /**
  *
  * @author alvaro
  */
-@ManagedBean(name = "EditUser")
+@Named("EditUser")
 @SessionScoped
 public class EditUser implements Serializable {
 
-    @ManagedProperty(value = "#{UserLogin}")
-    private UserLogin userlogin;
+    @Inject
+    private UserLogin ul;
 
     @EJB
     private UserPlayFacade userPlayFacade;
+
+    
 
     private String message;
     private String confirmPassword;
@@ -41,23 +44,27 @@ public class EditUser implements Serializable {
     @PostConstruct
     public void init() {
         message = "";
-        id = userlogin.getLoggedUser().getId();
-        name = userlogin.getLoggedUser().getName();
-        email = userlogin.getLoggedUser().getEmail();
+        id = ul.getIdUser();
+        name = ul.getName();
+        email = ul.getUseremail();
 
     }
 
     public String insertEditUser() {
         if (password.equals(confirmPassword)) {
-            message = userPlayFacade.editnewUser(getId(), getName(), getEmail(), getPassword(), userlogin.getLoggedUser());
+            message = userPlayFacade.editnewUser(getId(), getName(), getEmail(), getPassword(), ul.getUseremail());
         } else {
             message = "Password doesn´t match";
         }
         return "edituser";
     }
 
-    public UserLogin getUserlogin() {
-        return userlogin;
+   public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -68,9 +75,7 @@ public class EditUser implements Serializable {
         this.email = email;
     }
 
-    public void setUserlogin(UserLogin userlogin) {
-        this.userlogin = userlogin;
-    }
+   
 
     public String getMessage() {
         return message;
@@ -112,7 +117,5 @@ public class EditUser implements Serializable {
         this.password = password;
     }
 
-    public long getId() {
-        return userlogin.getId();
-    }
+   
 }

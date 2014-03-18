@@ -19,28 +19,28 @@
                             <tbody>
                                 <tr>
                                     <td><h:outputText value="Name : "/></td>
-                                    <td><h:inputText value="#{EditUser.name}" required="true"/></td>
+                                    <td><h:inputText value="#{userLogin.name}" required="true"/></td>
                                 </tr>
                                 <tr>
                                     <td><h:outputText value="Email : "/></td>
-                                    <td><h:inputText value="#{EditUser.email}"/></td>
+                                    <td><h:inputText value="#{userLogin.email}"/></td>
                                 </tr>
                                 <tr>
                                     <td><h:outputText value="Password : "/></td>
-                                    <td><h:inputSecret value="#{EditUser.password}"/></td>
+                                    <td><h:inputSecret value="#{userLogin.password}"/></td>
                                 </tr>
                                 <tr>
                                     <td><h:outputText value="Confirm Password : "/></td>
-                                    <td><h:inputSecret value="#{EditUser.confirmPassword}" required="true"/></td>
+                                    <td><h:inputSecret value="#{userLogin.confirmPassword}" required="true"/></td>
                                 </tr>
                                 <tr>
 
-                                    <td><h:commandButton value="Confirm" action="#{EditUser.insertEditUser()}" /></td>
+                                    <td><h:commandButton value="Confirm" action="#{userLogin.insertEditUser()}" /></td>
                                     <td><h:commandButton value="Cancel" immediate="true" action="main" /></td>
                                     <td><h:commandButton value="Remove Account"  action="index" /></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"><h:outputText value="#{EditUser.message}"/></td>                                       
+                                    <td colspan="2"><h:outputText value="#{userLogin.message}"/></td>                                       
                                 </tr>
                             </tbody>
                         </table>
