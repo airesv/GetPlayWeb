@@ -69,7 +69,7 @@ public class EditMusic implements Serializable {
    
 
     public String createNewMusic() throws IOException {
-        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), upf.getUser(userLogin.getUserlogged().getEmailUserLogged()), getFile());
+       // musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), upf.getUser(userLogin.getUserlogged().getEmailUserLogged()), getFile());
         return "allmusic";
     }
 
