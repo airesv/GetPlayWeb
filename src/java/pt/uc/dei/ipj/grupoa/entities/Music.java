@@ -29,7 +29,7 @@ import javax.validation.constraints.Size;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Music.findAll", query = "SELECT m FROM Music m order by m asc"),
-    @NamedQuery(name = "Music.findById", query = "SELECT m FROM Music m WHERE m.id = :User"),
+    @NamedQuery(name = "Music.findById", query = "SELECT m FROM Music m, UserPlay u WHERE u.id = :id"),
     @NamedQuery(name = "Music.findByAlbumAsc", query = "SELECT m FROM Music m WHERE m.album = :album order by m.album asc"),
     @NamedQuery(name = "Music.findByAlbumDesc", query = "SELECT m FROM Music m WHERE m.album = :album order by m.album desc"),
     @NamedQuery(name = "Music.findByName", query = "SELECT m FROM Music m WHERE m.name = :name"),

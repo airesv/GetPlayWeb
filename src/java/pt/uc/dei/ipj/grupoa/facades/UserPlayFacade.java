@@ -12,11 +12,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import pt.uc.dei.ipj.grupoa.entities.Music;
 
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
-
-
 
 @Stateless
 public class UserPlayFacade extends AbstractFacade<UserPlay> {
@@ -24,12 +23,10 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
 
-
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-   
 
     @EJB
     private EncryptPassword encryptPassword;
@@ -67,8 +64,8 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     }
 
     public void editUser(long id, String name, String email, String Password) {
-    //procurar o utilizador 
-        UserPlay up = em.find(UserPlay.class, id);    
+        //procurar o utilizador 
+        UserPlay up = em.find(UserPlay.class, id);
 
         up.setName(name);
         up.setEmail(email);
@@ -107,28 +104,32 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     public UserPlay getUser(String email) {
         Query query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
         query.setParameter("email", email);
-        
+
         try {
             return (UserPlay) query.getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
-        
+    }
+
+    public List<Music> removeUser(Long id, List<Music> musics, List<Playlist> playlists) {
+        //ir buscar todas as musicas do utlizador logado       
+        Query query = em.createNamedQuery("Music.findById", Music.class);
+        query.setParameter("id", id);
+        em.remove(query);
+        return query.getResultList();
         
         
         
     }
 
     public List<Playlist> lstPlaylist(Long id) {
-        UserPlay up = em.find(UserPlay.class, id);   
+        UserPlay up = em.find(UserPlay.class, id);
         return up.getPlaylists();
     }
-    
-    public void editPlaylist(UserPlay up, Playlist pl){
-   
-        
-        
-        
+
+    public void editPlaylist(UserPlay up, Playlist pl) {
+
     }
 
 }

@@ -69,13 +69,13 @@ public class PLTable implements Serializable {
         setNamePL(pl.getNamePlaylist());
         return pl.getNamePlaylist();
     }
-
-    public void removePl() {
-        pl = (Playlist) table.getRowData();
-        plfacade.removePlaylist(pl, ul.getIdUser());
-        
-        //init();//recomeça
-    }
+//
+//    public void removePl() {
+//        pl = (Playlist) table.getRowData();
+//        plfacade.removePlaylist(pl, ul.getIdUser());
+//        
+//        //init();//recomeça
+//    }
 
     public String orderByName() {
         setLstplay(orderPL.order(lstplay, isAsc()));

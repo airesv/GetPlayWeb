@@ -55,16 +55,16 @@ public class PLManagement {
         //setLstMusic(pltable.getPlfacade().createListMusic(playlist));
     }
 
-    public void renamePlaylist() {
-        //mandar para o face 
-        boolean renamed = playlistfacade.changeNamePlaylist(ul.getIdUser(), pltable.getIdPlaylist(), getNamePL());
-        if (renamed) {
-            setMessage("Successfully changed");
-        } else {
-            setMessage("There is a Playlist with that name!");
-        }
-
-    }
+//    public void renamePlaylist() {
+//        //mandar para o face 
+//        boolean renamed = playlistfacade.changeNamePlaylist(ul.getIdUser(), pltable.getIdPlaylist(), getNamePL());
+//        if (renamed) {
+//            setMessage("Successfully changed");
+//        } else {
+//            setMessage("There is a Playlist with that name!");
+//        }
+//
+//    }
 
     public String insertMusPL() {
         return "musicainplay";

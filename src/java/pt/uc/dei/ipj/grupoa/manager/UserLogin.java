@@ -15,6 +15,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
+
 
 /**
  *
@@ -27,13 +29,13 @@ public class UserLogin implements Serializable {
 
     @EJB
     private UserPlayFacade userPlayFacade;
-
+ 
     private UserPlay loggedUser;
 
     private Long idUser;
     private String name;
-    private String useremail = "jo@gmail.com";
-    private String password = "12";
+    private String useremail;
+    private String password;
     private String erro;
 
     private String message;
@@ -85,6 +87,14 @@ public class UserLogin implements Serializable {
 
         }
     }
+     
+     public String deleteUser(){        
+         //userPlayFacade.remove(loggedUser);
+         
+         //userPlayFacade.removeUser(getIdUser(), loggedUser.getMusic(), loggedUser.getPlaylists());
+    userPlayFacade.removeUser(getIdUser(), loggedUser.getMusic(), loggedUser.getPlaylists());
+         return "index";
+     }
     
     
     

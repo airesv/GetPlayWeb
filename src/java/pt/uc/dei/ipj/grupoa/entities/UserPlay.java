@@ -192,6 +192,14 @@ public class UserPlay implements Serializable {
     public void removeMusicItem(Music m) {
        music.remove(m);
     }
+    
+    public void removeAllMusic(List<Music> m){
+        music.removeAll(m);
+    }
+    
+      public void removeAllPlayLists(List<Playlist> pl){
+        music.removeAll(pl);
+    }
    
 
     public void setMusicItem(Music m) {
