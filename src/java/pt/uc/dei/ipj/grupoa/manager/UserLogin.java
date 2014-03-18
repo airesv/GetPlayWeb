@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Aires
  */
-//@ManagedBean(name = "UserLogin")
+
 @Named("userLogin")
 @SessionScoped
 public class UserLogin implements Serializable {
