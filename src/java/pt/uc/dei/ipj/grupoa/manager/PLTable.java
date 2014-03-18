@@ -9,11 +9,11 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.RequestScoped;
+
 import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
+import javax.inject.Inject;
 import pt.uc.dei.ipj.grupoa.EJB.OrderPL;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
@@ -23,20 +23,22 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
  *
  * @author Aires
  */
-@ManagedBean(name = "PLTable")
-@SessionScoped
+@RequestScoped
 public class PLTable implements Serializable {
 
-    @ManagedProperty(value = "#{UserLogin}")
-    private UserLogin userlogin;
+    @Inject 
+    private UserLogin ul;
+    
     @EJB
     private UserPlayFacade userplayFacade;
+    
     @EJB
     private OrderPL orderPL;
+    
     @EJB
     private PlaylistFacade plfacade;
     private List<Playlist> lstplay;
-    DataModel<Playlist> table;
+    private DataModel<Playlist> table;
     private Playlist pl;
     private String namePL;
     private boolean asc;
@@ -50,7 +52,7 @@ public class PLTable implements Serializable {
     @PostConstruct
     public void init() {
         setAsc(false);
-        setLstplay(userplayFacade.lstPlaylist(userlogin.getLoggedUser()));
+        //setLstplay(userplayFacade.lstPlaylist(userlogin.getLoggedUser()));
         table = new CollectionDataModel<>(lstplay);
     }
 
@@ -64,7 +66,6 @@ public class PLTable implements Serializable {
 
     public void removePl() {
         pl = (Playlist) table.getRowData();
-        plfacade.removePlaylist(pl, userlogin.getLoggedUser());
         init();//recomeça
     }
 
@@ -74,20 +75,29 @@ public class PLTable implements Serializable {
         setAsc(!asc);
     }
 
-        ////Get and Setters////////////
-
-    /**
-     * @return the asc
-     */
-    public boolean isAsc() {
-        return asc;
+    ////Get and Setters////////////
+    public UserLogin getUl() {
+        return ul;
     }
 
-    /**
-     * @param asc the asc to set
-     */
-    public void setAsc(boolean asc) {
-        this.asc = asc;
+    public void setUl(UserLogin ul) {
+        this.ul = ul;
+    }
+
+    public UserPlayFacade getUserplayFacade() {
+        return userplayFacade;
+    }
+
+    public void setUserplayFacade(UserPlayFacade userplayFacade) {
+        this.userplayFacade = userplayFacade;
+    }
+
+    public OrderPL getOrderPL() {
+        return orderPL;
+    }
+
+    public void setOrderPL(OrderPL orderPL) {
+        this.orderPL = orderPL;
     }
 
     public PlaylistFacade getPlfacade() {
@@ -98,7 +108,22 @@ public class PLTable implements Serializable {
         this.plfacade = plfacade;
     }
 
-    ///////////////////////////Getter & Setters/////////////////////
+    public List<Playlist> getLstplay() {
+        return lstplay;
+    }
+
+    public void setLstplay(List<Playlist> lstplay) {
+        this.lstplay = lstplay;
+    }
+
+    public DataModel<Playlist> getTable() {
+        return table;
+    }
+
+    public void setTable(DataModel<Playlist> table) {
+        this.table = table;
+    }
+
     public Playlist getPl() {
         return pl;
     }
@@ -115,54 +140,13 @@ public class PLTable implements Serializable {
         this.namePL = namePL;
     }
 
-    public DataModel<Playlist> getTable() {
-        return table;
+    public boolean isAsc() {
+        return asc;
     }
 
-    public void setTable(DataModel<Playlist> table) {
-        this.table = table;
+    public void setAsc(boolean asc) {
+        this.asc = asc;
     }
-
-    /**
-     * @return the userlogin
-     */
-    public UserLogin getUserlogin() {
-        return userlogin;
-    }
-
-    /**
-     * @param userlogin the userlogin to set
-     */
-    public void setUserlogin(UserLogin userlogin) {
-        this.userlogin = userlogin;
-    }
-
-    /**
-     * @return the userplayFacade
-     */
-    public UserPlayFacade getUserplayFacade() {
-        return userplayFacade;
-    }
-
-    /**
-     * @param userplayFacade the userplayFacade to set
-     */
-    public void setUserplayFacade(UserPlayFacade userplayFacade) {
-        this.userplayFacade = userplayFacade;
-    }
-
-    /**
-     * @return the lstplay
-     */
-    public List<Playlist> getLstplay() {
-        return lstplay;
-    }
-
-    /**
-     * @param lstplay the lstplay to set
-     */
-    public void setLstplay(List<Playlist> lstplay) {
-        this.lstplay = lstplay;
-    }
-
+    
+    
 }
