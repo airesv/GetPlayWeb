@@ -67,7 +67,7 @@ public class PLManagement {
     }
 
     public String insertMusPL() {
-        return "musicainplay";
+        return "musicinplay";
     }
 
 ///////////////////Getters & Setter

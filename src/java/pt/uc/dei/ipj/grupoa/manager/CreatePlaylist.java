@@ -8,22 +8,24 @@ package pt.uc.dei.ipj.grupoa.manager;
 import java.io.Serializable;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author alvaro
  */
-@ManagedBean(name = "CreatePlaylist")
-@SessionScoped
+@Named("createPlaylist")
+@RequestScoped
 public class CreatePlaylist implements Serializable {
 
     @EJB
     private PlaylistFacade playlistFacade; 
-    @ManagedProperty(value = "#{UserLogin}")
-    private UserLogin userlogin;
+    
+    @Inject
+    private UserLogin ul;
+    
     private String namePlayL;
 
     /**
@@ -34,16 +36,16 @@ public class CreatePlaylist implements Serializable {
 
 
      public void createNewPlaylist() {
-        playlistFacade.createPlayList(getNamePlayL(), userlogin.getLoggedUser());
+        playlistFacade.createPlayList(getNamePlayL(),ul.getIdUser());
         
     }
 
     public UserLogin getUserlogin() {
-        return userlogin;
+        return ul;
     }
 
-    public void setUserlogin(UserLogin userlogin) {
-        this.userlogin = userlogin;
+    public void setUserlogin(UserLogin ul) {
+        this.ul = ul;
     }
 
     public PlaylistFacade getPlaylistFacade() {
