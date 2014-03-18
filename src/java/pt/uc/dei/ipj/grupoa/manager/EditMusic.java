@@ -10,9 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.inject.Inject;
@@ -27,10 +25,9 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
  * @author alvaro
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class EditMusic implements Serializable {
 
-    
     private List<Music> lstMusic;
     private static final long serialVersionUID = 1L;
     private int yearOfRelease;
@@ -39,6 +36,7 @@ public class EditMusic implements Serializable {
     private String album;
     private String pathSound;
     private Part file;
+
     @EJB
     private UserPlayFacade upf;
     @EJB
@@ -47,37 +45,36 @@ public class EditMusic implements Serializable {
     private UserLogin userLogin;
     DataModel<Music> musicsLoggedInUser;
     private Music selectedMusic;
-    @Inject
-    private Conversation conversation;
+//   @Inject
+//    private Conversation conversation;
 
     @PostConstruct
     public void init() {
+        setLstMusic(musicFacade.listOfAllMusics());
         List<Music> musicList = upf.getUser(userLogin.getLoggedUser().getEmail()).getMusic();
         musicsLoggedInUser = new CollectionDataModel<>(musicList);
-        setLstMusic(musicFacade.listOfAllMusics());
-        setSelectedMusic(selectedMusic);
+        
+//        if (conversation.isTransient()) {
+//            conversation.begin();
+//        }
     }
 
-    public void initConversation() {
-        if (!FacesContext.getCurrentInstance().isPostback()
-                && conversation.isTransient()) {
-
-            conversation.begin();
-        }
-    }
-
-   
-
+    /*  public void initConversation() {
+     if (!FacesContext.getCurrentInstance().isPostback()
+     && conversation.isTransient()) {
+     conversation.begin();
+            
+     }
+     }
+     public String endConversation() {
+     if (!conversation.isTransient()) {
+     conversation.end();
+     }
+     return "step1?faces-redirect=true";
+     }*/
     public String createNewMusic() throws IOException {
-       // musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), upf.getUser(userLogin.getUserlogged().getEmailUserLogged()), getFile());
+        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), userLogin.getIdUser(), getFile());
         return "allmusic";
-    }
-
-    public String endConversation() {
-        if (!conversation.isTransient()) {
-            conversation.end();
-        }
-        return "step1?faces-redirect=true";
     }
 
     public String editMusic() {
@@ -86,13 +83,18 @@ public class EditMusic implements Serializable {
     }
 
     public String removeMusic() {
-        endConversation();
-        musicFacade.remove(selectedMusic);
+        
+       musicFacade.removeMusic(selectedMusic, userLogin.getIdUser());
+        
+//        if (!conversation.isTransient()) {
+//            conversation.end();
+//        }
         return "editmusic";
     }
 
     public DataModel<Music> getMusicsLoggedInUser() {
-        return musicsLoggedInUser;
+        List<Music> musicList = upf.getUser(userLogin.getLoggedUser().getEmail()).getMusic();
+        return new CollectionDataModel<>(musicList);
     }
 
     public MusicFacade getMusicFacade() {
@@ -100,7 +102,11 @@ public class EditMusic implements Serializable {
     }
 
     public Music getSelectedMusic() {
-        initConversation();
+//        if(conversation.isTransient()){
+//            conversation.setTimeout(150000);
+//            conversation.begin();
+//        }
+//            
         return selectedMusic;
     }
 
@@ -180,21 +186,20 @@ public class EditMusic implements Serializable {
         this.userLogin = userLogin;
     }
 
-    public Conversation getConversation() {
-        return conversation;
-    }
-
-    public void setConversation(Conversation conversation) {
-        this.conversation = conversation;
-    }
+//    public Conversation getConversation() {
+//        return conversation;
+//    }
+//
+//    public void setConversation(Conversation conversation) {
+//        this.conversation = conversation;
+//    }
 
     public List<Music> getLstMusic() {
-        return lstMusic;
+        return musicFacade.listOfAllMusics();
     }
 
     public void setLstMusic(List<Music> lstMusic) {
         this.lstMusic = lstMusic;
     }
-    
 
 }

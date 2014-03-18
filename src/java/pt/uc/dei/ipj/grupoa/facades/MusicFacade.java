@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.http.Part;
@@ -63,10 +64,17 @@ public class MusicFacade extends AbstractFacade<Music> {
         query.setParameter("author", author);
         return query.getResultList();
     }
+    public void removeMusic(Music m, Long id) {
+        UserPlay up=em.find(UserPlay.class, id);
+        up.removeMusicItem(m);
+        remove(m);
+        em.flush();
+    }
     
 
     // getters and setters for file1 and file2
-    public void createMusic(int yearOfRelease, String name, String author, String album, String path, UserPlay up, Part file) throws IOException {
+    public void createMusic(int yearOfRelease, String name, String author, String album, String path, Long id, Part file) throws IOException {
+        UserPlay up=em.find(UserPlay.class, id);
         Music music = new Music();
         //Possible exception when trying to upload a music
         try {

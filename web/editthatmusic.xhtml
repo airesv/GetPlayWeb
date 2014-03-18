@@ -13,12 +13,11 @@
                     <h:form>
                         <h1><h:outputText value="Musics"/></h1>
 
-                        <h:dataTable value="#{EditMusic.selectedMusic}" var="item"
+                        <h:dataTable value="#{editMusic.selectedMusic}" var="item"
                                    >
                             <h:column>
                                 <f:facet name="header">Year of Release</f:facet>
-                                <h:inputText value="#{item.yearOfRelease}" />
-                              
+                                <h:inputText value="#{item.yearOfRelease}" />                        
                             </h:column>
                             <h:column>
                                 <f:facet name="header">Name of Music</f:facet>
@@ -27,16 +26,14 @@
                             <h:column>
                                 <f:facet name="header">Author</f:facet>
                                 <h:inputText value="#{item.author}" />
- 
                             </h:column>
                             <h:column>
                                 <f:facet name="header">Album</f:facet>
                                 <h:inputText value="#{item.album}"/>
-
                             </h:column>
                         </h:dataTable>
-                        <h:commandButton value="Edit Music" action="#{EditMusic.editMusic()}" />
-                        <h:commandButton value="Delete Music" action="#{EditMusic.removeMusic()}" />
+                        <h:commandButton value="Edit Music" action="#{editMusic.editMusic()}" />
+                        <h:commandButton value="Delete Music" action="#{editMusic.removeMusic()}" />
 
                     </h:form>
                 </f:view>
