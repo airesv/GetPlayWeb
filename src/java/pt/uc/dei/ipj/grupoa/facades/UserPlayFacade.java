@@ -16,20 +16,15 @@ import javax.persistence.Query;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 
-/**
- *
- * @author alvaro
- */
+
+
 @Stateless
 public class UserPlayFacade extends AbstractFacade<UserPlay> {
 
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
 
-    /**
-     *
-     * @return
-     */
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -71,35 +66,30 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         return (up != null);
     }
 
-    public void editUser(long id, String name, String email, String Password, UserPlay up) {
+    public void editUser(long id, String name, String email, String Password) {
+    //procurar o utilizador 
+        UserPlay up = em.find(UserPlay.class, id);    
 
-//        userlogin.setUseremail(email);
-//        userlogin.setName(name);
-//        userlogin.setPassword(encryptPassword.cryptWithMD5(Password));
         up.setName(name);
         up.setEmail(email);
         up.setPassword(encryptPassword.cryptWithMD5(Password));
         em.merge(up);
     }
 
-    public String editnewUser(long id, String name, String email, String Password, UserPlay up) {
-        //pesquisar pelo antigo utilizador
-        //Query query = em.createNamedQuery("UserPlay.findById", UserPlay.class);
-        //query.setParameter("id", id);
+    public String editnewUser(long id, String name, String email, String Password, String oldEmail) {
 
-        //UserPlay olduser = (UserPlay) query.getSingleResult();
-        //verifica. se há outo utilizador com o mesmo email
-        if (!up.getEmail().equals(email)) {
+        //verifica. se há outro utilizador com o mesmo email
+        if (!oldEmail.equals(email)) {
             //caso não exista outro user com o mesmo email
             if (!existsUser(email)) {
-                editUser(id, name, email, Password, up);
+                editUser(id, name, email, Password);//
                 return ("Sucesseful inserted");
             } else {
                 return ("Email: " + email + " is in Database ");
             }
         } else {
             // não há problema com o email.
-            editUser(id, name, email, Password, up);
+            editUser(id, name, email, Password);//
             return ("Sucesseful inserted");
         }
     }
