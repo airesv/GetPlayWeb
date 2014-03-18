@@ -8,10 +8,12 @@ import java.util.List;
 import pt.uc.dei.ipj.grupoa.EJB.EncryptPassword;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import pt.uc.dei.ipj.grupoa.EJB.UserLogged;
 
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
@@ -34,6 +36,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     protected EntityManager getEntityManager() {
         return em;
     }
+   
 
     @EJB
     private EncryptPassword encryptPassword;

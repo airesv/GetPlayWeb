@@ -8,7 +8,7 @@ package pt.uc.dei.ipj.grupoa.manager;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.ejb.Stateful;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
@@ -18,7 +18,7 @@ import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
  * @author alvaro
  */
 @Named("AllMusic")
-@Stateful
+@RequestScoped
 public class AllMusic {
 
     @EJB

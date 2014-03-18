@@ -19,7 +19,7 @@ import javax.servlet.http.Part;
 import pt.uc.dei.ipj.grupoa.EJB.UploadBean;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
-import pt.uc.dei.ipj.grupoa.manager.CreateMusic;
+import pt.uc.dei.ipj.grupoa.manager.EditMusic;
 
 /**
  *
@@ -32,9 +32,7 @@ public class MusicFacade extends AbstractFacade<Music> {
     private EntityManager em;
 
     @EJB
-    private UploadBean uploadBean;
-
-    
+    private UploadBean uploadBean;    
 
     @Override
     protected EntityManager getEntityManager() {
@@ -65,6 +63,7 @@ public class MusicFacade extends AbstractFacade<Music> {
         query.setParameter("author", author);
         return query.getResultList();
     }
+    
 
     // getters and setters for file1 and file2
     public void createMusic(int yearOfRelease, String name, String author, String album, String path, UserPlay up, Part file) throws IOException {
@@ -73,7 +72,7 @@ public class MusicFacade extends AbstractFacade<Music> {
         try {
             uploadBean.upload(file);
         } catch (IOException ex) {
-            Logger.getLogger(CreateMusic.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditMusic.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         music.setAlbum(album);

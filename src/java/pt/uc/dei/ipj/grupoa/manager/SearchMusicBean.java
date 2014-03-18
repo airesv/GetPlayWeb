@@ -9,8 +9,8 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
@@ -19,7 +19,7 @@ import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
  *
  * @author alvaro
  */
-@ManagedBean(name = "SearchMusicBean")
+@Named("SearchMusicBean")
 @RequestScoped
 public class SearchMusicBean implements Serializable {
 

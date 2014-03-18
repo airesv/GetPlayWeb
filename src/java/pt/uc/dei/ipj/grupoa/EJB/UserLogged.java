@@ -7,8 +7,6 @@ package pt.uc.dei.ipj.grupoa.EJB;
 
 
 import javax.ejb.Stateful;
-import javax.inject.Named;
-import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 
 /**
  *
@@ -44,10 +42,6 @@ public class UserLogged {
         this.nameUserLogged = nameUserLogged;
     }
 
-    public String getEmailUserLogged() {
-        return "1535131";
-    }
-
     public void setEmailUserLogged(String emailUserLogged) {
         this.emailUserLogged = emailUserLogged;
     }
@@ -60,4 +54,8 @@ public class UserLogged {
 //    public void setUserlogged(UserPlay userlogged) {
 //        this.userlogged = userlogged;
 //    }
+
+    public String getEmailUserLogged() {
+        return emailUserLogged;
+    }
 }
