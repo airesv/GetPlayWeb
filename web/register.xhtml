@@ -8,16 +8,16 @@
     </h:head>
     <h:body>
 
-       
-            <table  style="width: 100%;">
-                <tbody>
-                    <tr>
-                        <td height="100%"  align="center" valign="middle">
-                            <img src="image/sound.png"></img>
 
-                        </td>
-                        <td height="100%"  align="left" valign="middle">   
-                            <h:form> 
+        <table  style="width: 100%;">
+            <tbody>
+                <tr>
+                    <td height="100%"  align="center" valign="middle">
+                        <img src="image/sound.png"></img>
+
+                    </td>
+                    <td height="100%"  align="left" valign="middle">   
+                        <h:form> 
 
 
 
@@ -26,37 +26,37 @@
                                 <tbody>
                                     <tr>
                                         <td><h:outputText value="Name : "/></td>
-                                        <td><h:inputText value="#{UserRegister.name}" required="true"/></td>
+                                        <td><h:inputText value="#{userLogin.name}" required="true"/></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="E-Mail : "/></td>
-                                        <td><h:inputText value="#{UserRegister.useremail}" required="true"/></td>
+                                        <td><h:inputText value="#{userLogin.newUserEmail}" required="true"/></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="Password : "/></td>
-                                        <td><h:inputSecret value="#{UserRegister.password}" required="true"/></td>
+                                        <td><h:inputSecret value="#{userLogin.password}" required="true"/></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="Confirm Password : "/></td>
-                                        <td><h:inputSecret value="#{UserRegister.confirmPassword}" required="true"/></td>
+                                        <td><h:inputSecret value="#{userLogin.confirmPassword}" required="true"/></td>
                                     </tr>
                                     <tr>
-                                        
-                                        <td><h:commandButton value="Insert" action="#{UserRegister.verification()}" /></td>
+
+                                        <td><h:commandButton value="Insert" action="#{userLogin.insertNewUser()}" /></td>
                                         <td><h:commandButton value="Cancel" immediate="true" action="index" /></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2"><h:outputText value="#{UserRegister.message}"/></td>
-                                        
+                                        <td colspan="2"><h:outputText value="#{userLogin.message}"/></td>
+
                                     </tr>
                                 </tbody>
                             </table>
-                            </h:form> 
+                        </h:form> 
 
-                        </td>
-                    </tr>
-                </tbody>
-            </table> 
+                    </td>
+                </tr>
+            </tbody>
+        </table> 
 
 
     </h:body>

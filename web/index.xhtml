@@ -23,18 +23,18 @@
                                 <tbody>
                                     <tr>
                                         <td><h:outputText value="E-Mail : "/></td>
-                                        <td><h:inputText value="#{UserLogin.useremail}" required="false"/></td>
+                                        <td><h:inputText value="#{userLogin.useremail}" required="false"/></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="Password : "/></td>
-                                        <td><h:inputSecret value="#{UserLogin.password}" required="false"/></td>
+                                        <td><h:inputSecret value="#{userLogin.password}" required="false"/></td>
                                     </tr>
                                     <tr>
-                                        <td><h:commandButton value="Log in" action="#{UserLogin.verification()}" /></td>
+                                        <td><h:commandButton value="Log in" action="#{userLogin.verification()}" /></td>
                                         <td><h:commandButton value="Register" action="register"/></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2"><h:outputText value="#{UserLogin.erro}"/></td>
+                                        <td colspan="2"><h:outputText value="#{userLogin.erro}"/></td>
                                         
                                     </tr>
                                 </tbody>
