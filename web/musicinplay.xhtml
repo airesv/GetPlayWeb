@@ -12,9 +12,9 @@
             <ui:define name="content">
                 <f:view>
                     <h:form>
-                        <h1><h:outputText value="#{InsertMusicPL.namePL}"/></h1>
+                        <h1><h:outputText value="#{insertMusicPL.namePL}"/></h1>
                         <div class="datagrid">
-                            <h:dataTable value="#{InsertMusicPL.tableM}" var="item">
+                            <h:dataTable value="#{insertMusicPL.tableM}" var="item">
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Name"/>
@@ -44,7 +44,7 @@
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Action"/></f:facet>
-                                    <h:commandLink value="#{InsertMusicPL.message}" action="#{InsertMusicPL.addMusicToPlaylist()}"/>
+                                    <h:commandLink value="#{insertMusicPL.message}" action="#{insertMusicPL.addMusicToPlaylist()}"/>
                                 </h:column>
 
                             </h:dataTable></div>
