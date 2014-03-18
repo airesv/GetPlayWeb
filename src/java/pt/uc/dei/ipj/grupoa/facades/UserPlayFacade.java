@@ -113,9 +113,14 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         } catch (NoResultException e) {
             return null;
         }
+        
+        
+        
+        
     }
 
-    public List<Playlist> lstPlaylist(UserPlay up) {
+    public List<Playlist> lstPlaylist(Long id) {
+        UserPlay up = em.find(UserPlay.class, id);   
         return up.getPlaylists();
     }
     

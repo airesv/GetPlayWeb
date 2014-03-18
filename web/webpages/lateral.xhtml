@@ -75,11 +75,13 @@
 
                 <f:view>
                     <h:form>
-                        <h:dataTable value="#{PLTable.table}" var="item">
+                        <h:dataTable value="#{plTable.table}" var="item"
+                                   
+                                     >
                            
                             <h:column>
                                 <f:facet name="header">
-                                    <h:commandLink action="#{PLTable.orderByName()}"> 
+                                    <h:commandLink action="#{plTable.orderByName()}"> 
                                     <h:outputText value="NamePlaylist"/>
                                     </h:commandLink>
                                 </f:facet>
@@ -96,12 +98,12 @@
                              <h:column>
                            <f:facet name="header">
                                     <h:outputText value="Action"/></f:facet>
-                                <h:commandLink value="Edit" action="#{PLGestao.showPL()}"/>
+                                <h:commandLink value="Edit" action="#{plManagement.showPL()}"/>
                             </h:column> 
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Action"/></f:facet>
-                                <h:commandLink value="Remove" action="#{PLTable.removePl()}"/>
+                                <h:commandLink value="Remove" action="#{plTable.removePl()}"/>
                             </h:column>
                             
                             

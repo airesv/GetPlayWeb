@@ -14,6 +14,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.inject.Inject;
+import javax.inject.Named;
 import pt.uc.dei.ipj.grupoa.EJB.OrderPL;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
@@ -23,6 +24,7 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
  *
  * @author Aires
  */
+@Named("plTable")
 @RequestScoped
 public class PLTable implements Serializable {
 
@@ -37,11 +39,15 @@ public class PLTable implements Serializable {
     
     @EJB
     private PlaylistFacade plfacade;
+    
+    
+    
     private List<Playlist> lstplay;
     private DataModel<Playlist> table;
     private Playlist pl;
     private String namePL;
     private boolean asc;
+    private long idPlaylist;
 
     /**
      * Creates a new instance of PLTable
@@ -52,27 +58,30 @@ public class PLTable implements Serializable {
     @PostConstruct
     public void init() {
         setAsc(false);
-        //setLstplay(userplayFacade.lstPlaylist(userlogin.getLoggedUser()));
+        setLstplay(userplayFacade.lstPlaylist(ul.getIdUser()));
         table = new CollectionDataModel<>(lstplay);
     }
 
 ///////////////////////////////////////////////////////////////
     public String editPlaylist() {
         pl = (Playlist) table.getRowData();
-        //   System.out.println("Playlist é do " + pl.getUserOwner().getName() + " e chama-se " + pl.getNamePlaylist());
+        setIdPlaylist(pl.getId());
         setNamePL(pl.getNamePlaylist());
         return pl.getNamePlaylist();
     }
 
     public void removePl() {
         pl = (Playlist) table.getRowData();
-        init();//recomeça
+        plfacade.removePlaylist(pl, ul.getIdUser());
+        
+        //init();//recomeça
     }
 
-    public void orderByName() {
+    public String orderByName() {
         setLstplay(orderPL.order(lstplay, isAsc()));
         table = new CollectionDataModel<>(lstplay);
         setAsc(!asc);
+        return null;
     }
 
     ////Get and Setters////////////
@@ -146,6 +155,14 @@ public class PLTable implements Serializable {
 
     public void setAsc(boolean asc) {
         this.asc = asc;
+    }
+
+    public long getIdPlaylist() {
+        return idPlaylist;
+    }
+
+    public void setIdPlaylist(long idPlaylist) {
+        this.idPlaylist = idPlaylist;
     }
     
     

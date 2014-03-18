@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.uc.dei.ipj.grupoa.EJB;
+package pt.uc.dei.uc.grupoa.utils;
 
 import java.util.Calendar;
 import java.util.Date;
-import javax.ejb.Stateless;
+
 
 /**
  *
  * @author Aires
  */
-@Stateless
+
 public class TodayDate {
 
     private Date today;

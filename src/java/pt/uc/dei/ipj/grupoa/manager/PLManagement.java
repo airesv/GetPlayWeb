@@ -5,29 +5,34 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
-import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import pt.uc.dei.ipj.grupoa.entities.Music;
-import pt.uc.dei.ipj.grupoa.entities.Playlist;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 
 /**
  *
  * @author Aires
  */
-@ManagedBean(name = "PLManagement")
-@SessionScoped
+@Named("plManagement")
+@RequestScoped
 public class PLManagement {
 
-    @ManagedProperty(value = "#{PLTable}")
+    @Inject
     private PLTable pltable;
-    @ManagedProperty(value = "#{Userlogin}")
-    private UserLogin userlogin;
-    private List<Music> lstmusic;
-    private Playlist playlist;
+
+    @Inject
+    private UserLogin ul;
+
+    @EJB
+    private PlaylistFacade playlistfacade;
+
+    // private List<Music> lstmusic;
     private String namePL;
+
+    private String message;
 
     /**
      * Creates a new instance of PLGestao
@@ -43,15 +48,22 @@ public class PLManagement {
 
     @PostConstruct
     public void init() {
-        setPlaylist(pltable.getPl());
+       // setNamePL(pltable.editPlaylist());
+       // message = "";
+        //setPlaylist(pltable.getPl());
         //setNamePL(playlist.getNamePlaylist());
         //setLstMusic(pltable.getPlfacade().createListMusic(playlist));
     }
 
     public void renamePlaylist() {
-       //mudar o user
-        // userfacade.
-        //mudar o nomer na playlist
+        //mandar para o face 
+        boolean renamed = playlistfacade.changeNamePlaylist(ul.getIdUser(), pltable.getIdPlaylist(), getNamePL());
+        if (renamed) {
+            setMessage("Successfully changed");
+        } else {
+            setMessage("There is a Playlist with that name!");
+        }
+
     }
 
     public String insertMusPL() {
@@ -59,30 +71,6 @@ public class PLManagement {
     }
 
 ///////////////////Getters & Setter
-    public UserLogin getUserlogin() {
-        return userlogin;
-    }
-
-    public void setUserlogin(UserLogin userlogin) {
-        this.userlogin = userlogin;
-    }
-
-    public String getNamePL() {
-        return namePL;
-    }
-
-    public void setNamePL(String namePL) {
-        this.namePL = namePL;
-    }
-
-    public Playlist getPlaylist() {
-        return playlist;
-    }
-
-    public void setPlaylist(Playlist playlist) {
-        this.playlist = playlist;
-    }
-
     public PLTable getPltable() {
         return pltable;
     }
@@ -91,26 +79,43 @@ public class PLManagement {
         this.pltable = pltable;
     }
 
-    public List<Music> getLstMusic() {
-        return getLstmusic();
+    public UserLogin getUl() {
+        return ul;
     }
 
-    public void setLstMusic(List<Music> lstMusic) {
-        this.setLstmusic(lstMusic);
+    public void setUl(UserLogin ul) {
+        this.ul = ul;
     }
 
-    /**
-     * @return the lstmusic
-     */
-    public List<Music> getLstmusic() {
-        return lstmusic;
+//    public List<Music> getLstmusic() {
+//        return lstmusic;
+//    }
+//
+//    public void setLstmusic(List<Music> lstmusic) {
+//        this.lstmusic = lstmusic;
+//    }
+    public PlaylistFacade getPlaylistfacade() {
+        return playlistfacade;
     }
 
-    /**
-     * @param lstmusic the lstmusic to set
-     */
-    public void setLstmusic(List<Music> lstmusic) {
-        this.lstmusic = lstmusic;
+    public void setPlaylistfacade(PlaylistFacade playlistfacade) {
+        this.playlistfacade = playlistfacade;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getNamePL() {
+        return namePL;
+    }
+
+    public void setNamePL(String namePL) {
+        this.namePL = namePL;
     }
 
 }
