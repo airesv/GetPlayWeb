@@ -112,15 +112,18 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         }
     }
 
-    public List<Music> removeUser(Long id, List<Music> musics, List<Playlist> playlists) {
-        //ir buscar todas as musicas do utlizador logado       
-        Query query = em.createNamedQuery("Music.findById", Music.class);
-        query.setParameter("id", id);
-        em.remove(query);
-        return query.getResultList();
-        
-        
-        
+    public void removeUser(Long id/*, List<Music> musics, List<Playlist> playlists*/) {
+        UserPlay userOwner=new UserPlay();
+        userOwner = em.find(UserPlay.class, id);
+//        Query query = em.createNamedQuery("Music.findByOwner", Music.class);
+//        query.setParameter("userOwner", userOwner);
+        em.remove(userOwner.getMusic());
+
+//        Query query1 = em.createNamedQuery("UserPlay.findByName", UserPlay.class);
+//        query1.setParameter("name", userOwner.getName());
+        //ir buscar todas as musicas criadas pelo utilizador             
+//        em.remove(userOwner.getMusic());
+////        return query.getResultList();
     }
 
     public List<Playlist> lstPlaylist(Long id) {
