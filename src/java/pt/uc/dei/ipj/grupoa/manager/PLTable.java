@@ -35,21 +35,16 @@ public class PLTable implements Serializable {
     
     @EJB
     private UserPlayFacade userplayFacade;
-    
 
-    private OrderPL orderPL;
     
     @EJB
     private PlaylistFacade plfacade;
     
-    
-    
-    private List<Playlist> lstplay;
+
     private DataModel<Playlist> table;
+    private String namePlaylist;
     private Playlist pl;
-    private String namePL;
-    private boolean asc;
-    private long idPlaylist;
+
 
     /**
      * Creates a new instance of PLTable
@@ -59,30 +54,26 @@ public class PLTable implements Serializable {
 
     @PostConstruct
     public void init() {
-        setAsc(false);
-        setLstplay(userplayFacade.lstPlaylist(ud.getIdUser()));
-        table = new CollectionDataModel<>(lstplay);
+        table = new CollectionDataModel<>(ud.getLstPlaylist());
     }
 
 ///////////////////////////////////////////////////////////////
-    public String editPlaylist() {
+       
+    public String editPlaylist(){
         pl = (Playlist) table.getRowData();
-        setIdPlaylist(pl.getId());
-        setNamePL(pl.getNamePlaylist());
-        return pl.getNamePlaylist();
+        ud.setIdPlaylist(pl.getId());
+        this.setNamePlaylist(pl.getNamePlaylist());
+        return "viewpl";
     }
 
     public void removePl() {
         pl = (Playlist) table.getRowData();
         plfacade.removePlaylist(pl, ud.getIdUser());
-        
-        //init();//recomeça
+        //init()
     }
 
     public String orderByName() {
-        setLstplay(orderPL.order(lstplay, isAsc()));
-        table = new CollectionDataModel<>(lstplay);
-        setAsc(!asc);
+        table = new CollectionDataModel<>(ud.orderPlaylist());
         return null;
     }
 
@@ -104,28 +95,12 @@ public class PLTable implements Serializable {
         this.userplayFacade = userplayFacade;
     }
 
-    public OrderPL getOrderPL() {
-        return orderPL;
-    }
-
-    public void setOrderPL(OrderPL orderPL) {
-        this.orderPL = orderPL;
-    }
-
     public PlaylistFacade getPlfacade() {
         return plfacade;
     }
 
     public void setPlfacade(PlaylistFacade plfacade) {
         this.plfacade = plfacade;
-    }
-
-    public List<Playlist> getLstplay() {
-        return lstplay;
-    }
-
-    public void setLstplay(List<Playlist> lstplay) {
-        this.lstplay = lstplay;
     }
 
     public DataModel<Playlist> getTable() {
@@ -144,29 +119,14 @@ public class PLTable implements Serializable {
         this.pl = pl;
     }
 
-    public String getNamePL() {
-        return namePL;
+    public String getNamePlaylist() {
+        return namePlaylist;
     }
 
-    public void setNamePL(String namePL) {
-        this.namePL = namePL;
+    public void setNamePlaylist(String namePlaylist) {
+        this.namePlaylist = namePlaylist;
     }
 
-    public boolean isAsc() {
-        return asc;
-    }
-
-    public void setAsc(boolean asc) {
-        this.asc = asc;
-    }
-
-    public long getIdPlaylist() {
-        return idPlaylist;
-    }
-
-    public void setIdPlaylist(long idPlaylist) {
-        this.idPlaylist = idPlaylist;
-    }
     
     
 }

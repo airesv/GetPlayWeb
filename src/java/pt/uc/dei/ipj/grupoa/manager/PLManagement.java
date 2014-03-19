@@ -10,6 +10,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import pt.uc.dei.ipj.grupoa.EJB.UserData;
+import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 
 /**
@@ -21,15 +23,14 @@ import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 public class PLManagement {
 
     @Inject
-    private PLTable pltable;
-
-    @Inject
-    private UserLogin ul;
+    private UserData ud;
 
     @EJB
     private PlaylistFacade playlistfacade;
-
-    // private List<Music> lstmusic;
+    
+    private Playlist selectedPlaylist;
+    
+    
     private String namePL;
 
     private String message;
@@ -42,7 +43,7 @@ public class PLManagement {
     }
 
     public String showPL() {
-        setNamePL(pltable.editPlaylist());
+        //setNamePL(pltable.editPlaylist());
         return "viewpl";
     }
 
@@ -56,14 +57,14 @@ public class PLManagement {
     }
 
     public void renamePlaylist() {
-        //mandar para o face 
-        boolean renamed = playlistfacade.changeNamePlaylist(ul.getIdUser(), pltable.getIdPlaylist(), getNamePL());
-        if (renamed) {
-            setMessage("Successfully changed");
-        } else {
-            setMessage("There is a Playlist with that name!");
-        }
-        pltable.init();
+//        //mandar para o face 
+//       // boolean renamed = playlistfacade.changeNamePlaylist(ul.getIdUser(), pltable.getIdPlaylist(), getNamePL());
+//        if (renamed) {
+//            setMessage("Successfully changed");
+//        } else {
+//            setMessage("There is a Playlist with that name!");
+//        }
+//        pltable.init();
    }
 
     public String insertMusPL() {
@@ -71,21 +72,26 @@ public class PLManagement {
     }
 
 ///////////////////Getters & Setter
-    public PLTable getPltable() {
-        return pltable;
+   
+
+    public UserData getUd() {
+        return ud;
     }
 
-    public void setPltable(PLTable pltable) {
-        this.pltable = pltable;
+    public void setUd(UserData ud) {
+        this.ud = ud;
     }
 
-    public UserLogin getUl() {
-        return ul;
+    public Playlist getSelectedPlaylist() {
+        return selectedPlaylist;
     }
 
-    public void setUl(UserLogin ul) {
-        this.ul = ul;
+    public void setSelectedPlaylist(Playlist selectedPlaylist) {
+        this.selectedPlaylist = selectedPlaylist;
     }
+
+    
+   
 
 //    public List<Music> getLstmusic() {
 //        return lstmusic;

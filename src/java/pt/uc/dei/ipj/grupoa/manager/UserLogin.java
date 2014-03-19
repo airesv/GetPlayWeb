@@ -70,6 +70,7 @@ public class UserLogin implements Serializable {
 
             ud.setNameUser(user.getName());
             ud.setEmailUser(user.getEmail());
+            ud.loadPlaylist();
             return "main";
         } else {
             setErro("Password mal inserida");
