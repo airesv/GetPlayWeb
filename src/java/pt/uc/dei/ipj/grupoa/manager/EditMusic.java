@@ -45,33 +45,16 @@ public class EditMusic implements Serializable {
     private UserLogin userLogin;
     DataModel<Music> musicsLoggedInUser;
     private Music selectedMusic;
-//   @Inject
-//    private Conversation conversation;
+
 
     @PostConstruct
     public void init() {
         setLstMusic(musicFacade.listOfAllMusics());
         List<Music> musicList = upf.getUser(userLogin.getLoggedUser().getEmail()).getMusic();
         musicsLoggedInUser = new CollectionDataModel<>(musicList);
-        
-//        if (conversation.isTransient()) {
-//            conversation.begin();
-//        }
+
     }
 
-    /*  public void initConversation() {
-     if (!FacesContext.getCurrentInstance().isPostback()
-     && conversation.isTransient()) {
-     conversation.begin();
-            
-     }
-     }
-     public String endConversation() {
-     if (!conversation.isTransient()) {
-     conversation.end();
-     }
-     return "step1?faces-redirect=true";
-     }*/
     public String createNewMusic() throws IOException {
         musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), userLogin.getIdUser(), getFile());
         return "allmusic";
@@ -86,9 +69,6 @@ public class EditMusic implements Serializable {
         
        musicFacade.removeMusic(selectedMusic, userLogin.getIdUser());
         
-//        if (!conversation.isTransient()) {
-//            conversation.end();
-//        }
         return "editmusic";
     }
 
@@ -102,11 +82,6 @@ public class EditMusic implements Serializable {
     }
 
     public Music getSelectedMusic() {
-//        if(conversation.isTransient()){
-//            conversation.setTimeout(150000);
-//            conversation.begin();
-//        }
-//            
         return selectedMusic;
     }
 
@@ -185,14 +160,6 @@ public class EditMusic implements Serializable {
     public void setUserLogin(UserLogin userLogin) {
         this.userLogin = userLogin;
     }
-
-//    public Conversation getConversation() {
-//        return conversation;
-//    }
-//
-//    public void setConversation(Conversation conversation) {
-//        this.conversation = conversation;
-//    }
 
     public List<Music> getLstMusic() {
         return musicFacade.listOfAllMusics();

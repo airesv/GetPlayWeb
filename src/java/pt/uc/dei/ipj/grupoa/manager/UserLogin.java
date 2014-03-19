@@ -17,19 +17,17 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 
-
 /**
  *
  * @author Aires
  */
-
 @Named("userLogin")
 @SessionScoped
 public class UserLogin implements Serializable {
 
     @EJB
     private UserPlayFacade userPlayFacade;
- 
+
     private UserPlay loggedUser;
 
     private Long idUser;
@@ -42,7 +40,7 @@ public class UserLogin implements Serializable {
     private String confirmPassword;
     private String email;
     private String newUserEmail;
-
+    
     public UserLogin() {
 
     }
@@ -72,7 +70,7 @@ public class UserLogin implements Serializable {
         }
     }
 
-     public String insertNewUser() {
+    public String insertNewUser() {
         if (userPlayFacade.existsUser(getNewUserEmail())) {
             message = "This user already exists!";
             return "register";
@@ -87,17 +85,14 @@ public class UserLogin implements Serializable {
 
         }
     }
-     
-     public String deleteUser(){        
+
+    public String deleteUser() {
          //userPlayFacade.remove(loggedUser);
-         
-         //userPlayFacade.removeUser(getIdUser(), loggedUser.getMusic(), loggedUser.getPlaylists());
-    userPlayFacade.removeUser(getIdUser(), loggedUser.getMusic(), loggedUser.getPlaylists());
-         return "index";
-     }
-    
-    
-    
+        //userPlayFacade.removeUser(getIdUser(), loggedUser.getMusic(), loggedUser.getPlaylists());
+        userPlayFacade.removeUser(getIdUser());//, loggedUser.getMusic(), loggedUser.getPlaylists());
+        return "index";
+    }
+
     public String logout() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
@@ -124,8 +119,6 @@ public class UserLogin implements Serializable {
         this.newUserEmail = newUserEmail;
     }
 
-    
-    
     public Long getIdUser() {
         return idUser;
     }
