@@ -38,9 +38,9 @@
 
                         <h:column>
                             <f:facet name="header">Action</f:facet>
-                            <h:commandButton value="Edit" action="editthatmusic">
-                                <f:setPropertyActionListener target="#{editMusic.selectedMusic}" value="#{item}" />
-                            </h:commandButton>
+                            <h:commandLink value="Edit" action="#{editMusic.editMuusic()}" />
+<!--                                <f:setPropertyActionListener target=value="#{item}" />-->
+                           
  
                         </h:column>
                     </h:dataTable>

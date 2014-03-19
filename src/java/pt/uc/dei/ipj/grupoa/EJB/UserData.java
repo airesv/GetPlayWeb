@@ -11,6 +11,7 @@ import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
+import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 import pt.uc.dei.uc.grupoa.utils.OrderPL;
@@ -29,14 +30,18 @@ public class UserData {
     private String emailUser;
     private long idPlaylist;
     private long idMusic;
-    private List<Music> lstMusic;
+    private List<Music> lstAllMusic;
     private List<Playlist> lstPlaylist;
+    private List<Music> listUserMusic;
 
     @EJB
     private UserPlayFacade userplayFacade;
 
     @EJB
     private PlaylistFacade playlistFacade;
+    
+    @EJB
+    private MusicFacade musicfacade;
 
     private OrderPL orderPL;
     private boolean asc = Boolean.FALSE;
@@ -46,9 +51,13 @@ public class UserData {
     }
 
     public void loadMusic() {
-        setLstMusic(userplayFacade.lstMusicList(getIdUser()));
+        setLstAllMusic(musicfacade.listOfAllMusics());
     }
-
+    public void loadMusicsUser(){
+        setListUserMusic(userplayFacade.lstMusicList(getIdUser()));
+    }
+    
+  
     public List<Playlist> orderPlaylist() {
         orderPL = new OrderPL();
         setLstPlaylist(orderPL.order(getLstPlaylist(), isAsc()));
@@ -104,15 +113,14 @@ public class UserData {
         this.idMusic = idMusic;
     }
 
-    public List<Music> getLstMusic() {
-
-        return lstMusic;
+    public List<Music> getLstAllMusic() {
+        return lstAllMusic;
     }
 
-    public void setLstMusic(List<Music> lstMusic) {
-        this.lstMusic = lstMusic;
+    public void setLstAllMusic(List<Music> lstAllMusic) {
+        this.lstAllMusic = lstAllMusic;
     }
-
+  
     public List<Playlist> getLstPlaylist() {
 
         return lstPlaylist;
@@ -121,5 +129,16 @@ public class UserData {
     public void setLstPlaylist(List<Playlist> lstPlaylist) {
         this.lstPlaylist = lstPlaylist;
     }
+    
+    public List<Music> getListUserMusic() {
+        return listUserMusic;
+    }
+
+    public void setListUserMusic(List<Music> listUserMusic) {
+        this.listUserMusic = listUserMusic;
+    }
+    
+    
+
 
 }

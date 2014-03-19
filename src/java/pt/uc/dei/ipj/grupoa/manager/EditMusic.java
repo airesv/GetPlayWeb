@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.inject.Inject;
@@ -26,7 +26,7 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
  * @author alvaro
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class EditMusic implements Serializable {
 
     @Inject
@@ -40,20 +40,21 @@ public class EditMusic implements Serializable {
     private String album;
     private String pathSound;
     private Part file;
-
+    private Music music;
     @EJB
     private UserPlayFacade upf;
     @EJB
     private MusicFacade musicFacade;
+    
 
     DataModel<Music> musicsLoggedInUser;
     private Music selectedMusic;
 
     @PostConstruct
     public void init() {
-        setLstMusic(musicFacade.listOfAllMusics());
-        List<Music> musicList = upf.lstMusicList(ud.getIdUser());
-        musicsLoggedInUser = new CollectionDataModel<>(musicList);
+        setLstMusic(ud.getLstAllMusic());
+        List<Music> musicUserList = ud.getListUserMusic();
+        musicsLoggedInUser = new CollectionDataModel<>(musicUserList);
 
     }
 
@@ -71,9 +72,18 @@ public class EditMusic implements Serializable {
         musicFacade.removeMusic(selectedMusic, ud.getIdUser());
         return "editmusic";
     }
+       
+    public String editMuusic(){
+        music= (Music) musicsLoggedInUser.getRowData();
+        ud.setIdMusic(music.getId());
+        this.setNameMusic(music.getName());
+        this.setAlbum(music.getAlbum());
+        return "editthatmusic";
+    }
 
     public DataModel<Music> getMusicsLoggedInUser() {
-        List<Music> musicList = upf.lstMusicList(ud.getIdUser());
+        ud.loadMusicsUser();
+        List<Music> musicList = ud.getListUserMusic();
         return new CollectionDataModel<>(musicList);
     }
 
