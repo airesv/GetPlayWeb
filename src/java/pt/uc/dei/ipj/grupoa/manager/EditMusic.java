@@ -5,6 +5,8 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
+import com.oracle.webservices.api.databinding.DatabindingMode;
+import static com.sun.faces.facelets.util.Path.context;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
@@ -27,6 +29,7 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
  */
 @Named
 @RequestScoped
+@DatabindingMode("musicsLoggedInUser")
 public class EditMusic implements Serializable {
 
     @Inject
