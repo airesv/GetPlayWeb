@@ -6,10 +6,12 @@
 package pt.uc.dei.ipj.grupoa.EJB;
 
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
+import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 
 /**
  *
@@ -27,6 +29,9 @@ public class UserData {
     private long idMusic;
     private List<Music> lstMusic;
     private List<Playlist> lstPlaylist;
+    
+    @EJB
+    private UserPlayFacade userplayFacade;
 
     public long getIdUser() {
         return idUser;
@@ -69,6 +74,8 @@ public class UserData {
     }
 
     public List<Music> getLstMusic() {
+          
+        
         return lstMusic;
     }
 

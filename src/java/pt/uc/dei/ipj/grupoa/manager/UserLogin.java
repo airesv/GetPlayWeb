@@ -133,7 +133,7 @@ public class UserLogin implements Serializable {
     }
 
     public String getName() {
-        name=ud.getNameUser()
+        name=ud.getNameUser();
         return name;
     }
 
