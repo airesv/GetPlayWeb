@@ -12,8 +12,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.omg.CORBA.UserException;
 import pt.uc.dei.ipj.grupoa.entities.Music;
-
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 
@@ -100,8 +100,9 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
      *
      * @param email
      * @return
+     * @throws org.omg.CORBA.UserException
      */
-    public UserPlay getUser(String email) {
+    public UserPlay getUser(String email){
         Query query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
         query.setParameter("email", email);
 
@@ -113,16 +114,16 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     }
 
     public void removeUser(Long id/*, List<Music> musics, List<Playlist> playlists*/) {
-        UserPlay userOwner = em.find(UserPlay.class, id);    
+        UserPlay userOwner = em.find(UserPlay.class, id);
         userOwner.removeAllMusic(userOwner.getMusic());
         Query query = em.createNamedQuery("Music.findByOwner", Music.class);
         query.setParameter("userOwner", userOwner);
         userOwner.removeAllMusic(userOwner.getMusic());
         userOwner.removeAllPlayLists(userOwner.getPlaylists());
         em.remove(query.getResultList());
-      //  ir buscar todas as musicas criadas pelo utilizador             
+        //  ir buscar todas as musicas criadas pelo utilizador             
         em.remove(userOwner.getMusic());
-        
+
 //        return query.getResultList();
     }
 
@@ -131,8 +132,9 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         return up.getPlaylists();
     }
 
-    public void editPlaylist(UserPlay up, Playlist pl) {
-
+    public List<Music> lstMusicList(Long id) {
+        UserPlay up = em.find(UserPlay.class, id);
+        return up.getMusic();
     }
 
 }

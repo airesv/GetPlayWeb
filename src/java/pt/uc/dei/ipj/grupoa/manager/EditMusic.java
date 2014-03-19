@@ -31,7 +31,7 @@ public class EditMusic implements Serializable {
 
     @Inject
     private UserData ud;
-    
+
     private List<Music> lstMusic;
     private static final long serialVersionUID = 1L;
     private int yearOfRelease;
@@ -45,22 +45,20 @@ public class EditMusic implements Serializable {
     private UserPlayFacade upf;
     @EJB
     private MusicFacade musicFacade;
-    @Inject
-    private UserLogin userLogin;
+
     DataModel<Music> musicsLoggedInUser;
     private Music selectedMusic;
-
 
     @PostConstruct
     public void init() {
         setLstMusic(musicFacade.listOfAllMusics());
-     //  List<Music> musicList = upf.getUser(userLogin.getLoggedUser().getEmail()).getMusic();
-     //   musicsLoggedInUser = new CollectionDataModel<>(musicList);
+        List<Music> musicList = upf.lstMusicList(ud.getIdUser());
+        musicsLoggedInUser = new CollectionDataModel<>(musicList);
 
     }
 
     public String createNewMusic() throws IOException {
-        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), userLogin.getIdUser(), getFile());
+        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), ud.getIdUser(), getFile());
         return "allmusic";
     }
 
@@ -70,16 +68,14 @@ public class EditMusic implements Serializable {
     }
 
     public String removeMusic() {
-        
-       musicFacade.removeMusic(selectedMusic, userLogin.getIdUser());
-        
+        musicFacade.removeMusic(selectedMusic, ud.getIdUser());
         return "editmusic";
     }
 
-//    public DataModel<Music> getMusicsLoggedInUser() {
-//        List<Music> musicList = upf.getUser(userLogin.getLoggedUser().getEmail()).getMusic();
-//        return new CollectionDataModel<>(musicList);
-//    }
+    public DataModel<Music> getMusicsLoggedInUser() {
+        List<Music> musicList = upf.lstMusicList(ud.getIdUser());
+        return new CollectionDataModel<>(musicList);
+    }
 
     public MusicFacade getMusicFacade() {
         return musicFacade;
@@ -157,12 +153,12 @@ public class EditMusic implements Serializable {
         this.file = file;
     }
 
-    public UserLogin getUserLogin() {
-        return userLogin;
+    public UserData getUd() {
+        return ud;
     }
 
-    public void setUserLogin(UserLogin userLogin) {
-        this.userLogin = userLogin;
+    public void setUd(UserData ud) {
+        this.ud = ud;
     }
 
     public List<Music> getLstMusic() {
