@@ -67,10 +67,11 @@ public class UserLogin implements Serializable {
             this.setEmail(user.getEmail());//necessario, caso o utilizador mude de passowrd
 
             ud.setIdUser(user.getId());
-
             ud.setNameUser(user.getName());
             ud.setEmailUser(user.getEmail());
             ud.loadPlaylist();
+            ud.loadMusic();
+            
             return "main";
         } else {
             setErro("Password mal inserida");
