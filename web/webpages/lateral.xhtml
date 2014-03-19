@@ -68,11 +68,7 @@
             <thead><tr><th>Playlist</th></tr></thead>
             <tbody>
 
-
-
-
-
-
+     
                 <f:view>
                     <h:form>
                         <h:dataTable value="#{plTable.table}" var="item"
@@ -92,15 +88,29 @@
                                     <h:outputText value="DateCreation"/>
                                 </f:facet>
                                 <h:outputText value="#{item.dateCreation}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </h:column>
+                         <!-- 
+                            <h:column>
+                            <f:facet name="header">Action</f:facet>
+                            <h:commandButton value="Edit" action="viewpl">
+                                <f:setPropertyActionListener target="#{plTable.selectedPlaylist}" value="#{item}" />
+                            </h:commandButton>
+ 
+                        </h:column>
+                             --> 
+                          
+                            
+                           
                              <h:column>
                            <f:facet name="header">
                                     <h:outputText value="Action"/></f:facet>
-                                <h:commandLink value="Edit" action="#{plManagement.showPL()}"/>
+                                 <h:commandLink value="Edit" action="#{plTable.editPlaylist()}"/>
                             </h:column> 
-                            <h:column>
+                   
+                  
+                   <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Action"/></f:facet>
                                 <h:commandLink value="Remove" action="#{plTable.removePl()}"/>

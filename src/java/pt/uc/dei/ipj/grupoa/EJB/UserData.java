@@ -11,7 +11,9 @@ import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
+import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
+import pt.uc.dei.uc.grupoa.utils.OrderPL;
 
 /**
  *
@@ -29,9 +31,34 @@ public class UserData {
     private long idMusic;
     private List<Music> lstMusic;
     private List<Playlist> lstPlaylist;
-    
+
     @EJB
     private UserPlayFacade userplayFacade;
+
+    @EJB
+    private PlaylistFacade playlistFacade;
+
+    private OrderPL orderPL;
+    private boolean asc = Boolean.FALSE;
+
+    public void loadPlaylist() {
+        setLstPlaylist(userplayFacade.lstPlaylist(getIdUser()));
+    }
+
+    public List<Playlist> orderPlaylist() {
+        orderPL = new OrderPL();
+        setLstPlaylist(orderPL.order(getLstPlaylist(), isAsc()));
+        setAsc(!asc);
+        return lstPlaylist;
+    }
+
+    public boolean isAsc() {
+        return asc;
+    }
+
+    public void setAsc(boolean asc) {
+        this.asc = asc;
+    }
 
     public long getIdUser() {
         return idUser;
@@ -74,8 +101,7 @@ public class UserData {
     }
 
     public List<Music> getLstMusic() {
-          
-        
+
         return lstMusic;
     }
 
@@ -84,12 +110,12 @@ public class UserData {
     }
 
     public List<Playlist> getLstPlaylist() {
+
         return lstPlaylist;
     }
 
     public void setLstPlaylist(List<Playlist> lstPlaylist) {
         this.lstPlaylist = lstPlaylist;
-    } 
-    
+    }
 
 }
