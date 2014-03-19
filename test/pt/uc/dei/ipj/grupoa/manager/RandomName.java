@@ -4,18 +4,16 @@
  * and open the template in the editor.
  */
 
-package pt.uc.dei.ipj.grupoa.EJB;
+package pt.uc.dei.ipj.grupoa.manager;
 
 import java.util.Random;
-import javax.ejb.Stateless;
 
 /**
  *
  * @author alvaro
  */
-@Stateless
 public class RandomName {
- public RandomName() {
+    public RandomName() {
     }
     
     public String getRandomName(int numchars) {

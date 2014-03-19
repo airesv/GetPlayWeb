@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.ejb.EJB;
+
 import javax.ejb.Stateless;
 import javax.servlet.http.Part;
 
@@ -21,7 +21,7 @@ import javax.servlet.http.Part;
 @Stateless
 public class UploadBean {
     
-    @EJB
+    
     private RandomName randomName;
 
     private String path;

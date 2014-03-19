@@ -45,6 +45,10 @@ public class UserData {
         setLstPlaylist(userplayFacade.lstPlaylist(getIdUser()));
     }
 
+    public void loadMusic() {
+        setLstMusic(userplayFacade.lstMusicList(getIdUser()));
+    }
+
     public List<Playlist> orderPlaylist() {
         orderPL = new OrderPL();
         setLstPlaylist(orderPL.order(getLstPlaylist(), isAsc()));
