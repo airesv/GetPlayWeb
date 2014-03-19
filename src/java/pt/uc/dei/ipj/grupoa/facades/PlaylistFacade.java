@@ -11,11 +11,12 @@ import pt.uc.dei.ipj.grupoa.entities.Playlist;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import pt.uc.dei.uc.grupoa.utils.TodayDate;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
-import pt.uc.dei.uc.grupoa.utils.TodayDate;
 
 /**
  *
@@ -61,7 +62,6 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         diaHoje = new TodayDate();
 
         Playlist pl = new Playlist();
-        diaHoje=new TodayDate();
         pl.setNamePlaylist(name);
         pl.setDateCreation(diaHoje.getToday());
         pl.setUserOwner(up);
@@ -108,6 +108,28 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
 
         }
 
+    }
+
+    public List<Playlist> orderPLbyNameASC(Long idUser) {
+        Query query = em.createNamedQuery("Playlist.findAllOrderByNameAsc", Playlist.class);
+        query.setParameter("id", idUser);
+
+        try {
+            return  query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+       public List<Playlist> orderPLbyNameDESC(Long idUser) {
+        Query query = em.createNamedQuery("Playlist.findAllOrderByNameDesc",Playlist.class);
+        query.setParameter("id", idUser);
+
+        try {
+            return  query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
 }

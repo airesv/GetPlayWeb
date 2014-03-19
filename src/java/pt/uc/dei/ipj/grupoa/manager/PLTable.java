@@ -15,10 +15,10 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
-import pt.uc.dei.ipj.grupoa.EJB.OrderPL;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
+import pt.uc.dei.uc.grupoa.utils.OrderPL;
 
 /**
  *
@@ -34,7 +34,7 @@ public class PLTable implements Serializable {
     @EJB
     private UserPlayFacade userplayFacade;
     
-    @EJB
+    @Inject
     private OrderPL orderPL;
     
     @EJB
