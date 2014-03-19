@@ -35,6 +35,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Music.findByName", query = "SELECT m FROM Music m WHERE m.name = :name"),
     @NamedQuery(name = "Music.findByNameDesc", query = "SELECT m FROM Music m WHERE m.name = :name order by m.name desc"),
     @NamedQuery(name = "Music.findByAuthorAsc", query = "SELECT m FROM Music m WHERE m.author = :author order by m.author asc"),
+    //Criador daquela musica
+    @NamedQuery(name = "Music.findByOwner", query = "SELECT m FROM Music m,UserPlay u WHERE m.userOwner = :userOwner"),
     @NamedQuery(name = "Music.findByAuthorDesc", query = "SELECT m FROM Music m WHERE m.author = :author order by m.author desc"),
     @NamedQuery(name = "Music.findByYearOfReleaseAsc", query = "SELECT m FROM Music m WHERE m.yearOfRelease = :yearOfRelease order by m.yearOfRelease asc"),
     @NamedQuery(name = "Music.findByYearOfReleaseDesc", query = "SELECT m FROM Music m WHERE m.yearOfRelease = :yearOfRelease order by m.yearOfRelease desc")
