@@ -50,7 +50,7 @@ public class UserData {
         setLstPlaylist(userplayFacade.lstPlaylist(getIdUser()));
     }
 
-    public void loadMusic() {
+    public void loadMusics() {
         setLstAllMusic(musicfacade.listOfAllMusics());
     }
     public void loadMusicsUser(){

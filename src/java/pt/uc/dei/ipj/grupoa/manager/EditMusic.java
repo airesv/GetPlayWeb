@@ -44,50 +44,59 @@ public class EditMusic implements Serializable {
     private String pathSound;
     private Part file;
     private Music music;
+    private Long id;
     @EJB
     private UserPlayFacade upf;
     @EJB
     private MusicFacade musicFacade;
-    
 
     DataModel<Music> musicsLoggedInUser;
     private Music selectedMusic;
 
-    @PostConstruct
-    public void init() {
-        setLstMusic(ud.getLstAllMusic());
-        List<Music> musicUserList = ud.getListUserMusic();
-        musicsLoggedInUser = new CollectionDataModel<>(musicUserList);
-
-    }
-
+//    @PostConstruct
+//    public void init() {
+//        setLstMusic(ud.getLstAllMusic());
+//   
+//        
+//
+//    }
     public String createNewMusic() throws IOException {
         musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), ud.getIdUser(), getFile());
+        ud.loadMusicsUser();
+        ud.loadMusics();
         return "allmusic";
     }
 
     public String editMusic() {
-        musicFacade.edit(selectedMusic);
+        musicFacade.edit(music);
+        ud.loadMusicsUser();
+        ud.loadMusics();
         return "editmusic";
     }
 
     public String removeMusic() {
-        musicFacade.removeMusic(selectedMusic, ud.getIdUser());
+        music = (Music) musicsLoggedInUser.getRowData();
+       // musicFacade.remove(music);
+        musicFacade.removeMusic(ud.getIdMusic(), ud.getIdUser());
+        ud.loadMusicsUser();
+        ud.loadMusics();
         return "editmusic";
     }
-       
-    public String editMuusic(){
-        music= (Music) musicsLoggedInUser.getRowData();
+
+    public String toEdit() {
+        music = (Music) musicsLoggedInUser.getRowData();
         ud.setIdMusic(music.getId());
         this.setNameMusic(music.getName());
         this.setAlbum(music.getAlbum());
+        this.setYearOfRelease(music.getYearOfRelease());
+        this.setAuthor(music.getAuthor());
+        //this.setId(music.getId());
         return "editthatmusic";
     }
 
     public DataModel<Music> getMusicsLoggedInUser() {
-        ud.loadMusicsUser();
-        List<Music> musicList = ud.getListUserMusic();
-        return new CollectionDataModel<>(musicList);
+        musicsLoggedInUser = new CollectionDataModel<>(ud.getListUserMusic());
+        return musicsLoggedInUser;
     }
 
     public MusicFacade getMusicFacade() {
@@ -181,5 +190,14 @@ public class EditMusic implements Serializable {
     public void setLstMusic(List<Music> lstMusic) {
         this.lstMusic = lstMusic;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
 
 }
