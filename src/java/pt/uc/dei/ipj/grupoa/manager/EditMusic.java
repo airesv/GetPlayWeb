@@ -50,7 +50,7 @@ public class EditMusic implements Serializable {
     @PostConstruct
     public void init() {
         setLstMusic(musicFacade.listOfAllMusics());
-        List<Music> musicList = upf.getUser(userLogin.getLoggedUser().getEmail()).getMusic();
+       List<Music> musicList = upf.getUser(userLogin.getLoggedUser().getEmail()).getMusic();
         musicsLoggedInUser = new CollectionDataModel<>(musicList);
 
     }

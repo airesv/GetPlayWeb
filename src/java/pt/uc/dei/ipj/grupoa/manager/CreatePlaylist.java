@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import pt.uc.dei.ipj.grupoa.EJB.UserData;
 
 /**
  *
@@ -22,6 +23,9 @@ public class CreatePlaylist implements Serializable {
 
     @EJB
     private PlaylistFacade playlistFacade; 
+   
+    @Inject
+    private UserData ud;
     
     @Inject
     private UserLogin ul;
@@ -65,6 +69,14 @@ public class CreatePlaylist implements Serializable {
    
     public void setNamePlayL(String namePlayL) {
         this.namePlayL = namePlayL;
+    }
+
+    public UserData getUd() {
+        return ud;
+    }
+
+    public void setUd(UserData ud) {
+        this.ud = ud;
     }
 
    

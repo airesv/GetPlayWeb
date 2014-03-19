@@ -11,24 +11,26 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
+import pt.uc.dei.ipj.grupoa.EJB.UserData;
 
 /**
  *
  * @author Aires
  */
 @Named("userLogin")
-@SessionScoped
+@RequestScoped
 public class UserLogin implements Serializable {
 
     @EJB
     private UserPlayFacade userPlayFacade;
 
-    private UserPlay loggedUser;
+    @Inject
+    private UserData ud;
 
     private Long idUser;
     private String name;
@@ -40,7 +42,7 @@ public class UserLogin implements Serializable {
     private String confirmPassword;
     private String email;
     private String newUserEmail;
-    
+
     public UserLogin() {
 
     }
@@ -48,6 +50,7 @@ public class UserLogin implements Serializable {
     @PostConstruct
     public void init() {
         erro = "";
+        
     }
 
     public String verification() {
@@ -57,12 +60,16 @@ public class UserLogin implements Serializable {
             setErro("Este Email não está na BD");
             return "index";
         } else if (userPlayFacade.authValidation(getPassword(), user)) {
-            this.loggedUser = user;
             this.setIdUser(user.getId());
+
             this.setName(user.getName());
             this.setUseremail(user.getEmail());
             this.setEmail(user.getEmail());//necessario, caso o utilizador mude de passowrd
 
+            ud.setIdUser(user.getId());
+
+            ud.setNameUser(user.getName());
+            ud.setEmailUser(user.getEmail());
             return "main";
         } else {
             setErro("Password mal inserida");
@@ -87,9 +94,7 @@ public class UserLogin implements Serializable {
     }
 
     public String deleteUser() {
-         //userPlayFacade.remove(loggedUser);
-        //userPlayFacade.removeUser(getIdUser(), loggedUser.getMusic(), loggedUser.getPlaylists());
-        userPlayFacade.removeUser(getIdUser());//, loggedUser.getMusic(), loggedUser.getPlaylists());
+        userPlayFacade.removeUser(ud.getIdUser());//, loggedUser.getMusic(), loggedUser.getPlaylists());
         return "index";
     }
 
@@ -102,9 +107,9 @@ public class UserLogin implements Serializable {
 
     public String insertEditUser() {
         if (password.equals(confirmPassword)) {
-            message = userPlayFacade.editnewUser(getIdUser(), getName(), getEmail(), getPassword(), getUseremail());
-            this.setName(getName());
-            this.setUseremail(getEmail());
+            message = userPlayFacade.editnewUser(ud.getIdUser(), ud.getNameUser(), ud.getEmailUser(), getPassword(), getEmail());
+//            ud.setNameUser(getName());
+//            ud.setEmailUser(getEmail());
         } else {
             message = "Password doesn´t match";
         }
@@ -128,6 +133,7 @@ public class UserLogin implements Serializable {
     }
 
     public String getName() {
+        name=ud.getNameUser()
         return name;
     }
 
@@ -141,14 +147,6 @@ public class UserLogin implements Serializable {
 
     public void setUserPlayFacade(UserPlayFacade userPlayFacade) {
         this.userPlayFacade = userPlayFacade;
-    }
-
-    public UserPlay getLoggedUser() {
-        return loggedUser;
-    }
-
-    public void setLoggedUser(UserPlay loggedUser) {
-        this.loggedUser = loggedUser;
     }
 
     public String getUseremail() {
@@ -192,11 +190,21 @@ public class UserLogin implements Serializable {
     }
 
     public String getEmail() {
+        email=ud.getEmailUser();
         return email;
     }
 
     public void setEmail(String email) {
+        //email=ud.getEmailUser();
         this.email = email;
+    }
+
+    public UserData getUd() {
+        return ud;
+    }
+
+    public void setUd(UserData ud) {
+        this.ud = ud;
     }
 
 }

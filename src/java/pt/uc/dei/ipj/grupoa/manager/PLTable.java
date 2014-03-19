@@ -9,7 +9,8 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+
 
 import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
@@ -25,7 +26,7 @@ import pt.uc.dei.uc.grupoa.utils.OrderPL;
  * @author Aires
  */
 @Named("plTable")
-@RequestScoped
+@SessionScoped
 public class PLTable implements Serializable {
 
     @Inject 
@@ -34,7 +35,7 @@ public class PLTable implements Serializable {
     @EJB
     private UserPlayFacade userplayFacade;
     
-    @Inject
+    //@Inject
     private OrderPL orderPL;
     
     @EJB
