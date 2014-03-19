@@ -30,21 +30,19 @@ import pt.uc.dei.uc.grupoa.utils.OrderPL;
 @RequestScoped
 public class PLTable implements Serializable {
 
-    @Inject 
+    @Inject
     private UserData ud;
-    
+
     @EJB
     private UserPlayFacade userplayFacade;
 
-    
     @EJB
     private PlaylistFacade plfacade;
-    
 
     private DataModel<Playlist> table;
     private String namePlaylist;
     private Playlist pl;
-
+    private String message;
 
     /**
      * Creates a new instance of PLTable
@@ -54,12 +52,11 @@ public class PLTable implements Serializable {
 
     @PostConstruct
     public void init() {
-        table = new CollectionDataModel<>(ud.getLstPlaylist());
+        //      table = new CollectionDataModel<>(ud.getLstPlaylist());
     }
 
 ///////////////////////////////////////////////////////////////
-       
-    public String editPlaylist(){
+    public String editPlaylist() {
         pl = (Playlist) table.getRowData();
         ud.setIdPlaylist(pl.getId());
         this.setNamePlaylist(pl.getNamePlaylist());
@@ -77,6 +74,28 @@ public class PLTable implements Serializable {
         return null;
     }
 
+    public String renamePlaylist() {
+        //mandar para o face 
+        boolean renamed = plfacade.changeNamePlaylist(ud.getIdUser(), ud.getIdPlaylist(), getNamePlaylist());
+        if (renamed) {
+            setMessage("Successfully changed");
+        } else {
+            setMessage("There is a Playlist with that name!");
+        }
+        ud.loadPlaylist();//recarrega a lista de playlist
+        return null;
+    }
+
+    public String createNewPlaylist() {
+        plfacade.createPlayList(getNamePlaylist(), ud.getIdUser());
+        ud.loadPlaylist();//recarrega a lista de playlist
+        return null;
+    }
+
+    public String insertMusPL() {
+        return "musicinplay";
+    }
+
     ////Get and Setters////////////
     public UserData getUd() {
         return ud;
@@ -85,7 +104,6 @@ public class PLTable implements Serializable {
     public void setUd(UserData ud) {
         this.ud = ud;
     }
-   
 
     public UserPlayFacade getUserplayFacade() {
         return userplayFacade;
@@ -104,10 +122,12 @@ public class PLTable implements Serializable {
     }
 
     public DataModel<Playlist> getTable() {
+        table = new CollectionDataModel<>(ud.getLstPlaylist());
         return table;
     }
 
     public void setTable(DataModel<Playlist> table) {
+
         this.table = table;
     }
 
@@ -127,6 +147,12 @@ public class PLTable implements Serializable {
         this.namePlaylist = namePlaylist;
     }
 
-    
-    
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
 }
