@@ -13,10 +13,10 @@
                 <h:form> 
                     <h:panelGrid columns="3" columnClasses="rightalign" cellpadding="0" cellspacing="2">
                         <h:outputLabel value="Name : " for="NameUser" />
-                        <h:inputText label="Name of User" id="NameUser" value="#{userLogin.name}" required="true"/>
+                        <h:inputText label="Name of User" id="NameUser" value="#{userLogin.ud.nameUser}" required="true"/>
                         <h:message for="NameUser"/>
                         <h:outputLabel value="Email: " for="EmailUser" />
-                        <h:inputText label="Email of user" id="EmailUser" value="#{userLogin.email}" required="true"/>
+                        <h:inputText label="Email of user" id="EmailUser" value="#{userLogin.ud.emailUser}" required="true"/>
                         <h:message for="EmailUser"/>
                         <h:outputLabel value="Password : " for="PasswordUser"/>
                         <h:inputSecret  label="Password" id="PasswordUser" value="#{userLogin.password}" required="true"/>

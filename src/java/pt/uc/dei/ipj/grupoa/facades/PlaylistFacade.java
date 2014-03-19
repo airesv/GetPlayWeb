@@ -11,11 +11,12 @@ import pt.uc.dei.ipj.grupoa.entities.Playlist;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import pt.uc.dei.uc.grupoa.utils.TodayDate;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
-import pt.uc.dei.uc.grupoa.utils.TodayDate;
 
 /**
  *
@@ -61,7 +62,6 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         diaHoje = new TodayDate();
 
         Playlist pl = new Playlist();
-        diaHoje=new TodayDate();
         pl.setNamePlaylist(name);
         pl.setDateCreation(diaHoje.getToday());
         pl.setUserOwner(up);
@@ -94,13 +94,14 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         for (int i = 0; i < up.getPlaylists().size(); i++) {
             if (up.getPlaylists().get(i).getNamePlaylist().equals(name)) {
                 count++;
+                
             }
         }
         if (count == 0) {
-            up.removePlaylistItem(pl);//apaga a playlist da BD
+           // up.removePlaylistItem(pl);//apaga a playlist da BD
             pl.setNamePlaylist(name);
             em.merge(pl);
-            up.setPlaylistsItem(pl);//insere a nova Playlist
+            //up.setPlaylistsItem(pl);//insere a nova Playlist
             return true;
 
         } else {
@@ -108,6 +109,28 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
 
         }
 
+    }
+
+    public List<Playlist> orderPLbyNameASC(Long idUser) {
+        Query query = em.createNamedQuery("Playlist.findAllOrderByNameAsc", Playlist.class);
+        query.setParameter("id", idUser);
+
+        try {
+            return  query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+       public List<Playlist> orderPLbyNameDESC(Long idUser) {
+        Query query = em.createNamedQuery("Playlist.findAllOrderByNameDesc",Playlist.class);
+        query.setParameter("id", idUser);
+
+        try {
+            return  query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
 }

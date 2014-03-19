@@ -15,10 +15,12 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
-import pt.uc.dei.ipj.grupoa.EJB.OrderPL;
+import pt.uc.dei.ipj.grupoa.EJB.UserData;
+
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
+import pt.uc.dei.uc.grupoa.utils.OrderPL;
 
 /**
  *
@@ -29,12 +31,12 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 public class PLTable implements Serializable {
 
     @Inject 
-    private UserLogin ul;
+    private UserData ud;
     
     @EJB
     private UserPlayFacade userplayFacade;
     
-    @EJB
+
     private OrderPL orderPL;
     
     @EJB
@@ -58,7 +60,7 @@ public class PLTable implements Serializable {
     @PostConstruct
     public void init() {
         setAsc(false);
-        setLstplay(userplayFacade.lstPlaylist(ul.getIdUser()));
+        setLstplay(userplayFacade.lstPlaylist(ud.getIdUser()));
         table = new CollectionDataModel<>(lstplay);
     }
 
@@ -69,13 +71,13 @@ public class PLTable implements Serializable {
         setNamePL(pl.getNamePlaylist());
         return pl.getNamePlaylist();
     }
-//
-//    public void removePl() {
-//        pl = (Playlist) table.getRowData();
-//        plfacade.removePlaylist(pl, ul.getIdUser());
-//        
-//        //init();//recomeça
-//    }
+
+    public void removePl() {
+        pl = (Playlist) table.getRowData();
+        plfacade.removePlaylist(pl, ud.getIdUser());
+        
+        //init();//recomeça
+    }
 
     public String orderByName() {
         setLstplay(orderPL.order(lstplay, isAsc()));
@@ -85,13 +87,14 @@ public class PLTable implements Serializable {
     }
 
     ////Get and Setters////////////
-    public UserLogin getUl() {
-        return ul;
+    public UserData getUd() {
+        return ud;
     }
 
-    public void setUl(UserLogin ul) {
-        this.ul = ul;
+    public void setUd(UserData ud) {
+        this.ud = ud;
     }
+   
 
     public UserPlayFacade getUserplayFacade() {
         return userplayFacade;

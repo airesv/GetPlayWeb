@@ -16,6 +16,7 @@ import javax.faces.model.DataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
+import pt.uc.dei.ipj.grupoa.EJB.UserData;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
@@ -28,6 +29,9 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 @SessionScoped
 public class EditMusic implements Serializable {
 
+    @Inject
+    private UserData ud;
+    
     private List<Music> lstMusic;
     private static final long serialVersionUID = 1L;
     private int yearOfRelease;
@@ -50,8 +54,8 @@ public class EditMusic implements Serializable {
     @PostConstruct
     public void init() {
         setLstMusic(musicFacade.listOfAllMusics());
-        List<Music> musicList = upf.getUser(userLogin.getLoggedUser().getEmail()).getMusic();
-        musicsLoggedInUser = new CollectionDataModel<>(musicList);
+     //  List<Music> musicList = upf.getUser(userLogin.getLoggedUser().getEmail()).getMusic();
+     //   musicsLoggedInUser = new CollectionDataModel<>(musicList);
 
     }
 
@@ -72,10 +76,10 @@ public class EditMusic implements Serializable {
         return "editmusic";
     }
 
-    public DataModel<Music> getMusicsLoggedInUser() {
-        List<Music> musicList = upf.getUser(userLogin.getLoggedUser().getEmail()).getMusic();
-        return new CollectionDataModel<>(musicList);
-    }
+//    public DataModel<Music> getMusicsLoggedInUser() {
+//        List<Music> musicList = upf.getUser(userLogin.getLoggedUser().getEmail()).getMusic();
+//        return new CollectionDataModel<>(musicList);
+//    }
 
     public MusicFacade getMusicFacade() {
         return musicFacade;
