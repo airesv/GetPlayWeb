@@ -6,7 +6,6 @@
 package pt.uc.dei.ipj.grupoa.manager;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -16,11 +15,11 @@ import javax.faces.model.DataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pt.uc.dei.ipj.grupoa.EJB.UserData;
+import pt.uc.dei.ipj.grupoa.entities.Music;
 
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
-import pt.uc.dei.uc.grupoa.utils.OrderPL;
 
 /**
  *
@@ -43,6 +42,8 @@ public class PLTable implements Serializable {
     private String namePlaylist;
     private Playlist pl;
     private String message;
+    private DataModel<Music> tableM;
+    
 
     /**
      * Creates a new instance of PLTable
@@ -95,6 +96,8 @@ public class PLTable implements Serializable {
     public String insertMusPL() {
         return "musicinplay";
     }
+    
+    
 
     ////Get and Setters////////////
     public UserData getUd() {
@@ -153,6 +156,15 @@ public class PLTable implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public DataModel<Music> getTableM() {
+        table = new CollectionDataModel<>(ud.getLstPlaylist());
+        return tableM;
+    }
+
+    public void setTableM(DataModel<Music> tableM) {
+        this.tableM = tableM;
     }
 
 }
