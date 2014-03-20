@@ -71,7 +71,15 @@ public class Music implements Serializable {
     private String pathSound;
 
     @ManyToMany(mappedBy = "musicList")
-    private List<Playlist> lsyPlaylist;
+    private List<Playlist> lstPlaylist;
+
+    public Integer getYearOfRelease() {
+        return yearOfRelease;
+    }
+
+    public void setYearOfRelease(Integer yearOfRelease) {
+        this.yearOfRelease = yearOfRelease;
+    }
 
     //
     @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = UserPlay.class)
@@ -113,10 +121,7 @@ public class Music implements Serializable {
      *
      * @return
      */
-    public int getYearOfRelease() {
-        return yearOfRelease;
-    }
-
+  
     /**
      *
      * @param yearOfRelease
@@ -246,7 +251,21 @@ public class Music implements Serializable {
     }
 
     public void setPlaylistItem(Playlist pl) {
-        lsyPlaylist.add(pl);
+        lstPlaylist.add(pl);
+    }
+
+    /**
+     * @return the lstPlaylist
+     */
+    public List<Playlist> getLstPlaylist() {
+        return lstPlaylist;
+    }
+
+    /**
+     * @param lstPlaylist the lstPlaylist to set
+     */
+    public void setLstPlaylist(List<Playlist> lstPlaylist) {
+        this.lstPlaylist = lstPlaylist;
     }
 
 }
