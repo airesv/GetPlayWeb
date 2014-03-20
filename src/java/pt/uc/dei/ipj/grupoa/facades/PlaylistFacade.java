@@ -42,8 +42,10 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
     }
 
     /**
-     *
+     * Construtor
      */
+    
+    
     public PlaylistFacade() {
         super(Playlist.class);
     }
@@ -56,6 +58,11 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         this.em = em;
     }
 
+    /**
+     * Create a new Playlist for UserPlay entity
+     * @param name Playlist Name
+     * @param id PK of UserPlay
+     */
     public void createPlayList(String name, long id) {
 
         UserPlay up = em.find(UserPlay.class, id);
@@ -70,22 +77,38 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         em.flush();
     }
 
+    /**
+     * Remove a Playlist from UserPlay entity
+     * @param pl Playlist Entity
+     * @param id id PK of UserPlay
+     */
     public void removePlaylist(Playlist pl, long id) {
-
+        
+        pl.getMusicList().clear();//limapa o array de musicas
+              
         UserPlay up = em.find(UserPlay.class, id);
         up.removePlaylistItem(pl);
         remove(pl);
         em.flush();
     }
 
+    /**
+     * Return a List of Music that are in a Plylist
+     * @param pl Playlist Entity
+     * @return List<Music>
+     */
     public List<Music> createListMusic(Playlist pl) {
         return pl.getMusicList();
 
     }
 
-    public void setNewMusicPlaylist(Music mus, Playlist pl) {
-        pl.setPlaylistItem(mus);
-    }
+    /**
+     * 
+     * @param idUser PK of UserPlay
+     * @param idPlaylist PK of PlayList
+     * @param name
+     * @return 
+     */
 
     public boolean changeNamePlaylist(long idUser, long idPlaylist, String name) {
         UserPlay up = em.find(UserPlay.class, idUser);
@@ -111,7 +134,7 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
 
     }
 
-    public List<Playlist> orderPLbyNameASC(Long idUser) {
+     public List<Playlist> orderPLbyNameASC(Long idUser) {
         Query query = em.createNamedQuery("Playlist.findAllOrderByNameAsc", Playlist.class);
         query.setParameter("id", idUser);
 
