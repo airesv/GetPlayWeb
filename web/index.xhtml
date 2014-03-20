@@ -3,14 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
+   <!--     <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />-->
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>Getplay Facelet</title>
     </h:head>
     <h:body>
-        <table  style="width: 100%;">
+
+        <table  style="width: 70%;width: auto;margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;">
             <tbody>
                 <tr>
                     <td height="100%"  align="center" valign="middle">
+                                <p></p>
+       
                         <img src="image/sound.png"></img>
                         
                        </td>
@@ -18,9 +25,11 @@
 
 
                         <h:form> 
-                            <h2>Login:</h2>
+                           <!-- <h2>Login:</h2>-->
+                            <div class="datagrid">
                             <table width="250" border="0" cellspacing="0" cellpadding="2">
                                 <tbody>
+                                    <thead><tr><th>Login</th></tr></thead>
                                     <tr>
                                         <td><h:outputText value="E-Mail : "/></td>
                                         <td><h:inputText value="#{userLogin.useremail}" required="false"/></td>
@@ -30,8 +39,8 @@
                                         <td><h:inputSecret value="#{userLogin.password}" required="false"/></td>
                                     </tr>
                                     <tr>
-                                        <td><h:commandButton value="Log in" action="#{userLogin.verification()}" /></td>
-                                        <td><h:commandButton value="Register" action="register"/></td>
+                                        <td><h:commandButton value="Log in" action="#{userLogin.verification()}" styleClass="btn_user"/></td>
+                                        <td><h:commandButton value="Register" action="register" styleClass="btn_user"/></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2"><h:outputText value="#{userLogin.erro}"/></td>
@@ -39,6 +48,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+                                </div>
                         </h:form> 
 
                     </td>
