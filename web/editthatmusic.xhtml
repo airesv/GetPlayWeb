@@ -12,6 +12,7 @@
 
                 <h2>Edit Music: </h2>
                 <h:form>
+
                     <h:panelGrid columns="3" cellpadding="0" cellspacing="2">
                         <h:outputLabel value="Album : " for="Album"/>
                         <h:inputText label="Name of Album" value="#{editMusic.album}" required="true"/>
@@ -25,9 +26,10 @@
                         <h:outputLabel value="Name : " for="Name"/> 
                         <h:inputText label="Name of music" value="#{editMusic.nameMusic}" required="true"/>
                         <h:message for="Name"/>
-                        <h:commandButton value="Edit Music" action="#{editMusic.editMusic()}" />
-                        <h:commandButton value="Delete Music" action="#{editMusic.removeMusic()}" />
-                    </h:panelGrid>  
+                        <h:commandButton value="Edit Music" action="#{editMusic.editMusic}" />
+                        <h:commandButton value="Delete Music" action="#{editMusic.removeMusic}" />
+                    </h:panelGrid> 
+
                 </h:form>
 
             </ui:define>

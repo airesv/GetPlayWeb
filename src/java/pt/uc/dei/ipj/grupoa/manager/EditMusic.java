@@ -74,9 +74,7 @@ public class EditMusic implements Serializable {
         return "editmusic";
     }
 
-    public String removeMusic() {
-        music = (Music) musicsLoggedInUser.getRowData();
-       // musicFacade.remove(music);
+    public String removeMusic() {  
         musicFacade.removeMusic(ud.getIdMusic(), ud.getIdUser());
         ud.loadMusicsUser();
         ud.loadMusics();
@@ -90,7 +88,6 @@ public class EditMusic implements Serializable {
         this.setAlbum(music.getAlbum());
         this.setYearOfRelease(music.getYearOfRelease());
         this.setAuthor(music.getAuthor());
-        //this.setId(music.getId());
         return "editthatmusic";
     }
 
@@ -198,6 +195,15 @@ public class EditMusic implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Music getMusic() {
+        return music;
+    }
+
+    public void setMusic(Music music) {
+        this.music = music;
+    }
+    
     
 
 }

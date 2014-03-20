@@ -66,9 +66,9 @@ public class MusicFacade extends AbstractFacade<Music> {
         return query.getResultList();
     }
     
-    public void removeMusic(Long idMusic, Long id) {
-        UserPlay up=em.find(UserPlay.class, id);
-        Music m=em.find(Music.class, id);
+    public void removeMusic(Long idMusic, Long idUser) {
+        UserPlay up=em.find(UserPlay.class, idUser);
+        Music m=em.find(Music.class, idMusic);
         up.removeMusicItem(m);
         remove(m);
         em.flush();
