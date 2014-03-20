@@ -20,7 +20,7 @@ import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 
 /**
  *
- * @author alvaro
+ * @author Alvaro/Vitor
  */
 @Stateless
 public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializable {
@@ -48,14 +48,27 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         super(Playlist.class);
     }
 
+    /**
+     *
+     * @return
+     */
     public EntityManager getEm() {
         return em;
     }
 
+    /**
+     *
+     * @param em
+     */
     public void setEm(EntityManager em) {
         this.em = em;
     }
 
+    /**
+     *
+     * @param name
+     * @param id
+     */
     public void createPlayList(String name, long id) {
 
         UserPlay up = em.find(UserPlay.class, id);
@@ -70,6 +83,11 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         em.flush();
     }
 
+    /**
+     *
+     * @param pl
+     * @param id
+     */
     public void removePlaylist(Playlist pl, long id) {
 
         UserPlay up = em.find(UserPlay.class, id);
@@ -78,15 +96,32 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         em.flush();
     }
 
+    /**
+     *
+     * @param pl
+     * @return
+     */
     public List<Music> createListMusic(Playlist pl) {
         return pl.getMusicList();
 
     }
 
+    /**
+     *
+     * @param mus
+     * @param pl
+     */
     public void setNewMusicPlaylist(Music mus, Playlist pl) {
         pl.setPlaylistItem(mus);
     }
 
+    /**
+     *
+     * @param idUser
+     * @param idPlaylist
+     * @param name
+     * @return
+     */
     public boolean changeNamePlaylist(long idUser, long idPlaylist, String name) {
         UserPlay up = em.find(UserPlay.class, idUser);
         Playlist pl = em.find(Playlist.class, idPlaylist);
@@ -111,6 +146,11 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
 
     }
 
+    /**
+     *
+     * @param idUser
+     * @return
+     */
     public List<Playlist> orderPLbyNameASC(Long idUser) {
         Query query = em.createNamedQuery("Playlist.findAllOrderByNameAsc", Playlist.class);
         query.setParameter("id", idUser);
@@ -121,8 +161,13 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
             return null;
         }
     }
-    
-       public List<Playlist> orderPLbyNameDESC(Long idUser) {
+
+    /**
+     *
+     * @param idUser
+     * @return
+     */
+    public List<Playlist> orderPLbyNameDESC(Long idUser) {
         Query query = em.createNamedQuery("Playlist.findAllOrderByNameDesc",Playlist.class);
         query.setParameter("id", idUser);
 

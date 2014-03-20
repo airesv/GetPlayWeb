@@ -38,43 +38,74 @@ public class CreatePlaylist implements Serializable {
     public CreatePlaylist() {
     }
 
-
-     public void createNewPlaylist() {
+    /**
+     *
+     */
+    public void createNewPlaylist() {
         playlistFacade.createPlayList(getNamePlayL(),ul.getIdUser());
         
     }
 
+    /**
+     *
+     * @return
+     */
     public UserLogin getUserlogin() {
         return ul;
     }
 
+    /**
+     *
+     * @param ul
+     */
     public void setUserlogin(UserLogin ul) {
         this.ul = ul;
     }
 
+    /**
+     *
+     * @return
+     */
     public PlaylistFacade getPlaylistFacade() {
         return playlistFacade;
     }
 
-  
+    /**
+     *
+     * @param playlistFacade
+     */
     public void setPlaylistFacade(PlaylistFacade playlistFacade) {
         this.playlistFacade = playlistFacade;
     }
 
-  
+    /**
+     *
+     * @return
+     */
     public String getNamePlayL() {
         return namePlayL;
     }
 
-   
+    /**
+     *
+     * @param namePlayL
+     */
     public void setNamePlayL(String namePlayL) {
         this.namePlayL = namePlayL;
     }
 
+    /**
+     *
+     * @return
+     */
     public UserData getUd() {
         return ud;
     }
 
+    /**
+     *
+     * @param ud
+     */
     public void setUd(UserData ud) {
         this.ud = ud;
     }

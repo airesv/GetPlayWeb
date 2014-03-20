@@ -292,7 +292,7 @@ public class UserLoginTest {
         System.out.println("getErro");
         UserLogin instance = new UserLogin();
         String expResult = "";
-        String result = instance.getErro();
+        String result = instance.getErrorMessage();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -306,7 +306,7 @@ public class UserLoginTest {
         System.out.println("setErro");
         String erro = "";
         UserLogin instance = new UserLogin();
-        instance.setErro(erro);
+        instance.setErrorMessage(erro);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

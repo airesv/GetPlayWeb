@@ -19,6 +19,12 @@ public class OrderPL {
 
     private List<Playlist> lstPL;
     
+    /**
+     *
+     * @param list
+     * @param asc
+     * @return
+     */
     public List<Playlist> order(List<Playlist> list, boolean asc) {
 
         if (asc) {
@@ -47,10 +53,19 @@ public class OrderPL {
 
    
 //////////////getter & Setter
-    public List<Playlist> getLstPL() {
+
+    /**
+     *
+     * @return
+     */
+        public List<Playlist> getLstPL() {
         return lstPL;
     }
 
+    /**
+     *
+     * @param lstPL
+     */
     public void setLstPL(List<Playlist> lstPL) {
         this.lstPL = lstPL;
     }

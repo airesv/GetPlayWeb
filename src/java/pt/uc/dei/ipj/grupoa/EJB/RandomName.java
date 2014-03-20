@@ -11,13 +11,19 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author alvaro
+ * @author Alvaro/Vitor
  */
 @Stateless
 public class RandomName {
- public RandomName() {
+
+    public RandomName() {
     }
     
+    /**
+     *
+     * @param numchars
+     * @return a Random Name
+     */
     public String getRandomName(int numchars) {
         char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         StringBuilder sb = new StringBuilder();

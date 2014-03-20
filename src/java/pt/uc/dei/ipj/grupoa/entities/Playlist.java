@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Aires
+ * @author Alvaro/Vitor
  */
 @Entity
 
@@ -82,6 +82,7 @@ public class Playlist implements Serializable {
     /**
      *
      * @param namePlaylist
+     * @param hoje
      */
     public Playlist(String namePlaylist, Date hoje) {
 
@@ -113,10 +114,18 @@ public class Playlist implements Serializable {
         return namePlaylist;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Music> getMusicList() {
         return musicList;
     }
 
+    /**
+     *
+     * @param musicList
+     */
     public void setMusicList(List<Music> musicList) {
         this.musicList = musicList;
     }
@@ -143,16 +152,26 @@ public class Playlist implements Serializable {
         this.dateCreation = dateCreation;
     }
 
+    /**
+     *
+     * @return
+     */
     public UserPlay getUserOwner() {
         return userOwner;
     }
 
+    /**
+     *
+     * @param userOwner
+     */
     public void setUserOwner(UserPlay userOwner) {
         this.userOwner = userOwner;
     }
 
-
-
+    /**
+     *
+     * @return
+     */
     public int playlistSize() {
         return this.musicList.size();
 
@@ -185,6 +204,10 @@ public class Playlist implements Serializable {
         return "entities.Playlist[ id=" + id + " ]";
     }
 
+    /**
+     *
+     * @param mus
+     */
     public void setPlaylistItem(Music mus){
        musicList.add(mus);
    }

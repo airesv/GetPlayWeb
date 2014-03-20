@@ -16,7 +16,7 @@ import pt.uc.dei.ipj.grupoa.entities.Music;
 
 /**
  *
- * @author Aires
+ * @author Alvaro/Vitor
  */
 @Stateless
 public class Musicinplaylist {
@@ -26,12 +26,20 @@ public class Musicinplaylist {
 
     @Inject
     private UserData ud;
-    
 
+    /**
+     *
+     * @return
+     */
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    /**
+     *
+     * @param idPlaylist
+     * @return
+     */
     public List<Music> allMusicinPLaylistlist(long idPlaylist) {
         Query query = em.createQuery("SELECT m.ID, m.ALBUM, m.AUTHOR, m.NAME, m.PathSound, m.userID, m.YEAR_OF_RELEASE\n"
                 + "FROM Music m, hasmusic h\n"

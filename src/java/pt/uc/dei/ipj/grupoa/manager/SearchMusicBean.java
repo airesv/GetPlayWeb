@@ -17,15 +17,12 @@ import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 
 /**
  *
- * @author alvaro
+ * @author Alvaro/Vitor
  */
 @Named("SearchMusicBean")
 @RequestScoped
 public class SearchMusicBean implements Serializable {
 
-    /**
-     * Creates a new instance of SearchMusic
-     */
     @EJB
     private MusicFacade musicFacade;
     private String introducedText;
@@ -34,13 +31,16 @@ public class SearchMusicBean implements Serializable {
     public SearchMusicBean() {
     }
 
-  
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         setLstMusic(musicFacade.searchedMusic(introducedText));
         setLstMusic(musicFacade.searchedAuthor(introducedText));
     }
 
+    ////Getters and Setters////
     public String getIntroducedText() {
         return introducedText;
     }

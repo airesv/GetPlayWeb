@@ -54,6 +54,9 @@ public class InsertMusicPL {
 
     }
 
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         setPlaylist(pltable.getPl());
@@ -62,9 +65,10 @@ public class InsertMusicPL {
         setNamePL(playlist.getNamePlaylist());
         setMessage(getNamePL());
     }
-    
-    
-    
+
+    /**
+     *
+     */
     public void addMusicToPlaylist(){
       mus= (Music) tabelaM.getRowData();
       musicFacade.setNewMusicPlaylist(mus, getPlaylist());

@@ -25,7 +25,7 @@ public class EncryptPassword {
     }
 
     /**
-     *
+     * Method that enables the encrypt of Password
      * @param pass
      * @return
      */

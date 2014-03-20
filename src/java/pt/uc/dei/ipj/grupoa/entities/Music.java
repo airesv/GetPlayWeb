@@ -20,11 +20,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
  *
- * @author alvaro
+ * @author Alvaro/Vitor
  */
 @Entity
 @NamedQueries({
@@ -49,8 +50,8 @@ public class Music implements Serializable {
     @NotNull
 
     private Long id;
-   /* @Pattern(regexp = "(19|20)\\d\\d",
-            message = "{invalid.yearOfRelease}")*/
+//    @Pattern(regexp = "(19|20)\\d\\d",
+//            message = "{invalid.yearOfRelease}")
     @Column(name = "YEAR_OF_RELEASE")
     @NotNull
     private Integer yearOfRelease;
@@ -245,6 +246,10 @@ public class Music implements Serializable {
         return "entities.Music[ id=" + id + " ]";
     }
 
+    /**
+     *
+     * @param pl
+     */
     public void setPlaylistItem(Playlist pl) {
         lsyPlaylist.add(pl);
     }
