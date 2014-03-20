@@ -41,6 +41,7 @@ public class UserLogin implements Serializable {
     private String message;
     private String confirmPassword;
     private String email;
+    private String newName;
     private String newUserEmail;
 
     public UserLogin() {
@@ -98,7 +99,7 @@ public class UserLogin implements Serializable {
             message = "Passwords do not match";
             return "register";
         } else {
-            userPlayFacade.createUser(getName(), getNewUserEmail(), getPassword());
+            userPlayFacade.createUser(getNewName(), getNewUserEmail(), getPassword());
             message = "Successfully inserted";
             return "register";
 
@@ -313,4 +314,13 @@ public class UserLogin implements Serializable {
         this.ud = ud;
     }
 
+    public String getNewName() {
+        return newName;
+    }
+
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
+
+    
 }

@@ -16,9 +16,9 @@
                         <h:panelGrid columns="2" cellpadding="0" cellspacing="2">
                             <h:outputText value="Name : "/>
                             
-                            <h:inputText value="#{createPlaylist.namePlayL}" required="true"/>
+                            <h:inputText value="#{plTable.namePlaylist}" required="true"/>
 
-                            <h:commandButton value="Insert" action="#{createPlaylist.createNewPlaylist()}" styleClass="btn_user" />
+                            <h:commandButton value="Insert" action="#{plTable.createNewPlaylist()}" styleClass="btn_user" />
                             <h:commandButton value="Cancel" immediate="true" action="main" styleClass="btn_user"/>                   
                         </h:panelGrid>  
                     </h:form>
