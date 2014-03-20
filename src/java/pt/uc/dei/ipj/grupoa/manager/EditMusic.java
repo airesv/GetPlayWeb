@@ -29,7 +29,6 @@ import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
  */
 @Named
 @RequestScoped
-@DatabindingMode("musicsLoggedInUser")
 public class EditMusic implements Serializable {
 
     @Inject
@@ -53,13 +52,6 @@ public class EditMusic implements Serializable {
     DataModel<Music> musicsLoggedInUser;
     private Music selectedMusic;
 
-//    @PostConstruct
-//    public void init() {
-//        setLstMusic(ud.getLstAllMusic());
-//   
-//        
-//
-//    }
     public String createNewMusic() throws IOException {
         musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), ud.getIdUser(), getFile());
         ud.loadMusicsUser();
@@ -68,7 +60,7 @@ public class EditMusic implements Serializable {
     }
 
     public String editMusic() {
-        musicFacade.edit(music);
+        musicFacade.editMusic(ud.getIdMusic(),ud.getIdUser());
         ud.loadMusicsUser();
         ud.loadMusics();
         return "editmusic";

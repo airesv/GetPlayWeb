@@ -33,14 +33,12 @@ public class MusicFacade extends AbstractFacade<Music> {
     private EntityManager em;
 
     @EJB
-    private UploadBean uploadBean;    
+    private UploadBean uploadBean;
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-  
-    
 
     public List<Music> listOfAllMusics() {
         Query query = em.createNamedQuery("Music.findAll", Music.class);
@@ -65,25 +63,31 @@ public class MusicFacade extends AbstractFacade<Music> {
         query.setParameter("author", author);
         return query.getResultList();
     }
-    
+
     public void removeMusic(Long idMusic, Long idUser) {
-        UserPlay up=em.find(UserPlay.class, idUser);
-        Music m=em.find(Music.class, idMusic);
+        UserPlay up = em.find(UserPlay.class, idUser);
+        Music m = em.find(Music.class, idMusic);
         up.removeMusicItem(m);
         remove(m);
         em.flush();
     }
-  
+
+    public void editMusic(Long idMusic,Long idUser) {
+        UserPlay up = em.find(UserPlay.class, idUser);
+        Music m = em.find(Music.class, idMusic);
+        em.merge(m);
+       // up.setMusicItem(m);//Edit Music
+    }
+
 //    public List<Music> userMusics(Long id){
 //        UserPlay userOwner = em.find(UserPlay.class, id);
 //        Query query = em.createNamedQuery("Music.findByOwner", Music.class);
 //        query.setParameter("userOwner", userOwner);
 //        return query.getResultList();
 //    }
-
     // getters and setters for file1 and file2
     public void createMusic(int yearOfRelease, String name, String author, String album, String path, Long id, Part file) throws IOException {
-        UserPlay up=em.find(UserPlay.class, id);
+        UserPlay up = em.find(UserPlay.class, id);
         Music music = new Music();
         //Possible exception when trying to upload a music
         try {
