@@ -53,12 +53,11 @@ public class EditMusic implements Serializable {
     private Music selectedMusic;
 
     /**
-     *
-     * @return
+     * Create new music
+     * @return Xhtml, with the list of all musics, included the last one created
      * @throws IOException
-     * @throws pt.uc.dei.uc.grupoa.utils.MyException
      */
-    public String createNewMusic() throws IOException,MyException {
+    public String createNewMusic() throws IOException {
         musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), ud.getIdUser(), getFile());
         ud.refreshMusicsUser();
         ud.refreshMusics();
@@ -66,19 +65,20 @@ public class EditMusic implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Edit a music
+     * 
+     * @return XHTML with the list of user musics to edit
      */
     public String editMusic() {
-        musicFacade.editMusic(ud.getIdMusic(),ud.getIdUser());
+        musicFacade.editMusic(ud.getIdMusic(),getAlbum(),getAuthor(),getYearOfRelease(),getNameMusic());
         ud.refreshMusicsUser();
         ud.refreshMusics();
         return "editmusic";
     }
 
     /**
-     *
-     * @return
+     * Remove a music
+     * @return XHTML with the list of user musics to edit
      */
     public String removeMusic() {  
         musicFacade.removeMusic(ud.getIdMusic(), ud.getIdUser());
@@ -88,8 +88,8 @@ public class EditMusic implements Serializable {
     }
 
     /**
-     *
-     * @return
+     *  
+     * @return XHTML with the components of the music selected to edit
      */
     public String toEdit() {
         music = (Music) musicsLoggedInUser.getRowData();

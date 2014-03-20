@@ -13,7 +13,6 @@ import javax.ejb.EJB;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.http.Part;
@@ -32,18 +31,21 @@ public class MusicFacade extends AbstractFacade<Music> {
 
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
-
     @EJB
     private UploadBean uploadBean;
-
     @Override
+    
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    public MusicFacade() {
+        super(Music.class);
+    }
+
     /**
      *
-     * @return
+     * @return List of all musics
      */
     public List<Music> listOfAllMusics() {
         Query query = em.createNamedQuery("Music.findAll", Music.class);
@@ -51,13 +53,14 @@ public class MusicFacade extends AbstractFacade<Music> {
     }
 
     /**
+     *
+     *
+     * @param name
+     * @return List of Searched musics
      */
-    public MusicFacade() {
-        super(Music.class);
-    }
-      public List<Music> searchedMusic(String name) {
+    public List<Music> searchedMusic(String name) {
         Query query = em.createNamedQuery("Music.findByName", Music.class);
-        query.setParameter("name",  name );
+        query.setParameter("name", name);
         return query.getResultList();
 
     }
@@ -73,13 +76,11 @@ public class MusicFacade extends AbstractFacade<Music> {
 //        return query.getResultList();
 //
 //    }
-
 //    public List<Music> searchedAuthor(String author) {
 //        Query query = em.createNamedQuery("Music.findByAuthorAsc", Music.class);
 //        query.setParameter("author", "%" + author + "%");
 //        return query.getResultList();
 //    }
-
     /**
      *
      * @param author
@@ -105,15 +106,21 @@ public class MusicFacade extends AbstractFacade<Music> {
     }
 
     /**
-     *
+     * Edit specific Music
      * @param idMusic
-     * @param idUser
+     * @param album
+     * @param author
+     * @param YearOfRelease
+     * @param name
      */
-    public void editMusic(Long idMusic, Long idUser) {
-        UserPlay up = em.find(UserPlay.class, idUser);
+    public void editMusic(Long idMusic, String album, String author, int YearOfRelease, String name) {
         Music m = em.find(Music.class, idMusic);
+        //Set the attributes into music
+        m.setAlbum(album);
+        m.setAuthor(author);
+        m.setYearOfRelease(YearOfRelease);
+        m.setName(name);
         em.merge(m);
-        // up.setMusicItem(m);//Edit Music
     }
 
 //    public List<Music> userMusics(Long id){
@@ -122,7 +129,7 @@ public class MusicFacade extends AbstractFacade<Music> {
 //        query.setParameter("userOwner", userOwner);
 //        return query.getResultList();
 //    }
-    // getters and setters for file1 and file2
+   
     /**
      *
      * @param yearOfRelease
@@ -133,9 +140,9 @@ public class MusicFacade extends AbstractFacade<Music> {
      * @param id
      * @param file
      * @throws IOException
-     * @throws pt.uc.dei.uc.grupoa.utils.MyException
+     * 
      */
-    public void createMusic(int yearOfRelease, String name, String author, String album, String path, Long id, Part file) throws IOException, MyException {
+    public void createMusic(int yearOfRelease, String name, String author, String album, String path, Long id, Part file) throws IOException{
         UserPlay up = em.find(UserPlay.class, id);
         Music music = new Music();
         //Possible exception when trying to upload a music
@@ -144,7 +151,6 @@ public class MusicFacade extends AbstractFacade<Music> {
         } catch (IOException ex) {
             Logger.getLogger(EditMusic.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         music.setAlbum(album);
         music.setAuthor(author);
         music.setPathSound(uploadBean.getPath());
@@ -155,27 +161,16 @@ public class MusicFacade extends AbstractFacade<Music> {
         up.setMusicItem(music);//update on User
     }
 
-    /**
-     *
-     * @param mus
-     * @param pl
-     */
+    ///Getters and Setters///
+    
     public void setNewMusicPlaylist(Music mus, Playlist pl) {
         mus.setPlaylistItem(pl);
     }
 
-    /**
-     *
-     * @return
-     */
     public UploadBean getUploadBean() {
         return uploadBean;
     }
 
-    /**
-     *
-     * @param uploadBean
-     */
     public void setUploadBean(UploadBean uploadBean) {
         this.uploadBean = uploadBean;
     }
