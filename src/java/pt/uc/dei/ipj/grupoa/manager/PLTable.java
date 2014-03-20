@@ -51,30 +51,49 @@ public class PLTable implements Serializable {
     public PLTable() {
     }
 
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         //      table = new CollectionDataModel<>(ud.getLstPlaylist());
     }
 
 ///////////////////////////////////////////////////////////////
-    public String editPlaylist() {
+
+    /**
+     *
+     * @return
+     */
+        public String editPlaylist() {
         pl = (Playlist) table.getRowData();
         ud.setIdPlaylist(pl.getId());
         this.setNamePlaylist(pl.getNamePlaylist());
         return "viewpl";
     }
 
+    /**
+     *
+     */
     public void removePl() {
         pl = (Playlist) table.getRowData();
         plfacade.removePlaylist(pl, ud.getIdUser());
         //init()
     }
 
+    /**
+     *
+     * @return
+     */
     public String orderByName() {
         table = new CollectionDataModel<>(ud.orderPlaylist());
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public String renamePlaylist() {
         //mandar para o face 
         boolean renamed = plfacade.changeNamePlaylist(ud.getIdUser(), ud.getIdPlaylist(), getNamePlaylist());
@@ -83,16 +102,24 @@ public class PLTable implements Serializable {
         } else {
             setMessage("There is a Playlist with that name!");
         }
-        ud.loadPlaylist();//recarrega a lista de playlist
+        ud.refreshPlaylist();//recarrega a lista de playlist
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public String createNewPlaylist() {
         plfacade.createPlayList(getNamePlaylist(), ud.getIdUser());
-        ud.loadPlaylist();//recarrega a lista de playlist
+        ud.refreshPlaylist();//recarrega a lista de playlist
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public String insertMusPL() {
         return "musicinplay";
     }
@@ -100,69 +127,134 @@ public class PLTable implements Serializable {
     
 
     ////Get and Setters////////////
-    public UserData getUd() {
+
+    /**
+     *
+     * @return
+     */
+        public UserData getUd() {
         return ud;
     }
 
+    /**
+     *
+     * @param ud
+     */
     public void setUd(UserData ud) {
         this.ud = ud;
     }
 
+    /**
+     *
+     * @return
+     */
     public UserPlayFacade getUserplayFacade() {
         return userplayFacade;
     }
 
+    /**
+     *
+     * @param userplayFacade
+     */
     public void setUserplayFacade(UserPlayFacade userplayFacade) {
         this.userplayFacade = userplayFacade;
     }
 
+    /**
+     *
+     * @return
+     */
     public PlaylistFacade getPlfacade() {
         return plfacade;
     }
 
+    /**
+     *
+     * @param plfacade
+     */
     public void setPlfacade(PlaylistFacade plfacade) {
         this.plfacade = plfacade;
     }
 
+    /**
+     *
+     * @return
+     */
     public DataModel<Playlist> getTable() {
         table = new CollectionDataModel<>(ud.getLstPlaylist());
         return table;
     }
 
+    /**
+     *
+     * @param table
+     */
     public void setTable(DataModel<Playlist> table) {
 
         this.table = table;
     }
 
+    /**
+     *
+     * @return
+     */
     public Playlist getPl() {
         return pl;
     }
 
+    /**
+     *
+     * @param pl
+     */
     public void setPl(Playlist pl) {
         this.pl = pl;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNamePlaylist() {
         return namePlaylist;
     }
 
+    /**
+     *
+     * @param namePlaylist
+     */
     public void setNamePlaylist(String namePlaylist) {
         this.namePlaylist = namePlaylist;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     *
+     * @param message
+     */
     public void setMessage(String message) {
         this.message = message;
     }
 
+    /**
+     *
+     * @return
+     */
     public DataModel<Music> getTableM() {
         table = new CollectionDataModel<>(ud.getLstPlaylist());
         return tableM;
     }
 
+    /**
+     *
+     * @param tableM
+     */
     public void setTableM(DataModel<Music> tableM) {
         this.tableM = tableM;
     }

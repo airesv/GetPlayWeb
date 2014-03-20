@@ -18,7 +18,7 @@ import pt.uc.dei.uc.grupoa.utils.OrderPL;
 
 /**
  *
- * @author Aires
+ * @author Alvaro/Vitor
  */
 @Stateful
 @SessionScoped
@@ -46,18 +46,31 @@ public class UserData {
     private OrderPL orderPL;
     private boolean asc = Boolean.FALSE;
 
-    public void loadPlaylist() {
+    /**
+     * Update the list of playlists on user
+     */
+    public void refreshPlaylist() {
         setLstPlaylist(userplayFacade.lstPlaylist(getIdUser()));
     }
 
-    public void loadMusics() {
+    /**
+     * Update the list of musics on application
+     */
+    public void refreshMusics() {
         setLstAllMusic(musicfacade.listOfAllMusics());
     }
-    public void loadMusicsUser(){
+
+    /**
+     * Update the list of musics on user
+     */
+    public void refreshMusicsUser(){
         setListUserMusic(userplayFacade.lstMusicList(getIdUser()));
     }
-    
-  
+
+    /**
+     * 
+     * @return Playlist ordered
+     */
     public List<Playlist> orderPlaylist() {
         orderPL = new OrderPL();
         setLstPlaylist(orderPL.order(getLstPlaylist(), isAsc()));
@@ -65,9 +78,7 @@ public class UserData {
         return lstPlaylist;
     }
 
-    
-    
-    
+  
     public boolean isAsc() {
         return asc;
     }
@@ -75,6 +86,8 @@ public class UserData {
     public void setAsc(boolean asc) {
         this.asc = asc;
     }
+    
+    ////Getters and Setters///
 
     public long getIdUser() {
         return idUser;
@@ -123,25 +136,24 @@ public class UserData {
     public void setLstAllMusic(List<Music> lstAllMusic) {
         this.lstAllMusic = lstAllMusic;
     }
-  
+
     public List<Playlist> getLstPlaylist() {
 
         return lstPlaylist;
     }
-
+   
     public void setLstPlaylist(List<Playlist> lstPlaylist) {
         this.lstPlaylist = lstPlaylist;
     }
     
+   
     public List<Music> getListUserMusic() {
         return listUserMusic;
     }
 
+   
     public void setListUserMusic(List<Music> listUserMusic) {
         this.listUserMusic = listUserMusic;
     }
-    
-    
-
 
 }

@@ -18,16 +18,27 @@ public class TodayDate {
 
     private Date today;
 
+    /**
+     *
+     */
     public TodayDate() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getToday() {
         Calendar myCal = Calendar.getInstance();
         Date today = myCal.getTime();
         return today;
     }
 
+    /**
+     *
+     * @param today
+     */
     public void setToday(Date today) {
         this.today = today;
     }

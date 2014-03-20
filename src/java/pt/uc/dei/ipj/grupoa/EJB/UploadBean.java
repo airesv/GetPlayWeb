@@ -17,7 +17,7 @@ import javax.servlet.http.Part;
 
 /**
  *
- * @author alvaro
+ * @author Alvaro/Vitor
  */
 @Stateless
 public class UploadBean {
@@ -26,8 +26,14 @@ public class UploadBean {
     private RandomName randomName;
 
     private String path;
-    //Upload a file 
-    public void upload( Part file) throws IOException {
+    
+
+    /**
+     * Upload a file
+     * @param file
+     * @throws IOException
+     */
+        public void upload( Part file) throws IOException {
       try (InputStream inputStream = file.getInputStream()) {
             File f = new File("a");
             path = f.getAbsolutePath().substring(0, f.getAbsolutePath().length() - 1);
@@ -48,10 +54,18 @@ public class UploadBean {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPath() {
         return path;
     }
 
+    /**
+     *
+     * @param path
+     */
     public void setPath(String path) {
         this.path = path;
     }

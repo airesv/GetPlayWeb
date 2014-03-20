@@ -28,6 +28,9 @@ public class OrderPlaylist {
     private List<Playlist> lstPlaylist;
     private boolean asc;
 
+    /**
+     *
+     */
     public void orderList() {
         if (asc) {
             setLstPlaylist(playlistfacade.orderPLbyNameASC(ul.getIdUser()));
@@ -39,26 +42,50 @@ public class OrderPlaylist {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Playlist> getLstPlaylist() {
         return lstPlaylist;
     }
 
+    /**
+     *
+     * @param lstPlaylist
+     */
     public void setLstPlaylist(List<Playlist> lstPlaylist) {
         this.lstPlaylist = lstPlaylist;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isAsc() {
         return asc;
     }
 
+    /**
+     *
+     * @param asc
+     */
     public void setAsc(boolean asc) {
         this.asc = asc;
     }
 
+    /**
+     *
+     * @return
+     */
     public PlaylistFacade getPlaylistfacade() {
         return playlistfacade;
     }
 
+    /**
+     *
+     * @param playlistfacade
+     */
     public void setPlaylistfacade(PlaylistFacade playlistfacade) {
         this.playlistfacade = playlistfacade;
     }

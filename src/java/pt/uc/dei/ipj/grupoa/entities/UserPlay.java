@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Aires
+ * @author Alvaro/Vitor
  */
 @Entity
 @NamedQueries({
@@ -182,26 +182,50 @@ public class UserPlay implements Serializable {
         this.playlists = playlists;
     }
 
+    /**
+     *
+     * @param pl
+     */
     public void setPlaylistsItem(Playlist pl) {
         playlists.add(pl);
     }
 
-   public void removePlaylistItem(Playlist pl) {
+    /**
+     *
+     * @param pl
+     */
+    public void removePlaylistItem(Playlist pl) {
         playlists.remove(pl);
     }
+
+    /**
+     *
+     * @param m
+     */
     public void removeMusicItem(Music m) {
        music.remove(m);
     }
     
+    /**
+     *
+     * @param m
+     */
     public void removeAllMusic(List<Music> m){
         music.removeAll(m);
     }
-    
-      public void removeAllPlayLists(List<Playlist> pl){
+
+    /**
+     *
+     * @param pl
+     */
+    public void removeAllPlayLists(List<Playlist> pl){
         music.removeAll(pl);
     }
-   
 
+    /**
+     *
+     * @param m
+     */
     public void setMusicItem(Music m) {
         music.add(m);
     }
@@ -220,6 +244,11 @@ public class UserPlay implements Serializable {
         this.music = music;
     }
 
+    /**
+     *
+     * @param oldName
+     * @param newName
+     */
     public void alterNamePL(String oldName, String newName){
       
     

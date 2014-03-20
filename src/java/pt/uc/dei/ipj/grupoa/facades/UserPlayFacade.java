@@ -17,6 +17,10 @@ import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 
+/**
+ *
+ * @author alvaro
+ */
 @Stateless
 public class UserPlayFacade extends AbstractFacade<UserPlay> {
 
@@ -31,6 +35,9 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     @EJB
     private EncryptPassword encryptPassword;
 
+    /**
+     *
+     */
     public UserPlayFacade() {
         super(UserPlay.class);
     }
@@ -48,6 +55,12 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         }
     }
 
+    /**
+     *
+     * @param attempt
+     * @param up
+     * @return
+     */
     public boolean authValidation(String attempt, UserPlay up) {
         String encryptedAttempt = encryptPassword.cryptWithMD5(attempt);
         return (encryptedAttempt.equals(up.getPassword()));
@@ -63,6 +76,13 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         return (up != null);
     }
 
+    /**
+     *
+     * @param id
+     * @param name
+     * @param email
+     * @param Password
+     */
     public void editUser(long id, String name, String email, String Password) {
         //procurar o utilizador 
         UserPlay up = em.find(UserPlay.class, id);
@@ -73,6 +93,15 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         em.merge(up);
     }
 
+    /**
+     *
+     * @param id
+     * @param name
+     * @param email
+     * @param Password
+     * @param oldEmail
+     * @return
+     */
     public String editnewUser(long id, String name, String email, String Password, String oldEmail) {
 
         //verifica. se há outro utilizador com o mesmo email
@@ -91,6 +120,11 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @param pl
+     */
     public void setNewPlayList(long id, Playlist pl) {
         UserPlay up = em.find(UserPlay.class, id);
         up.setPlaylistsItem(pl);
@@ -113,6 +147,10 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         }
     }
 
+    /**
+     *
+     * @param id
+     */
     public void removeUser(Long id/*, List<Music> musics, List<Playlist> playlists*/) {
         UserPlay userOwner = em.find(UserPlay.class, id);
         userOwner.removeAllMusic(userOwner.getMusic());
@@ -127,11 +165,21 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
 //        return query.getResultList();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<Playlist> lstPlaylist(Long id) {
         UserPlay up = em.find(UserPlay.class, id);
         return up.getPlaylists();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<Music> lstMusicList(Long id) {
         UserPlay up = em.find(UserPlay.class, id);
         return up.getMusic();

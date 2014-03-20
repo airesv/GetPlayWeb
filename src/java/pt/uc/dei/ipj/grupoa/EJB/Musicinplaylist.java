@@ -83,7 +83,6 @@ public class Musicinplaylist {
 
         pl.setPlaylistItem(mus);
         mus.setPlaylistItem(pl);
-        int i=0;
     }
 /**
  * Remove a Music from a chosen Playlist

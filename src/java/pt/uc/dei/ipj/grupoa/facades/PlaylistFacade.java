@@ -20,7 +20,7 @@ import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 
 /**
  *
- * @author alvaro
+ * @author Alvaro/Vitor
  */
 @Stateless
 public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializable {
@@ -50,10 +50,18 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         super(Playlist.class);
     }
 
+    /**
+     *
+     * @return
+     */
     public EntityManager getEm() {
         return em;
     }
 
+    /**
+     *
+     * @param em
+     */
     public void setEm(EntityManager em) {
         this.em = em;
     }
@@ -110,6 +118,13 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
      * @return 
      */
 
+    /**
+     *
+     * @param idUser
+     * @param idPlaylist
+     * @param name
+     * @return
+     */
     public boolean changeNamePlaylist(long idUser, long idPlaylist, String name) {
         UserPlay up = em.find(UserPlay.class, idUser);
         Playlist pl = em.find(Playlist.class, idPlaylist);
@@ -144,8 +159,13 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
             return null;
         }
     }
-    
-       public List<Playlist> orderPLbyNameDESC(Long idUser) {
+
+    /**
+     *
+     * @param idUser
+     * @return
+     */
+    public List<Playlist> orderPLbyNameDESC(Long idUser) {
         Query query = em.createNamedQuery("Playlist.findAllOrderByNameDesc",Playlist.class);
         query.setParameter("id", idUser);
 
