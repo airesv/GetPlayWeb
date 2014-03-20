@@ -21,10 +21,11 @@ import pt.uc.dei.ipj.grupoa.EJB.UploadBean;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 import pt.uc.dei.ipj.grupoa.manager.EditMusic;
+import pt.uc.dei.uc.grupoa.utils.MyException;
 
 /**
  *
- * @author alvaro
+ * @author Alvaro/Vitor
  */
 @Stateless
 public class MusicFacade extends AbstractFacade<Music> {
@@ -40,6 +41,10 @@ public class MusicFacade extends AbstractFacade<Music> {
         return em;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Music> listOfAllMusics() {
         Query query = em.createNamedQuery("Music.findAll", Music.class);
         return query.getResultList();
@@ -50,20 +55,47 @@ public class MusicFacade extends AbstractFacade<Music> {
     public MusicFacade() {
         super(Music.class);
     }
-
-    public List<Music> searchedMusic(String name) {
+      public List<Music> searchedMusic(String name) {
         Query query = em.createNamedQuery("Music.findByName", Music.class);
-        query.setParameter("name", name);
+        query.setParameter("name",  name );
         return query.getResultList();
 
     }
 
+    /**
+     *
+     * @param name
+     * @return List of musics of the searched name music
+     */
+//    public List<Music> searchedMusic(String name) {
+//        Query query = em.createNamedQuery("Music.findByName", Music.class);
+//        query.setParameter("name", "%" + name + "%");
+//        return query.getResultList();
+//
+//    }
+
+//    public List<Music> searchedAuthor(String author) {
+//        Query query = em.createNamedQuery("Music.findByAuthorAsc", Music.class);
+//        query.setParameter("author", "%" + author + "%");
+//        return query.getResultList();
+//    }
+
+    /**
+     *
+     * @param author
+     * @return List of musics of the searched author
+     */
     public List<Music> searchedAuthor(String author) {
         Query query = em.createNamedQuery("Music.findByAuthorAsc", Music.class);
         query.setParameter("author", author);
         return query.getResultList();
     }
 
+    /**
+     * Remove specific music
+     * @param idMusic
+     * @param idUser
+     */
     public void removeMusic(Long idMusic, Long idUser) {
         UserPlay up = em.find(UserPlay.class, idUser);
         Music m = em.find(Music.class, idMusic);
@@ -72,11 +104,16 @@ public class MusicFacade extends AbstractFacade<Music> {
         em.flush();
     }
 
-    public void editMusic(Long idMusic,Long idUser) {
+    /**
+     *
+     * @param idMusic
+     * @param idUser
+     */
+    public void editMusic(Long idMusic, Long idUser) {
         UserPlay up = em.find(UserPlay.class, idUser);
         Music m = em.find(Music.class, idMusic);
         em.merge(m);
-       // up.setMusicItem(m);//Edit Music
+        // up.setMusicItem(m);//Edit Music
     }
 
 //    public List<Music> userMusics(Long id){
@@ -86,7 +123,19 @@ public class MusicFacade extends AbstractFacade<Music> {
 //        return query.getResultList();
 //    }
     // getters and setters for file1 and file2
-    public void createMusic(int yearOfRelease, String name, String author, String album, String path, Long id, Part file) throws IOException {
+    /**
+     *
+     * @param yearOfRelease
+     * @param name
+     * @param author
+     * @param album
+     * @param path
+     * @param id
+     * @param file
+     * @throws IOException
+     * @throws pt.uc.dei.uc.grupoa.utils.MyException
+     */
+    public void createMusic(int yearOfRelease, String name, String author, String album, String path, Long id, Part file) throws IOException, MyException {
         UserPlay up = em.find(UserPlay.class, id);
         Music music = new Music();
         //Possible exception when trying to upload a music
@@ -106,14 +155,27 @@ public class MusicFacade extends AbstractFacade<Music> {
         up.setMusicItem(music);//update on User
     }
 
+    /**
+     *
+     * @param mus
+     * @param pl
+     */
     public void setNewMusicPlaylist(Music mus, Playlist pl) {
         mus.setPlaylistItem(pl);
     }
 
+    /**
+     *
+     * @return
+     */
     public UploadBean getUploadBean() {
         return uploadBean;
     }
 
+    /**
+     *
+     * @param uploadBean
+     */
     public void setUploadBean(UploadBean uploadBean) {
         this.uploadBean = uploadBean;
     }
