@@ -98,10 +98,10 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
             }
         }
         if (count == 0) {
-           // up.removePlaylistItem(pl);//apaga a playlist da BD
+            up.removePlaylistItem(pl);//apaga a playlist da BD
             pl.setNamePlaylist(name);
             em.merge(pl);
-            //up.setPlaylistsItem(pl);//insere a nova Playlist
+            up.setPlaylistsItem(pl);//insere a nova Playlist
             return true;
 
         } else {
