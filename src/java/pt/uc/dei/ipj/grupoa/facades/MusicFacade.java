@@ -40,6 +40,7 @@ public class MusicFacade extends AbstractFacade<Music> {
         return em;
     }
   
+    
 
     public List<Music> listOfAllMusics() {
         Query query = em.createNamedQuery("Music.findAll", Music.class);
@@ -65,13 +66,20 @@ public class MusicFacade extends AbstractFacade<Music> {
         return query.getResultList();
     }
     
-    public void removeMusic(Music m, Long id) {
-        UserPlay up=em.find(UserPlay.class, id);
+    public void removeMusic(Long idMusic, Long idUser) {
+        UserPlay up=em.find(UserPlay.class, idUser);
+        Music m=em.find(Music.class, idMusic);
         up.removeMusicItem(m);
         remove(m);
         em.flush();
     }
- 
+  
+//    public List<Music> userMusics(Long id){
+//        UserPlay userOwner = em.find(UserPlay.class, id);
+//        Query query = em.createNamedQuery("Music.findByOwner", Music.class);
+//        query.setParameter("userOwner", userOwner);
+//        return query.getResultList();
+//    }
 
     // getters and setters for file1 and file2
     public void createMusic(int yearOfRelease, String name, String author, String album, String path, Long id, Part file) throws IOException {
