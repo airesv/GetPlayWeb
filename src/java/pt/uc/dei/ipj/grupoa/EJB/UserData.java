@@ -39,12 +39,13 @@ public class UserData {
 
     @EJB
     private PlaylistFacade playlistFacade;
-    
+
     @EJB
     private MusicFacade musicfacade;
 
     private OrderPL orderPL;
     private boolean asc = Boolean.FALSE;
+    private boolean ascSize = Boolean.FALSE;
 
     /**
      * Update the list of playlists on user
@@ -63,12 +64,12 @@ public class UserData {
     /**
      * Update the list of musics on user
      */
-    public void refreshMusicsUser(){
+    public void refreshMusicsUser() {
         setListUserMusic(userplayFacade.lstMusicList(getIdUser()));
     }
 
     /**
-     * 
+     *
      * @return Playlist ordered
      */
     public List<Playlist> orderPlaylist() {
@@ -78,7 +79,13 @@ public class UserData {
         return lstPlaylist;
     }
 
-  
+    public List<Playlist> orderPlaylistSize() {
+        orderPL = new OrderPL();
+        setLstPlaylist(orderPL.orderSize(getLstPlaylist(), isAscSize()));
+        setAscSize(!isAscSize());
+        return lstPlaylist;
+    }
+
     public boolean isAsc() {
         return asc;
     }
@@ -86,9 +93,8 @@ public class UserData {
     public void setAsc(boolean asc) {
         this.asc = asc;
     }
-    
-    ////Getters and Setters///
 
+    ////Getters and Setters///
     public long getIdUser() {
         return idUser;
     }
@@ -141,19 +147,31 @@ public class UserData {
 
         return lstPlaylist;
     }
-   
+
     public void setLstPlaylist(List<Playlist> lstPlaylist) {
         this.lstPlaylist = lstPlaylist;
     }
-    
-   
+
     public List<Music> getListUserMusic() {
         return listUserMusic;
     }
 
-   
     public void setListUserMusic(List<Music> listUserMusic) {
         this.listUserMusic = listUserMusic;
+    }
+
+    /**
+     * @return the ascSize
+     */
+    public boolean isAscSize() {
+        return ascSize;
+    }
+
+    /**
+     * @param ascSize the ascSize to set
+     */
+    public void setAscSize(boolean ascSize) {
+        this.ascSize = ascSize;
     }
 
 }

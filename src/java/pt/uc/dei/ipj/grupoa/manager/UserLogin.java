@@ -132,8 +132,6 @@ public class UserLogin implements Serializable {
     public String insertEditUser() {
         if (password.equals(confirmPassword)) {
             message = userPlayFacade.editnewUser(ud.getIdUser(), ud.getNameUser(), ud.getEmailUser(), getPassword(), getEmail());
-//            ud.setNameUser(getName());
-//            ud.setEmailUser(getEmail());
         } else {
             message = "Password doesn´t match";
         }

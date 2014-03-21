@@ -50,6 +50,7 @@ public class InsertMusicPL {
     public String insertMusic() {
         mus = (Music) tabelaM.getRowData();
         mp.insertMusic(mus.getId(), ud.getIdPlaylist());
+        ud.refreshPlaylist();
         return "viewpl";
     }
 
@@ -58,14 +59,12 @@ public class InsertMusicPL {
     
     
     public DataModel<Music> getTabelaM() {
-        long teste = ud.getIdPlaylist();
-        //setLstMusic(mp.allMusicNOTINPLaylistlist(teste));
         setLstMusic(musicafacade.listOfAllMusics());
-        tabelaM = new CollectionDataModel<>(getLstMusic());
+        tabelaM = new CollectionDataModel<>(musicafacade.listOfAllMusics());
         return tabelaM;
     }
     
-    
+   
     public UserData getUd() {
         return ud;
     }

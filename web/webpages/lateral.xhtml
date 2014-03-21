@@ -73,7 +73,9 @@
                             </h:column>
                              <h:column>
                                 <f:facet name="header">
+                                    <h:commandLink action="#{plTable.orderBySize()}"> 
                                     <h:outputText value="Size"/>
+                                    </h:commandLink>
                                 </f:facet>
                                  <h:outputText value="#{item.playlistSize()}">
                                 </h:outputText>
