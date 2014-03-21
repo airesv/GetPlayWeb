@@ -51,10 +51,10 @@ public class UserPlay implements Serializable {
             + " more than 10 characters")
     private String password;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "userOwner")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "userOwner", orphanRemoval = true)
     private List<Music> music;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "userOwner")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "userOwner", orphanRemoval = true)
     private List<Playlist> playlists;
 
     /**

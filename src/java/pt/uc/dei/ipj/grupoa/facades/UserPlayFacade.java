@@ -8,11 +8,12 @@ import java.util.List;
 import pt.uc.dei.ipj.grupoa.EJB.EncryptPassword;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import org.omg.CORBA.UserException;
+import pt.uc.dei.ipj.grupoa.EJB.UserData;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
@@ -34,6 +35,8 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
 
     @EJB
     private EncryptPassword encryptPassword;
+    @Inject
+    private UserData ud;
 
     /**
      *
@@ -145,54 +148,19 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         } catch (NoResultException e) {
             return null;
         }
+
     }
 
     /**
      *
+     * @param idUser
      * @param id
      */
     public void removeUser(Long idUser) {
-//        Query query = em.createNamedQuery("UserPlay.findAll", UserPlay.class);
-//        List<UserPlay> users = query.getResultList();
-
         UserPlay up = em.find(UserPlay.class, idUser);
-//        up.removeAllPlayLists(up.getPlaylists());
-//        for (int a = 0; a < users.size(); a++) {
-//            if (up.getPlaylists() != null) {
-//                for (int i = 0; i < users.get(a).getPlaylists().size(); i++) {
-//                    for (int j = 0; j < users.get(a).getPlaylists().get(i).getMusicList().size(); j++) {
-//                        if (users.get(a).getPlaylists().get(i).getMusicList().get(j).getUserOwner().equals(up)) {
-//                            up.removeAllMusic(up.getPlaylists().get(i).getMusicList());
-//                        }
-//                    }
-//                }
-//            }
-//        }
-      
-        em.flush();
-        em.remove(up);
-        em.flush();
+        em.remove(em.merge(up));
     }
-//     
-//        Music mus=em.find(Music.class, idMusic);
-//        
-//        for (Playlist pl : mus.getLstPlaylist()) {
-//            pl.getMusicList().remove(mus);
-//            em.merge(pl);
-//        }
-//        
-//        UserPlay up = em.find(UserPlay.class, ud.getIdUser());
-//        up.getMusic().remove(mus);
-//        
-//      
-//        em.remove(mus);
-//        
-//        
-//       // em.merge(mus);
-//        em.flush();
-//        ud.refreshPlaylist();
-//        ud.refreshMusics();
-//        ud.refreshMusicsUser();
+
 
     /**
      *

@@ -111,6 +111,9 @@ public class UserLogin implements Serializable {
      */
     public String deleteUser() {
         userPlayFacade.removeUser(ud.getIdUser());
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+        session.invalidate();
         return "index";
     }
 
