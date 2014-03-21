@@ -51,6 +51,32 @@ public class OrderPL {
 
     }
 
+    
+    public List<Playlist> orderSize(List<Playlist> list, boolean asc) {
+
+        if (asc) {
+            Collections.sort(list, new Comparator<Playlist>() {
+                @Override
+                public int compare(Playlist o1, Playlist o2) {
+                    return o1.playlistSize() - o2.playlistSize();
+                }
+            });
+
+            return list;
+        } else {
+
+            Collections.sort(list, new Comparator<Playlist>() {
+                @Override
+                public int compare(Playlist o1, Playlist o2) {
+                    return o2.playlistSize() - o1.playlistSize();
+                }
+            });
+
+            return list;
+
+        }
+
+    }
    
 //////////////getter & Setter
 

@@ -14,6 +14,7 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
+import pt.uc.dei.ipj.grupoa.EJB.Musicinplaylist;
 import pt.uc.dei.ipj.grupoa.EJB.UserData;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 
@@ -38,12 +39,15 @@ public class PLTable implements Serializable {
     @EJB
     private PlaylistFacade plfacade;
 
+    @EJB
+    private Musicinplaylist mp;
+
     private DataModel<Playlist> table;
     private String namePlaylist;
     private Playlist pl;
+    private Music mus;
     private String message;
     private DataModel<Music> tableM;
-    
 
     /**
      * Creates a new instance of PLTable
@@ -60,12 +64,11 @@ public class PLTable implements Serializable {
     }
 
 ///////////////////////////////////////////////////////////////
-
     /**
      *
      * @return
      */
-        public String editPlaylist() {
+    public String editPlaylist() {
         pl = (Playlist) table.getRowData();
         ud.setIdPlaylist(pl.getId());
         this.setNamePlaylist(pl.getNamePlaylist());
@@ -87,6 +90,11 @@ public class PLTable implements Serializable {
      */
     public String orderByName() {
         table = new CollectionDataModel<>(ud.orderPlaylist());
+        return null;
+    }
+
+    public String orderBySize() {
+        table = new CollectionDataModel<>(ud.orderPlaylistSize());
         return null;
     }
 
@@ -116,6 +124,13 @@ public class PLTable implements Serializable {
         return null;
     }
 
+    public String removeMusic() {
+        mus = (Music) tableM.getRowData();
+        mp.removeMusicPlayList(mus.getId(), ud.getIdPlaylist());
+        ud.refreshPlaylist();
+        return null;
+    }
+
     /**
      *
      * @return
@@ -123,16 +138,13 @@ public class PLTable implements Serializable {
     public String insertMusPL() {
         return "musicinplay";
     }
-    
-    
 
     ////Get and Setters////////////
-
     /**
      *
      * @return
      */
-        public UserData getUd() {
+    public UserData getUd() {
         return ud;
     }
 
@@ -247,7 +259,7 @@ public class PLTable implements Serializable {
      * @return
      */
     public DataModel<Music> getTableM() {
-        table = new CollectionDataModel<>(ud.getLstPlaylist());
+        tableM = new CollectionDataModel<>(mp.allMusicinPLaylistlist(ud.getIdPlaylist()));
         return tableM;
     }
 

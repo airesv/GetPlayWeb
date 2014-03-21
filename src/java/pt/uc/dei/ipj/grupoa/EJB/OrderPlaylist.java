@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import pt.uc.dei.ipj.grupoa.manager.UserLogin;
+import pt.uc.dei.uc.grupoa.utils.OrderPL;
 
 /**
  *
@@ -27,6 +28,9 @@ public class OrderPlaylist {
 
     private List<Playlist> lstPlaylist;
     private boolean asc;
+    
+    private OrderPL orderPL;
+    private boolean ascSize;
 
     /**
      *
@@ -41,6 +45,9 @@ public class OrderPlaylist {
         }
 
     }
+    
+   
+    
 
     /**
      *
@@ -88,6 +95,20 @@ public class OrderPlaylist {
      */
     public void setPlaylistfacade(PlaylistFacade playlistfacade) {
         this.playlistfacade = playlistfacade;
+    }
+
+    /**
+     * @return the ascSize
+     */
+    public boolean isAscSize() {
+        return ascSize;
+    }
+
+    /**
+     * @param ascSize the ascSize to set
+     */
+    public void setAscSize(boolean ascSize) {
+        this.ascSize = ascSize;
     }
 
 }
