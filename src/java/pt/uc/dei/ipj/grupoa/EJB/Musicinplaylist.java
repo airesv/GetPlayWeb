@@ -5,6 +5,7 @@
  */
 package pt.uc.dei.ipj.grupoa.EJB;
 
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -45,23 +46,21 @@ public class Musicinplaylist {
     }
 
     public void removeMyMusic(long idMusic) {
-     //be very afraid!!!
-        
-        Music mus=em.find(Music.class, idMusic);
-        
+        //be very afraid!!!
+
+        Music mus = em.find(Music.class, idMusic);
+
         for (Playlist pl : mus.getLstPlaylist()) {
             pl.getMusicList().remove(mus);
             em.merge(pl);
         }
-        
+
         UserPlay up = em.find(UserPlay.class, ud.getIdUser());
         up.getMusic().remove(mus);
-        
-      
+
         em.remove(mus);
-        
-        
-       // em.merge(mus);
+
+        // em.merge(mus);
         em.flush();
         ud.refreshPlaylist();
         ud.refreshMusics();
@@ -74,7 +73,50 @@ public class Musicinplaylist {
      * @param idPl PK of Playlist Entity
      * @return List<Music>
      */
-//    public List<Music> allMusicNOTINPLaylistlist(long idPl) {
+    public List<Music> allMusicNOTINPLaylist(long idPl) {
+        List<Music> musicList1 = ud.getLstAllMusic();
+        List<Music> musicList = ud.getLstAllMusic();
+        Playlist pl = em.find(Playlist.class, idPl);
+
+        Iterator<Music> it = musicList.iterator();
+        while (it.hasNext()) {
+            Music mus = it.next();
+            if (mus.getLstPlaylist().contains(pl)) {
+                it.remove();
+            }
+        }
+
+//    for (Music mus : lstmusic
+//
+//    
+//        ) {
+//            if (mus.getLstPlaylist().contains(pl)) {
+//            lstmusic.remove(mus);
+//        }
+//    }
+        return musicList;
+    }
+
+//        Query query = em.createQuery("(select m from Music m) Intersect (Select m from Playlist pl  where ");
+//        query.setParameter("id", idPl);
+//       int i=0;
+//       return query.getResultList();
+//        List<Music> lstmusic= ud.getLstAllMusic();
+//         for (Music mus : lstmusic) {
+//             for (Playlist pl: mus.getLstPlaylist()) {
+//                 if(pl.getId()==idPl){
+//                     lstmusic.remove(mus);
+//                 }
+//             }
+//        }
+//        
+//      return lstmusic; 
+//        Query query = em.createQuery("select m from Playlist p inner join p.musicList m where p.id <>:id");
+//        query.setParameter("id", idPl);
+//        int i=0;
+//        return query.getResultList();
+// }
+//    public List<Music> allMusicNOTINPLaylist(long idPl) {
 //        //Query query = em.createQuery("select m from Music m inner join m.lstPlaylist pl where pl.id <>?");
 //        Query query = em.createQuery("select m from Playlist p inner join p.musicList m where p.id <>:id");
 //        query.setParameter("id", idPl);
@@ -89,17 +131,16 @@ public class Musicinplaylist {
      * @param idPl PK of Playlist Entity
      */
     public void insertMusic(long idMus, long idPl) {
-        //verifica se A Musica já existe na paly list
-//        Query query = em.createQuery("select m from Playlist p inner join p.musicList m where p.id =:id");
-//        query.setParameter("id", idPl);
-//        return query.getResultList();
-
-//insere na Musica na List<Music> musicList
         Playlist pl = em.find(Playlist.class, idPl);
         Music mus = em.find(Music.class, idMus);
 
-        pl.setPlaylistItem(mus);
-        mus.setPlaylistItem(pl);
+        if (!pl.getMusicList().contains(mus)) {
+            pl.setPlaylistItem(mus);
+            mus.setPlaylistItem(pl);
+        } else {
+            int i = 0;
+        }
+
     }
 
     /**
@@ -112,8 +153,10 @@ public class Musicinplaylist {
         Playlist pl = em.find(Playlist.class, idPl);
         Music mus = em.find(Music.class, idMus);
 
-        pl.getMusicList().remove(mus);
-        mus.getLstPlaylist().remove(pl);
+        pl.getMusicList()
+                .remove(mus);
+        mus.getLstPlaylist()
+                .remove(pl);
     }
 
 }

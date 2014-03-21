@@ -26,7 +26,7 @@
                         <h:outputLabel value="Author : " for="Author"/>
                         <h:inputText id="Author" value="#{editMusic.author}" required="true" label="Author"/>
                         <h:message for="Author"/>
-                        <h:inputFile id="file" value="#{editMusic.file}" required="true"> </h:inputFile>                
+                        <h:inputFile id="file" value="#{editMusic.file}" required="true" styleClass="btn_user"> </h:inputFile>                
                         <h:message for="file"/>
                         <h:outputText value=""/>
                         <h:commandButton value="Insert" action="#{editMusic.createNewMusic()}" styleClass="btn_user"/>

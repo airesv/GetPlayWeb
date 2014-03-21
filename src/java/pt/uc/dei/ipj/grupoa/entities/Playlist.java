@@ -30,14 +30,15 @@ import javax.validation.constraints.Size;
  */
 @Entity
 
-@NamedQueries({ //@NamedQuery(name = "Playlist.findByNameUser", query = "SELECT p FROM Playlist p where p.nameplaylist=:name and p.userCreatorPlaylist ")
+@NamedQueries({ 
+//@NamedQuery(name = "Playlist.findByNameUser", query = "SELECT p FROM Playlist p where p.nameplaylist=:name and p.userCreatorPlaylist ")
 // @NamedQuery(name = "Playlist.findByNameUser", query = "SELECT p FROM Playlist where p.nameplaylist=:name and p.userCreatorPlaylist=:id")
 //    @NamedQuery(name = "Playlist.findAllOrderByDateAsc", query = "SELECT p FROM Playlist p ORDER by p.dateCreation ASC"),
 //    @NamedQuery(name = "Playlist.findAllOrderByDateDesc", query = "SELECT p FROM Playlist p ORDER by p.dateCreation DESC"),
 //    @NamedQuery(name = "Playlist.findAllOrderBySizeDesc", query = "SELECT count(p.musicList.id)  FROM Playlist p ORDER by p.dateCreation DESC"),
 //    @NamedQuery(name = "Playlist.findAllOrderByNameAsc", query = "SELECT p FROM Playlist p ORDER by p.namePlaylist ASC"),
 //    @NamedQuery(name = "Playlist.findAllOrderByNameDesc", query = "SELECT p FROM Playlist p ORDER by p.namePlaylist DESC"),
-//
+ //       @NamedQuery(name = "Playlist.findMusic", query = "SELECT p FROM Playlist p ORDER by p.namePlaylist DESC")
 //    @NamedQuery(name = "Playlist.findAllByUser", query = "SELECT p FROM Playlist p WHERE p.userPlay.email=:email"),
   //  @NamedQuery(name = "Playlist.findAllByAuthor", query = "SELECT p FROM Playlist p WHERE p.author = :author"),
 
