@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
+import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 
 /**
  *
@@ -43,6 +44,30 @@ public class Musicinplaylist {
         return query.getResultList();
     }
 
+    public void removeMyMusic(long idMusic) {
+     //be very afraid!!!
+        
+        Music mus=em.find(Music.class, idMusic);
+        
+        for (Playlist pl : mus.getLstPlaylist()) {
+            pl.getMusicList().remove(mus);
+            em.merge(pl);
+        }
+        
+        UserPlay up = em.find(UserPlay.class, ud.getIdUser());
+        up.getMusic().remove(mus);
+        
+      
+        em.remove(mus);
+        
+        
+       // em.merge(mus);
+        em.flush();
+        ud.refreshPlaylist();
+        ud.refreshMusics();
+        ud.refreshMusicsUser();
+    }
+
     /**
      * List of music, does´t belong to the playlist.
      *
@@ -57,7 +82,6 @@ public class Musicinplaylist {
 //        return query.getResultList();
 //
 //    }
-
     /**
      * Insert a Music from a chosen Playlist
      *
@@ -69,8 +93,6 @@ public class Musicinplaylist {
 //        Query query = em.createQuery("select m from Playlist p inner join p.musicList m where p.id =:id");
 //        query.setParameter("id", idPl);
 //        return query.getResultList();
-    
-
 
 //insere na Musica na List<Music> musicList
         Playlist pl = em.find(Playlist.class, idPl);
