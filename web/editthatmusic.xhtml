@@ -26,8 +26,8 @@
                         <h:outputLabel value="Name : " for="Name"/> 
                         <h:inputText label="Name of music" value="#{editMusic.nameMusic}" required="true"/>
                         <h:message for="Name"/>
-                        <h:commandButton value="Edit Music" action="#{editMusic.editMusic}" />
-                        <h:commandButton value="Delete Music" action="#{editMusic.removeMusic}" />
+                        <h:commandButton value="Edit Music" action="#{editMusic.editMusic}" styleClass="btn_user"/>
+                        <h:commandButton value="Delete Music" action="#{editMusic.removeMusic}" styleClass="btn_user"/>
                     </h:panelGrid> 
 
                 </h:form>

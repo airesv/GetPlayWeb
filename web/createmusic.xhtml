@@ -29,7 +29,7 @@
                         <h:inputFile id="file" value="#{editMusic.file}" required="true"> </h:inputFile>                
                         <h:message for="file"/>
                         <h:outputText value=""/>
-                        <h:commandButton value="Insert" action="#{editMusic.createNewMusic()}" />
+                        <h:commandButton value="Insert" action="#{editMusic.createNewMusic()}" styleClass="btn_user"/>
                         <h:commandButton value="Cancel" immediate="true" action="main" styleClass="btn_user"/>                   
                     </h:panelGrid>  
                 </h:form>
