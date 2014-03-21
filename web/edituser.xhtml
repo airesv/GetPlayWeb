@@ -26,8 +26,8 @@
                         <h:inputSecret label="Confirm Password" id="ConfirmPassword" value="#{userLogin.confirmPassword}" required="true"/>
                         <h:message for="ConfirmPassword"/>
                         <h:commandButton value="Confirm" action="#{userLogin.insertEditUser()}" />
-                        <h:commandButton value="Cancel" immediate="true" action="main" />
-                        <h:commandButton value="Remove Account"  action="#{userLogin.deleteUser()}" />
+                        <h:commandButton value="Cancel" immediate="true" action="main" styleClass="btn_user"/>
+                        <h:commandButton value="Remove Account"  action="#{userLogin.deleteUser()}" styleClass="btn_user"/>
                         <h:outputText value="#{userLogin.message}"/>                                      
                     </h:panelGrid> 
                 </h:form> 

@@ -3,13 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
-        <title>Getplay Facelet</title>
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Register a New User</title>
     </h:head>
     <h:body>
 
 
-        <table  style="width: 100%;">
+        <table  style="width: 70%;width: auto;margin-top: 100px;
+                margin-left: auto;
+                margin-right: auto;">
             <tbody>
                 <tr>
                     <td height="100%"  align="center" valign="middle">
@@ -18,39 +21,39 @@
                     </td>
                     <td height="100%"  align="left" valign="middle">   
                         <h:form> 
+                            <div class="datagrid">
 
+                                <table width="250" border="0" cellspacing="0" cellpadding="2">
+                                    <tbody>
+                                        <thead><tr><th>Register</th></tr></thead>
+                                        <tr>
+                                            <td><h:outputText value="Name : "/></td>
+                                            <td><h:inputText value="#{userLogin.newName}" required="true"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputText value="E-Mail : "/></td>
+                                            <td><h:inputText value="#{userLogin.newUserEmail}" required="true"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputText value="Password : "/></td>
+                                            <td><h:inputSecret value="#{userLogin.password}" required="true"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputText value="Confirm Password : "/></td>
+                                            <td><h:inputSecret value="#{userLogin.confirmPassword}" required="true"/></td>
+                                        </tr>
+                                        <tr>
 
+                                            <td><h:commandButton value="Insert" action="#{userLogin.insertNewUser()}" styleClass="btn_user"/></td>
+                                            <td><h:commandButton value="Cancel" immediate="true" action="index" styleClass="btn_user"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><h:outputText value="#{userLogin.message}"/></td>
 
-                            <h2>Register:</h2>
-                            <table width="250" border="0" cellspacing="0" cellpadding="2">
-                                <tbody>
-                                    <tr>
-                                        <td><h:outputText value="Name : "/></td>
-                                        <td><h:inputText value="#{userLogin.newName}" required="true"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="E-Mail : "/></td>
-                                        <td><h:inputText value="#{userLogin.newUserEmail}" required="true"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="Password : "/></td>
-                                        <td><h:inputSecret value="#{userLogin.password}" required="true"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="Confirm Password : "/></td>
-                                        <td><h:inputSecret value="#{userLogin.confirmPassword}" required="true"/></td>
-                                    </tr>
-                                    <tr>
-
-                                        <td><h:commandButton value="Insert" action="#{userLogin.insertNewUser()}" /></td>
-                                        <td><h:commandButton value="Cancel" immediate="true" action="index" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"><h:outputText value="#{userLogin.message}"/></td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </h:form> 
 
                     </td>
