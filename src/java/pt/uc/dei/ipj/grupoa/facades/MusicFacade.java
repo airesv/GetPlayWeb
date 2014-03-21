@@ -28,17 +28,18 @@ import pt.uc.dei.uc.grupoa.utils.MyException;
  */
 @Stateless
 public class MusicFacade extends AbstractFacade<Music> {
-
+    
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
     @EJB
     private UploadBean uploadBean;
+    
     @Override
     
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
     public MusicFacade() {
         super(Music.class);
     }
@@ -62,7 +63,7 @@ public class MusicFacade extends AbstractFacade<Music> {
         Query query = em.createNamedQuery("Music.findByName", Music.class);
         query.setParameter("name", name);
         return query.getResultList();
-
+        
     }
 
     /**
@@ -94,28 +95,39 @@ public class MusicFacade extends AbstractFacade<Music> {
 
     /**
      * Remove specific music
+     *
      * @param idMusic
      * @param idUser
      */
     public void removeMusic(Long idMusic, Long idUser) {
-        UserPlay up = em.find(UserPlay.class, idUser);
+        Query query = em.createNamedQuery("UserPlay.findAll", UserPlay.class);
+        List<UserPlay> allUsers = query.getResultList();
+        UserPlay userOwner = em.find(UserPlay.class, idUser);
         Music m = em.find(Music.class, idMusic);
-//        for(int i=0; i<up.getPlaylists().size();i++){
-//            for(int )
-//        }
-        up.removeMusicItem(m);
-        remove(m);
-        em.flush();
-    }
-
-    /**
-     * Edit specific Music
-     * @param idMusic
-     * @param album
-     * @param author
-     * @param YearOfRelease
-     * @param name
-     */
+        for (int a = 0; a < allUsers.size(); a++) {
+            if (allUsers.get(a).getPlaylists() != null) {
+                for (int i = 0; i < allUsers.get(a).getPlaylists().size(); i++) {
+                    for (int j = 0; j < allUsers.get(a).getPlaylists().get(i).getMusicList().size(); j++) {
+                        if (allUsers.get(a).getPlaylists().get(i).getMusicList().get(j).getUserOwner().equals(userOwner)) {
+                            allUsers.get(a).removeAllMusic(allUsers.get(a).getPlaylists().get(i).getMusicList());
+                        }
+                    }
+                }
+            }
+        }
+            userOwner.removeMusicItem(m);
+            remove(m);
+            em.flush();
+        }
+        /**
+         * Edit specific Music
+         *
+         * @param idMusic
+         * @param album
+         * @param author
+         * @param YearOfRelease
+         * @param name
+         */
     public void editMusic(Long idMusic, String album, String author, int YearOfRelease, String name) {
         Music m = em.find(Music.class, idMusic);
         //Set the attributes into music
@@ -132,7 +144,6 @@ public class MusicFacade extends AbstractFacade<Music> {
 //        query.setParameter("userOwner", userOwner);
 //        return query.getResultList();
 //    }
-   
     /**
      *
      * @param yearOfRelease
@@ -143,9 +154,9 @@ public class MusicFacade extends AbstractFacade<Music> {
      * @param id
      * @param file
      * @throws IOException
-     * 
+     *
      */
-    public void createMusic(int yearOfRelease, String name, String author, String album, String path, Long id, Part file) throws IOException{
+    public void createMusic(int yearOfRelease, String name, String author, String album, String path, Long id, Part file) throws IOException {
         UserPlay up = em.find(UserPlay.class, id);
         Music music = new Music();
         //Possible exception when trying to upload a music
@@ -165,17 +176,16 @@ public class MusicFacade extends AbstractFacade<Music> {
     }
 
     ///Getters and Setters///
-    
     public void setNewMusicPlaylist(Music mus, Playlist pl) {
         mus.setPlaylistItem(pl);
     }
-
+    
     public UploadBean getUploadBean() {
         return uploadBean;
     }
-
+    
     public void setUploadBean(UploadBean uploadBean) {
         this.uploadBean = uploadBean;
     }
-
+    
 }

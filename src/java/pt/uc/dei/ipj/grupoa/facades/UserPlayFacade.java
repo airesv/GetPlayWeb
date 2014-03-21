@@ -151,11 +151,11 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
      *
      * @param id
      */
-    public List<Music> musicsCreatedByUser(String owner) {
-        Query query = em.createNamedQuery("Music.findByOwner", Music.class);
-        query.setParameter("userOwner", owner);
-        return query.getResultList();
-    }
+//    public List<Music> musicsCreatedByUser(String owner) {
+//        Query query = em.createNamedQuery("Music.findByOwner", Music.class);
+//        query.setParameter("userOwner", owner);
+//        return query.getResultList();
+//    }
     
     public void removeUser(Long id) {
         UserPlay up = new UserPlay();
@@ -180,7 +180,6 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
 ////        em.remove(userOwner.getMusic());
 ////        em.merge(userOwner);
         em.merge(userLogged.getPlaylists());
-        
         em.remove(userLogged);
 //        return query.getResultList();
     }
