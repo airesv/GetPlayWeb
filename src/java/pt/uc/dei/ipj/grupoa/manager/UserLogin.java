@@ -48,11 +48,10 @@ public class UserLogin implements Serializable {
 
     }
 
-    
     @PostConstruct
     public void init() {
         errorMessage = "";
-        
+
     }
 
     /**
@@ -78,7 +77,7 @@ public class UserLogin implements Serializable {
             ud.refreshPlaylist();
             ud.refreshMusics();
             ud.refreshMusicsUser();
-            
+
             return "main";
         } else {
             setErrorMessage("Password badly inserted");
@@ -111,7 +110,7 @@ public class UserLogin implements Serializable {
      * @return
      */
     public String deleteUser() {
-        userPlayFacade.removeUser(ud.getIdUser());//, loggedUser.getMusic(), loggedUser.getPlaylists());
+        userPlayFacade.removeUser(ud.getIdUser());
         return "index";
     }
 
@@ -176,7 +175,7 @@ public class UserLogin implements Serializable {
      * @return
      */
     public String getName() {
-        name=ud.getNameUser();
+        name = ud.getNameUser();
         return name;
     }
 
@@ -289,7 +288,7 @@ public class UserLogin implements Serializable {
      * @return
      */
     public String getEmail() {
-        email=ud.getEmailUser();
+        email = ud.getEmailUser();
         return email;
     }
 
@@ -302,12 +301,10 @@ public class UserLogin implements Serializable {
         this.email = email;
     }
 
- 
     public UserData getUd() {
         return ud;
     }
 
-  
     public void setUd(UserData ud) {
         this.ud = ud;
     }
@@ -320,5 +317,4 @@ public class UserLogin implements Serializable {
         this.newName = newName;
     }
 
-    
 }

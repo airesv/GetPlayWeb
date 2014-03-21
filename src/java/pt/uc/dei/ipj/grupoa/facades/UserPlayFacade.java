@@ -23,15 +23,15 @@ import pt.uc.dei.ipj.grupoa.entities.UserPlay;
  */
 @Stateless
 public class UserPlayFacade extends AbstractFacade<UserPlay> {
-
+    
     @PersistenceContext(unitName = "GetPlayWebPU")
     private EntityManager em;
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
     @EJB
     private EncryptPassword encryptPassword;
 
@@ -86,7 +86,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
     public void editUser(long id, String name, String email, String Password) {
         //procurar o utilizador 
         UserPlay up = em.find(UserPlay.class, id);
-
+        
         up.setName(name);
         up.setEmail(email);
         up.setPassword(encryptPassword.cryptWithMD5(Password));
@@ -136,10 +136,10 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
      * @return
      * @throws org.omg.CORBA.UserException
      */
-    public UserPlay getUser(String email){
+    public UserPlay getUser(String email) {
         Query query = em.createNamedQuery("UserPlay.findByEmail", UserPlay.class);
         query.setParameter("email", email);
-
+        
         try {
             return (UserPlay) query.getSingleResult();
         } catch (NoResultException e) {
@@ -151,17 +151,37 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
      *
      * @param id
      */
-    public void removeUser(Long id/*, List<Music> musics, List<Playlist> playlists*/) {
-        UserPlay userOwner = em.find(UserPlay.class, id);
-        userOwner.removeAllMusic(userOwner.getMusic());
+    public List<Music> musicsCreatedByUser(String owner) {
         Query query = em.createNamedQuery("Music.findByOwner", Music.class);
-        query.setParameter("userOwner", userOwner);
-        userOwner.removeAllMusic(userOwner.getMusic());
-        userOwner.removeAllPlayLists(userOwner.getPlaylists());
-        em.remove(query.getResultList());
-        //  ir buscar todas as musicas criadas pelo utilizador             
-        em.remove(userOwner.getMusic());
-
+        query.setParameter("userOwner", owner);
+        return query.getResultList();
+    }
+    
+    public void removeUser(Long id) {
+        UserPlay up = new UserPlay();
+        UserPlay userLogged = em.find(UserPlay.class, id);
+        if (up.getPlaylists() != null) {
+            for (int i = 0; i < up.getPlaylists().size(); i++) {
+                for (int j = 0; j < up.getPlaylists().get(i).getMusicList().size(); j++) {
+                    if (up.getPlaylists().get(i).getMusicList().get(j).getUserOwner().equals(userLogged)) {
+                        up.removeAllMusic(up.getPlaylists().get(i).getMusicList());
+                    }
+                }
+            }
+        }
+        userLogged.removeAllPlayLists(userLogged.getPlaylists());
+        userLogged.removeAllMusic(userLogged.getMusic());
+////        Query query = em.createNamedQuery("Music.findByOwner", Music.class);
+////        query.setParameter("userOwner", userOwner);
+////        userOwner.removeAllMusic(userOwner.getMusic());
+////        userOwner.removeAllPlayLists(userOwner.getPlaylists());
+////        em.remove(query.getResultList());
+////        //  ir buscar todas as musicas criadas pelo utilizador             
+////        em.remove(userOwner.getMusic());
+////        em.merge(userOwner);
+        em.merge(userLogged.getPlaylists());
+        
+        em.remove(userLogged);
 //        return query.getResultList();
     }
 
@@ -184,5 +204,5 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         UserPlay up = em.find(UserPlay.class, id);
         return up.getMusic();
     }
-
+    
 }
