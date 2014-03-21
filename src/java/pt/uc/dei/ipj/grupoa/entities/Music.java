@@ -33,10 +33,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Music.findById", query = "SELECT m FROM Music m, UserPlay u WHERE u.id = :id"),
     @NamedQuery(name = "Music.findByAlbumAsc", query = "SELECT m FROM Music m WHERE m.album = :album order by m.album asc"),
     @NamedQuery(name = "Music.findByAlbumDesc", query = "SELECT m FROM Music m WHERE m.album = :album order by m.album desc"),
-    @NamedQuery(name = "Music.findByName", query = "SELECT m FROM Music m WHERE m.name = :name"),
+    @NamedQuery(name = "Music.findByName", query = "SELECT m FROM Music m WHERE m.name like :name"),
     @NamedQuery(name = "Music.findByNameDesc", query = "SELECT m FROM Music m WHERE m.name = :name order by m.name desc"),
-    @NamedQuery(name = "Music.findByAuthorAsc", query = "SELECT m FROM Music m WHERE m.author = :author order by m.author asc"),
-    //Criador daquela musica
+    @NamedQuery(name = "Music.findByAuthorAsc", query = "SELECT m FROM Music m WHERE m.author =:author order by m.author asc"),
+    @NamedQuery(name = "Music.findByAuthor", query = "SELECT m FROM Music m WHERE m.author like :author"),
     @NamedQuery(name = "Music.findByOwner", query = "SELECT m FROM Music m,UserPlay u WHERE m.userOwner = :userOwner"),
     @NamedQuery(name = "Music.findByAuthorDesc", query = "SELECT m FROM Music m WHERE m.author = :author order by m.author desc"),
     @NamedQuery(name = "Music.findByYearOfReleaseAsc", query = "SELECT m FROM Music m WHERE m.yearOfRelease = :yearOfRelease order by m.yearOfRelease asc"),
@@ -122,7 +122,6 @@ public class Music implements Serializable {
      *
      * @return
      */
-  
     /**
      *
      * @param yearOfRelease

@@ -61,7 +61,7 @@ public class MusicFacade extends AbstractFacade<Music> {
      */
     public List<Music> searchedMusic(String name) {
         Query query = em.createNamedQuery("Music.findByName", Music.class);
-        query.setParameter("name", name);
+        query.setParameter("name", "%" + name + "%");
         return query.getResultList();
         
     }
@@ -71,25 +71,14 @@ public class MusicFacade extends AbstractFacade<Music> {
      * @param name
      * @return List of musics of the searched name music
      */
-//    public List<Music> searchedMusic(String name) {
-//        Query query = em.createNamedQuery("Music.findByName", Music.class);
-//        query.setParameter("name", "%" + name + "%");
-//        return query.getResultList();
-//
-//    }
-//    public List<Music> searchedAuthor(String author) {
-//        Query query = em.createNamedQuery("Music.findByAuthorAsc", Music.class);
-//        query.setParameter("author", "%" + author + "%");
-//        return query.getResultList();
-//    }
     /**
      *
      * @param author
      * @return List of musics of the searched author
      */
     public List<Music> searchedAuthor(String author) {
-        Query query = em.createNamedQuery("Music.findByAuthorAsc", Music.class);
-        query.setParameter("author", author);
+        Query query = em.createNamedQuery("Music.findByAuthor", Music.class);
+        query.setParameter("author", "%" + author + "%");
         return query.getResultList();
     }
 

@@ -79,7 +79,7 @@ public class UserLoginTest {
         UserPlay result = facade.getUser(email);
         assertNull(result);
     }
-
+/*
     @Test
     public void testValidUserPassword() {
         System.out.println("validUserPassword");
@@ -120,6 +120,6 @@ public class UserLoginTest {
         result = facade.emailExists("1231231232131232@gmail.com");
         assertEquals(true, result);
         facade.remove(u);
-    }
+    }*/
 
 }
