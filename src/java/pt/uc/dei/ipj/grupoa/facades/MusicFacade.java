@@ -100,6 +100,9 @@ public class MusicFacade extends AbstractFacade<Music> {
     public void removeMusic(Long idMusic, Long idUser) {
         UserPlay up = em.find(UserPlay.class, idUser);
         Music m = em.find(Music.class, idMusic);
+//        for(int i=0; i<up.getPlaylists().size();i++){
+//            for(int )
+//        }
         up.removeMusicItem(m);
         remove(m);
         em.flush();
