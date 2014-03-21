@@ -74,7 +74,6 @@ public class Musicinplaylist {
      * @return List<Music>
      */
     public List<Music> allMusicNOTINPLaylist(long idPl) {
-        List<Music> musicList1 = ud.getLstAllMusic();
         List<Music> musicList = ud.getLstAllMusic();
         Playlist pl = em.find(Playlist.class, idPl);
 
@@ -137,10 +136,7 @@ public class Musicinplaylist {
         if (!pl.getMusicList().contains(mus)) {
             pl.setPlaylistItem(mus);
             mus.setPlaylistItem(pl);
-        } else {
-            int i = 0;
         }
-
     }
 
     /**

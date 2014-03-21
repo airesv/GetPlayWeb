@@ -6,7 +6,6 @@
 package pt.uc.dei.ipj.grupoa.manager;
 
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 
@@ -55,13 +54,7 @@ public class PLTable implements Serializable {
     public PLTable() {
     }
 
-    /**
-     *
-     */
-    @PostConstruct
-    public void init() {
-        //      table = new CollectionDataModel<>(ud.getLstPlaylist());
-    }
+   
 
 ///////////////////////////////////////////////////////////////
     /**
