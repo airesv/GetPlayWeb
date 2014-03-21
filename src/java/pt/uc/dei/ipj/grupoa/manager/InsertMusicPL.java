@@ -16,7 +16,7 @@ import pt.uc.dei.ipj.grupoa.EJB.Musicinplaylist;
 import pt.uc.dei.ipj.grupoa.EJB.UserData;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
-
+import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 
 /**
  *
@@ -26,34 +26,46 @@ import pt.uc.dei.ipj.grupoa.entities.Playlist;
 @RequestScoped
 public class InsertMusicPL {
 
-   
-   @Inject
+    @Inject
     private UserData ud;
 
     @EJB
     private Musicinplaylist mp;
     
-   
+    @EJB
+    private MusicFacade musicafacade;
+
     private Music mus;
     private List<Music> lstMusic;
     private DataModel<Music> tabelaM;
-    private Playlist playlist;
-    private String namePL;
-    private String  message;
-    
 
-    /**
+            
+     /**
      * Creates a new instance of insertMusicPL
      */
-
     public InsertMusicPL() {
 
     }
-    
-    
-    
-    
 
+    public String insertMusic() {
+        mus = (Music) tabelaM.getRowData();
+        mp.insertMusic(mus.getId(), ud.getIdPlaylist());
+        return "viewpl";
+    }
+
+    
+    
+    
+    
+    public DataModel<Music> getTabelaM() {
+        long teste = ud.getIdPlaylist();
+        //setLstMusic(mp.allMusicNOTINPLaylistlist(teste));
+        setLstMusic(musicafacade.listOfAllMusics());
+        tabelaM = new CollectionDataModel<>(getLstMusic());
+        return tabelaM;
+    }
+    
+    
     public UserData getUd() {
         return ud;
     }
@@ -69,8 +81,6 @@ public class InsertMusicPL {
     public void setMp(Musicinplaylist mp) {
         this.mp = mp;
     }
-
-    
 
     public Music getMus() {
         return mus;
@@ -88,43 +98,19 @@ public class InsertMusicPL {
         this.lstMusic = lstMusic;
     }
 
-    public DataModel<Music> getTabelaM() {
-        long teste=ud.getIdPlaylist();
-        setLstMusic(mp.allMusicNOTINPLaylistlist(teste));
-        tabelaM = new CollectionDataModel<>(getLstMusic());
-        return tabelaM;
+    public MusicFacade getMusicafacade() {
+        return musicafacade;
     }
+
+    public void setMusicafacade(MusicFacade musicafacade) {
+        this.musicafacade = musicafacade;
+    }
+
+    
 
     public void setTabelaM(DataModel<Music> tabelaM) {
         this.tabelaM = tabelaM;
     }
 
-    public Playlist getPlaylist() {
-        return playlist;
-    }
-
-    public void setPlaylist(Playlist playlist) {
-        this.playlist = playlist;
-    }
-
-    public String getNamePL() {
-        return namePL;
-    }
-
-    public void setNamePL(String namePL) {
-        this.namePL = namePL;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     
-    
-    
-
 }

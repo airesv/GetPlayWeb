@@ -42,8 +42,10 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
     }
 
     /**
-     *
+     * Construtor
      */
+    
+    
     public PlaylistFacade() {
         super(Playlist.class);
     }
@@ -65,9 +67,9 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
     }
 
     /**
-     *
-     * @param name
-     * @param id
+     * Create a new Playlist for UserPlay entity
+     * @param name Playlist Name
+     * @param id PK of UserPlay
      */
     public void createPlayList(String name, long id) {
 
@@ -84,12 +86,14 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
     }
 
     /**
-     *
-     * @param pl
-     * @param id
+     * Remove a Playlist from UserPlay entity
+     * @param pl Playlist Entity
+     * @param id id PK of UserPlay
      */
     public void removePlaylist(Playlist pl, long id) {
-
+        
+        pl.getMusicList().clear();//limapa o array de musicas
+              
         UserPlay up = em.find(UserPlay.class, id);
         up.removePlaylistItem(pl);
         remove(pl);
@@ -97,9 +101,9 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
     }
 
     /**
-     *
-     * @param pl
-     * @return
+     * Return a List of Music that are in a Plylist
+     * @param pl Playlist Entity
+     * @return List<Music>
      */
     public List<Music> createListMusic(Playlist pl) {
         return pl.getMusicList();
@@ -107,13 +111,12 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
     }
 
     /**
-     *
-     * @param mus
-     * @param pl
+     * 
+     * @param idUser PK of UserPlay
+     * @param idPlaylist PK of PlayList
+     * @param name
+     * @return 
      */
-    public void setNewMusicPlaylist(Music mus, Playlist pl) {
-        pl.setPlaylistItem(mus);
-    }
 
     /**
      *
@@ -146,12 +149,7 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
 
     }
 
-    /**
-     *
-     * @param idUser
-     * @return
-     */
-    public List<Playlist> orderPLbyNameASC(Long idUser) {
+     public List<Playlist> orderPLbyNameASC(Long idUser) {
         Query query = em.createNamedQuery("Playlist.findAllOrderByNameAsc", Playlist.class);
         query.setParameter("id", idUser);
 

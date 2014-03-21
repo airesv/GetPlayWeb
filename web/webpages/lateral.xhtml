@@ -71,6 +71,13 @@
                                 </f:facet>
                                 <h:outputText value="#{item.namePlaylist}"/>
                             </h:column>
+                             <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Size"/>
+                                </f:facet>
+                                 <h:outputText value="#{item.playlistSize()}">
+                                </h:outputText>
+                            </h:column>
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="DateCreation"/>
