@@ -20,7 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -48,10 +47,7 @@ public class Music implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-
     private Long id;
-//    @Pattern(regexp = "(19|20)\\d\\d",
-//            message = "{invalid.yearOfRelease}")
     @Column(name = "YEAR_OF_RELEASE")
     @NotNull
     private Integer yearOfRelease;
@@ -70,33 +66,15 @@ public class Music implements Serializable {
     @NotNull
     @Column(name = "PathSound")
     private String pathSound;
-
     @ManyToMany(mappedBy = "musicList")
     private List<Playlist> lstPlaylist;
-
-    public Integer getYearOfRelease() {
-        return yearOfRelease;
-    }
-
-    public void setYearOfRelease(Integer yearOfRelease) {
-        this.yearOfRelease = yearOfRelease;
-    }
-
-    //
     @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = UserPlay.class)
     @JoinColumn(name = "userID")
     private UserPlay userOwner;
 
-    /**
-     *
-     */
     public Music() {
     }
 
-    /**
-     *
-     * @param id
-     */
     public Music(Long id) {
         this.id = id;
     }
@@ -115,20 +93,8 @@ public class Music implements Serializable {
         this.author = author;
         this.album = album;
         this.pathSound = pathSound;
-
     }
 
-    /**
-     *
-     * @return
-     */
-    /**
-     *
-     * @param yearOfRelease
-     */
-    public void setYearOfRelease(int yearOfRelease) {
-        this.yearOfRelease = yearOfRelease;
-    }
 
     /**
      *
@@ -138,74 +104,44 @@ public class Music implements Serializable {
         return name;
     }
 
-    /**
-     *
-     * @param name
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public String getAuthor() {
         return author;
     }
 
-    /**
-     *
-     * @param author
-     */
+    
     public void setAuthor(String author) {
         this.author = author;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getAlbum() {
         return album;
     }
 
-    /**
-     *
-     * @param album
-     */
+   
     public void setAlbum(String album) {
         this.album = album;
     }
 
-    /**
-     *
-     * @return
-     */
     public Long getId() {
         return id;
     }
 
-    /**
-     *
-     * @param id
-     */
+  
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     *
-     * @return
-     */
+
     public String getPathSound() {
         return pathSound;
     }
 
-    /**
-     *
-     * @param pathSound
-     */
+  
     public void setPathSound(String pathSound) {
         this.pathSound = pathSound;
     }
@@ -231,16 +167,12 @@ public class Music implements Serializable {
         return true;
     }
 
-    /**
-     * @return the userOwner
-     */
+    
     public UserPlay getUserOwner() {
         return userOwner;
     }
 
-    /**
-     * @param userOwner the userOwner to set
-     */
+   
     public void setUserOwner(UserPlay userOwner) {
         this.userOwner = userOwner;
     }
@@ -249,27 +181,28 @@ public class Music implements Serializable {
     public String toString() {
         return "entities.Music[ id=" + id + " ]";
     }
-
-    /**
-     *
-     * @param pl
-     */
+   
     public void setPlaylistItem(Playlist pl) {
         lstPlaylist.add(pl);
     }
 
-    /**
-     * @return the lstPlaylist
-     */
     public List<Playlist> getLstPlaylist() {
         return lstPlaylist;
     }
 
-    /**
-     * @param lstPlaylist the lstPlaylist to set
-     */
     public void setLstPlaylist(List<Playlist> lstPlaylist) {
         this.lstPlaylist = lstPlaylist;
     }
+
+    public Integer getYearOfRelease() {
+        return yearOfRelease;
+    }
+
+    public void setYearOfRelease(Integer yearOfRelease) {
+        this.yearOfRelease = yearOfRelease;
+    }
+
+
+
 
 }
