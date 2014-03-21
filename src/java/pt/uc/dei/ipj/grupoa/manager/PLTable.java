@@ -81,6 +81,7 @@ public class PLTable implements Serializable {
     public void removePl() {
         pl = (Playlist) table.getRowData();
         plfacade.removePlaylist(pl, ud.getIdUser());
+        ud.refreshPlaylist();
         //init()
     }
 

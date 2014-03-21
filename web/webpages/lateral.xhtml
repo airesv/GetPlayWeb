@@ -4,12 +4,12 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
 
-    
+
     <p></p>
 
     <div class="datagrid">
         <table width="250">
-            
+
             <thead><tr><th>User</th></tr></thead>
             <tbody><tr><td>
 
@@ -34,8 +34,8 @@
                         <h:form>
                             <h:panelGrid columns="3" cellpadding="0" cellspacing="2" >
                                 <h:commandButton value="View All Music" action="allmusic" styleClass="btn_user"/>
-                                <h:commandButton value="Insert Music" action="createmusic" styleClass="btn_user"/>
-                                <h:commandButton value="Edit Music" action="editmusic" styleClass="btn_user"/>
+                                <h:commandButton value="Insert My Music" action="createmusic" styleClass="btn_user"/>
+                                <h:commandButton value="Edit MY Music" action="editmusic" styleClass="btn_user"/>
                             </h:panelGrid>
                         </h:form>
                     </td></tr>
@@ -43,8 +43,8 @@
 
             </tbody>
         </table></div>
-    
-   <p></p>
+
+    <p></p>
 
 
 
@@ -56,28 +56,28 @@
             <thead><tr><th>Playlist</th></tr></thead>
             <tbody>
 
-     
+
                 <f:view>
                     <h:form>
                         <h:dataTable value="#{plTable.table}" var="item"
-                                     
+
                                      >
-                           
+
                             <h:column>
                                 <f:facet name="header">
                                     <h:commandLink action="#{plTable.orderByName()}"> 
-                                    <h:outputText value="NamePlaylist"/>
+                                        <h:outputText value="NamePlaylist"/>
                                     </h:commandLink>
                                 </f:facet>
                                 <h:outputText value="#{item.namePlaylist}"/>
                             </h:column>
-                             <h:column>
+                            <h:column>
                                 <f:facet name="header">
                                     <h:commandLink action="#{plTable.orderBySize()}"> 
-                                    <h:outputText value="Size"/>
+                                        <h:outputText value="Size"/>
                                     </h:commandLink>
                                 </f:facet>
-                                 <h:outputText value="#{item.playlistSize()}">
+                                <h:outputText value="#{item.playlistSize()}">
                                 </h:outputText>
                             </h:column>
                             <h:column>
@@ -88,51 +88,51 @@
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </h:column>
-                         <!-- 
+                            <!-- 
+                               <h:column>
+                               <f:facet name="header">Action</f:facet>
+                               <h:commandButton value="Edit" action="viewpl">
+                                   <f:setPropertyActionListener target="#{plTable.selectedPlaylist}" value="#{item}" />
+                               </h:commandButton>
+    
+                           </h:column>
+                            --> 
+
+
+
                             <h:column>
-                            <f:facet name="header">Action</f:facet>
-                            <h:commandButton value="Edit" action="viewpl">
-                                <f:setPropertyActionListener target="#{plTable.selectedPlaylist}" value="#{item}" />
-                            </h:commandButton>
- 
-                        </h:column>
-                             --> 
-                          
-                            
-                           
-                             <h:column>
-                           <f:facet name="header">
+                                <f:facet name="header">
                                     <h:outputText value="Action"/></f:facet>
-                                 <h:commandLink value="Edit" action="#{plTable.editPlaylist()}"/>
+                                <h:commandLink value="Edit" action="#{plTable.editPlaylist()}"/>
                             </h:column> 
-                   
-                  
-                   <h:column>
+
+
+                            <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Action"/></f:facet>
                                 <h:commandLink value="Remove" action="#{plTable.removePl()}"/>
                             </h:column>
-                            
-                            
-                            
+
+
+
                         </h:dataTable>
                     </h:form>
 
-                    
-                    
-                    
+
+
+
                 </f:view>
 
 
-                            <tr>
-                                <td>
-                                    <h:form>
-                                        <h:panelGrid columns="1" cellspacing="0" >
-                                            <h:commandButton value="Insert" action="createplaylist.xhtml" styleClass="btn_user"/> 
-                                         
-                                        </h:panelGrid>
-                                    </h:form>
-                                </td></tr>
+                <tr>
+                    <td>
+                        <h:form>
+                            <h:panelGrid columns="1" cellspacing="0" >
+                                <h:commandButton value="Insert New Playlist" action="createplaylist.xhtml" styleClass="btn_user"/> 
+
+                            </h:panelGrid>
+                        </h:form>
+                    </td></tr>
 
 
             </tbody>

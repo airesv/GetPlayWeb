@@ -18,6 +18,7 @@ import javax.faces.model.DataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
+import pt.uc.dei.ipj.grupoa.EJB.Musicinplaylist;
 import pt.uc.dei.ipj.grupoa.EJB.UserData;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
@@ -51,6 +52,9 @@ public class EditMusic implements Serializable {
     private MusicFacade musicFacade;
     DataModel<Music> musicsLoggedInUser;
     private Music selectedMusic;
+    
+    @EJB
+    private Musicinplaylist mp;
 
     /**
      * Create new music
@@ -81,7 +85,9 @@ public class EditMusic implements Serializable {
      * @return XHTML with the list of user musics to edit
      */
     public String removeMusic() {  
-        musicFacade.removeMusic(ud.getIdMusic(), ud.getIdUser());
+       // musicFacade.removeMusic(ud.getIdMusic(), ud.getIdUser());
+        mp.removeMyMusic(ud.getIdMusic());
+        
         ud.refreshMusicsUser();
         ud.refreshMusics();
         return "editmusic";
@@ -106,6 +112,7 @@ public class EditMusic implements Serializable {
      * @return
      */
     public DataModel<Music> getMusicsLoggedInUser() {
+        //ud.refreshMusicsUser();
         musicsLoggedInUser = new CollectionDataModel<>(ud.getListUserMusic());
         return musicsLoggedInUser;
     }
