@@ -19,8 +19,7 @@ import javax.servlet.http.Part;
 import pt.uc.dei.ipj.grupoa.EJB.UploadBean;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
-import pt.uc.dei.ipj.grupoa.manager.EditMusic;
-import pt.uc.dei.uc.grupoa.utils.MyException;
+import pt.uc.dei.ipj.grupoa.manager.MusicManager;
 
 /**
  *
@@ -68,11 +67,6 @@ public class MusicFacade extends AbstractFacade<Music> {
 
     /**
      *
-     * @param name
-     * @return List of musics of the searched name music
-     */
-    /**
-     *
      * @param author
      * @return List of musics of the searched author
      */
@@ -82,32 +76,6 @@ public class MusicFacade extends AbstractFacade<Music> {
         return query.getResultList();
     }
 
-    /**
-     * Remove specific music
-     *
-     * @param idMusic
-     * @param idUser
-     */
-    public void removeMusic(Long idMusic, Long idUser) {
-        Query query = em.createNamedQuery("UserPlay.findAll", UserPlay.class);
-        List<UserPlay> allUsers = query.getResultList();
-        UserPlay userOwner = em.find(UserPlay.class, idUser);
-        Music m = em.find(Music.class, idMusic);
-        for (int a = 0; a < allUsers.size(); a++) {
-            if (allUsers.get(a).getPlaylists() != null) {
-                for (int i = 0; i < allUsers.get(a).getPlaylists().size(); i++) {
-                    for (int j = 0; j < allUsers.get(a).getPlaylists().get(i).getMusicList().size(); j++) {
-                        if (allUsers.get(a).getPlaylists().get(i).getMusicList().get(j).getUserOwner().equals(userOwner)) {
-                            allUsers.get(a).removeAllMusic(allUsers.get(a).getPlaylists().get(i).getMusicList());
-                        }
-                    }
-                }
-            }
-        }
-            userOwner.removeMusicItem(m);
-            remove(m);
-            em.flush();
-        }
         /**
          * Edit specific Music
          *
@@ -127,12 +95,6 @@ public class MusicFacade extends AbstractFacade<Music> {
         em.merge(m);
     }
 
-//    public List<Music> userMusics(Long id){
-//        UserPlay userOwner = em.find(UserPlay.class, id);
-//        Query query = em.createNamedQuery("Music.findByOwner", Music.class);
-//        query.setParameter("userOwner", userOwner);
-//        return query.getResultList();
-//    }
     /**
      *
      * @param yearOfRelease
@@ -152,7 +114,7 @@ public class MusicFacade extends AbstractFacade<Music> {
         try {
             uploadBean.upload(file);
         } catch (IOException ex) {
-            Logger.getLogger(EditMusic.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MusicManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         music.setAlbum(album);
         music.setAuthor(author);

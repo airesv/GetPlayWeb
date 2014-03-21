@@ -5,12 +5,9 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
-import com.oracle.webservices.api.databinding.DatabindingMode;
-import static com.sun.faces.facelets.util.Path.context;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.model.CollectionDataModel;
@@ -23,22 +20,20 @@ import pt.uc.dei.ipj.grupoa.EJB.UserData;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
-import pt.uc.dei.uc.grupoa.utils.MyException;
 
 /**
  *
- * @author alvaro
+ * @author Alvaro/Vitor
  */
 @Named
 @RequestScoped
-public class EditMusic implements Serializable {
+public class MusicManager implements Serializable {
 
     @Inject
     private UserData ud;
-
     private List<Music> lstMusic;
     private static final long serialVersionUID = 1L;
-    private int yearOfRelease=1920;
+    private int yearOfRelease = 1920;
     private String nameMusic;
     private String author;
     private String album;
@@ -52,7 +47,6 @@ public class EditMusic implements Serializable {
     private MusicFacade musicFacade;
     DataModel<Music> musicsLoggedInUser;
     private Music selectedMusic;
-    
     @EJB
     private Musicinplaylist mp;
 
@@ -70,11 +64,11 @@ public class EditMusic implements Serializable {
 
     /**
      * Edit a music
-     * 
+     *
      * @return XHTML with the list of user musics to edit
      */
     public String editMusic() {
-        musicFacade.editMusic(ud.getIdMusic(),getAlbum(),getAuthor(),getYearOfRelease(),getNameMusic());
+        musicFacade.editMusic(ud.getIdMusic(), getAlbum(), getAuthor(), getYearOfRelease(), getNameMusic());
         ud.refreshMusicsUser();
         ud.refreshMusics();
         return "editmusic";
@@ -82,19 +76,18 @@ public class EditMusic implements Serializable {
 
     /**
      * Remove a music
+     *
      * @return XHTML with the list of user musics to edit
      */
-    public String removeMusic() {  
-       // musicFacade.removeMusic(ud.getIdMusic(), ud.getIdUser());
+    public String removeMusic() {
         mp.removeMyMusic(ud.getIdMusic());
-        
         ud.refreshMusicsUser();
         ud.refreshMusics();
         return "editmusic";
     }
 
     /**
-     *  
+     *
      * @return XHTML with the components of the music selected to edit
      */
     public String toEdit() {
@@ -109,18 +102,24 @@ public class EditMusic implements Serializable {
 
     /**
      *
-     * @return
+     * @return List of Musics of the logged in User
      */
     public DataModel<Music> getMusicsLoggedInUser() {
-        //ud.refreshMusicsUser();
         musicsLoggedInUser = new CollectionDataModel<>(ud.getListUserMusic());
         return musicsLoggedInUser;
     }
+    /**
+     * 
+     * @return List of the musics of the application 
+     */
+    public List<Music> getLstMusic() {
+        return musicFacade.listOfAllMusics();
+    }
 
+    //Getters and Setters//
     public MusicFacade getMusicFacade() {
         return musicFacade;
     }
-
 
     public Music getSelectedMusic() {
         return selectedMusic;
@@ -170,7 +169,6 @@ public class EditMusic implements Serializable {
         this.author = author;
     }
 
-
     public String getAlbum() {
         return album;
     }
@@ -203,11 +201,6 @@ public class EditMusic implements Serializable {
         this.ud = ud;
     }
 
-    public List<Music> getLstMusic() {
-        return musicFacade.listOfAllMusics();
-    }
-
- 
     public void setLstMusic(List<Music> lstMusic) {
         this.lstMusic = lstMusic;
     }
@@ -215,7 +208,6 @@ public class EditMusic implements Serializable {
     public Long getId() {
         return id;
     }
-
 
     public void setId(Long id) {
         this.id = id;
@@ -228,7 +220,5 @@ public class EditMusic implements Serializable {
     public void setMusic(Music music) {
         this.music = music;
     }
-    
-    
 
 }

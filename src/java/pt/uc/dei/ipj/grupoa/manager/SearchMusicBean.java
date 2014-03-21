@@ -12,7 +12,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import pt.uc.dei.ipj.grupoa.entities.Music;
-
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 
 /**
