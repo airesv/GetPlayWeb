@@ -15,7 +15,6 @@ import javax.inject.Named;
 import pt.uc.dei.ipj.grupoa.EJB.Musicinplaylist;
 import pt.uc.dei.ipj.grupoa.EJB.UserData;
 import pt.uc.dei.ipj.grupoa.entities.Music;
-import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 
 /**
@@ -59,8 +58,10 @@ public class InsertMusicPL {
     
     
     public DataModel<Music> getTabelaM() {
-        setLstMusic(musicafacade.listOfAllMusics());
+        //setLstMusic(musicafacade.listOfAllMusics());
         tabelaM = new CollectionDataModel<>(musicafacade.listOfAllMusics());
+       // setLstMusic(mp.allMusicNOTINPLaylist(ud.getIdPlaylist()));
+        //tabelaM = new CollectionDataModel<>(getLstMusic());
         return tabelaM;
     }
     
@@ -105,7 +106,6 @@ public class InsertMusicPL {
         this.musicafacade = musicafacade;
     }
 
-    
 
     public void setTabelaM(DataModel<Music> tabelaM) {
         this.tabelaM = tabelaM;
