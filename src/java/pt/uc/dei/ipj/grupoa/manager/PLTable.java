@@ -77,6 +77,14 @@ public class PLTable implements Serializable {
         ud.refreshPlaylist();
         //init()
     }
+    
+    
+    //novo///7
+    public void removePlaylist() {
+        plfacade.removePlaylistv2(ud.getIdPlaylist(), ud.getIdUser());
+        ud.refreshPlaylist();
+        //init()
+    }
 
     /**
      *
@@ -133,6 +141,8 @@ public class PLTable implements Serializable {
         return "musicinplay";
     }
 
+   
+    
     ////Get and Setters////////////
     /**
      *
@@ -221,6 +231,7 @@ public class PLTable implements Serializable {
      * @return
      */
     public String getNamePlaylist() {
+
         return namePlaylist;
     }
 

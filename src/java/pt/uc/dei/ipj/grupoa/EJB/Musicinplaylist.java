@@ -29,6 +29,8 @@ public class Musicinplaylist {
     @Inject
     private UserData ud;
 
+    List<Music> musicList;
+
     protected EntityManager getEntityManager() {
         return em;
     }
@@ -74,7 +76,10 @@ public class Musicinplaylist {
      * @return List<Music>
      */
     public List<Music> allMusicNOTINPLaylist(long idPl) {
-        List<Music> musicList = ud.getLstAllMusic();
+        //List<Music> musicList = ud.getLstAllMusic();
+        //try
+        ud.refreshMusics();
+        setMusicList(ud.getLstAllMusic());
         Playlist pl = em.find(Playlist.class, idPl);
 
         Iterator<Music> it = musicList.iterator();
@@ -137,6 +142,7 @@ public class Musicinplaylist {
             pl.setPlaylistItem(mus);
             mus.setPlaylistItem(pl);
         }
+
     }
 
     /**
@@ -153,6 +159,14 @@ public class Musicinplaylist {
                 .remove(mus);
         mus.getLstPlaylist()
                 .remove(pl);
+    }
+
+    public List<Music> getMusicList() {
+        return musicList;
+    }
+
+    public void setMusicList(List<Music> musicList) {
+        this.musicList = musicList;
     }
 
 }

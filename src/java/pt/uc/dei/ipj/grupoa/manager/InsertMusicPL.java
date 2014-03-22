@@ -59,9 +59,10 @@ public class InsertMusicPL {
     
     public DataModel<Music> getTabelaM() {
         //setLstMusic(musicafacade.listOfAllMusics());
-        tabelaM = new CollectionDataModel<>(musicafacade.listOfAllMusics());
-       // setLstMusic(mp.allMusicNOTINPLaylist(ud.getIdPlaylist()));
-        //tabelaM = new CollectionDataModel<>(getLstMusic());
+        //tabelaM = new CollectionDataModel<>(musicafacade.listOfAllMusics());
+        setLstMusic(mp.allMusicNOTINPLaylist(ud.getIdPlaylist()));
+       tabelaM = new CollectionDataModel<>(getLstMusic());
+       
         return tabelaM;
     }
     

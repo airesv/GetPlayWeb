@@ -11,13 +11,16 @@
 
             <ui:define name="content" >
 
-                <h1 align="center"> 
-                    Playlist selected: 
-                    <h:outputText value="#{plTable.namePlaylist}" />
-                </h1>
+
 
 
                 <div class="datagrid">
+
+                    <h1 align="center"> 
+                        Playlist selected: 
+                        <h:outputText value="#{plTable.namePlaylist}" />
+                    </h1>
+
 
                     <f:view>
                         <h:form>
@@ -68,33 +71,37 @@
                 </div>
 
                 <p></p>
-
-
-
                 <div class="cxbox">
-
-                    <p></p>
-                    <h2>Rename Playlist: </h2>
+                    <h2>Insert Music in this Playlist: </h2>
                     <h:form>
-                        <h:panelGrid columns="3" cellpadding="0" cellspacing="2">
+                       <h:panelGrid columns="3" cellpadding="0" cellspacing="2">
+                            <h:commandButton value="Insert Music" action="#{plTable.insertMusPL()}" styleClass="btn_user"/>
+                       </h:panelGrid>  
+                    </h:form>
+
+                </div>
+                <p></p>
+                <div class="cxbox">
+                    <p></p>
+                    <h2>Managing Playlist: </h2>
+                    <h:form>
+                        <h:panelGrid columns="5" cellpadding="0" cellspacing="2">
                             <h:outputText value="Name : "/>
                             <h:inputText value="#{plTable.namePlaylist}" required="true"/>
 
                             <h:commandButton value="Rename" action="#{plTable.renamePlaylist}" styleClass="btn_user"/>
                             <h:outputText value="#{plTable.message}"/>
+                        
+                        
+                            <h:commandButton value="Remove" action="#{plTable.removePlaylist()}" styleClass="btn_user"/>
+                        
+                        
+                        
                         </h:panelGrid>  
                     </h:form>
                 </div>
-                <p></p>
-                <div class="cxbox">
-                    <h2>Insert Music in this Playlist: </h2>
-                    <h:form>
-                        <h:panelGrid columns="3" cellpadding="0" cellspacing="2">
-                            <h:commandButton value="Insert Music" action="#{plTable.insertMusPL()}" styleClass="btn_user"/>
-                        </h:panelGrid>  
-                    </h:form>
+                
 
-                </div>
             </ui:define>
         </ui:composition>
 

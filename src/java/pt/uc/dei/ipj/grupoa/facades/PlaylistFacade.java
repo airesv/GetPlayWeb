@@ -99,6 +99,18 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         remove(pl);
         em.flush();
     }
+    
+    public void removePlaylistv2(long idPL, long idUser) {
+        Playlist pl=em.find(Playlist.class, idPL);
+        pl.getMusicList().clear();//limapa o array de musicas
+              
+        UserPlay up = em.find(UserPlay.class, idUser);
+        up.removePlaylistItem(pl);
+        
+        remove(pl);
+        em.flush();
+    }
+
 
     /**
      * Return a List of Music that are in a Plylist

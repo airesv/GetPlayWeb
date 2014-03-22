@@ -30,6 +30,7 @@ public class UserData {
     private String emailUser;
     private long idPlaylist;
     private long idMusic;
+    private String namePlay;
     private List<Music> lstAllMusic;
     private List<Playlist> lstPlaylist;
     private List<Music> listUserMusic;
@@ -172,6 +173,20 @@ public class UserData {
      */
     public void setAscSize(boolean ascSize) {
         this.ascSize = ascSize;
+    }
+
+    /**
+     * @return the namePlay
+     */
+    public String getNamePlay() {
+        return namePlay;
+    }
+
+    /**
+     * @param namePlay the namePlay to set
+     */
+    public void setNamePlay(String namePlay) {
+        this.namePlay = namePlay;
     }
 
 }
