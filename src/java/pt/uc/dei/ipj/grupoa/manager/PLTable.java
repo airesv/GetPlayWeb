@@ -43,6 +43,7 @@ public class PLTable implements Serializable {
 
     private DataModel<Playlist> table;
     private String namePlaylist;
+    private String nameOldPlaylist;
     private Playlist pl;
     private Music mus;
     private String message;
@@ -64,6 +65,7 @@ public class PLTable implements Serializable {
     public String editPlaylist() {
         pl = (Playlist) table.getRowData();
         ud.setIdPlaylist(pl.getId());
+        ud.setNamePlay(pl.getNamePlaylist());
         this.setNamePlaylist(pl.getNamePlaylist());
         return "viewpl";
     }
@@ -83,7 +85,6 @@ public class PLTable implements Serializable {
     public void removePlaylist() {
         plfacade.removePlaylistv2(ud.getIdPlaylist(), ud.getIdUser());
         ud.refreshPlaylist();
-        //init()
     }
 
     /**
@@ -109,6 +110,7 @@ public class PLTable implements Serializable {
         boolean renamed = plfacade.changeNamePlaylist(ud.getIdUser(), ud.getIdPlaylist(), getNamePlaylist());
         if (renamed) {
             setMessage("Successfully changed");
+            ud.setNamePlay(getNamePlaylist());
         } else {
             setMessage("There is a Playlist with that name!");
         }
@@ -274,6 +276,21 @@ public class PLTable implements Serializable {
      */
     public void setTableM(DataModel<Music> tableM) {
         this.tableM = tableM;
+    }
+
+    /**
+     * @return the nameOldPlaylist
+     */
+    public String getNameOldPlaylist() {
+        setNameOldPlaylist(ud.getNamePlay());
+        return nameOldPlaylist;
+    }
+
+    /**
+     * @param nameOldPlaylist the nameOldPlaylist to set
+     */
+    public void setNameOldPlaylist(String nameOldPlaylist) {
+        this.nameOldPlaylist = nameOldPlaylist;
     }
 
 }

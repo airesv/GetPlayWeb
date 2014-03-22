@@ -76,8 +76,6 @@ public class Musicinplaylist {
      * @return List<Music>
      */
     public List<Music> allMusicNOTINPLaylist(long idPl) {
-        //List<Music> musicList = ud.getLstAllMusic();
-        //try
         ud.refreshMusics();
         setMusicList(ud.getLstAllMusic());
         Playlist pl = em.find(Playlist.class, idPl);
@@ -89,45 +87,9 @@ public class Musicinplaylist {
                 it.remove();
             }
         }
-
-//    for (Music mus : lstmusic
-//
-//    
-//        ) {
-//            if (mus.getLstPlaylist().contains(pl)) {
-//            lstmusic.remove(mus);
-//        }
-//    }
         return musicList;
     }
 
-//        Query query = em.createQuery("(select m from Music m) Intersect (Select m from Playlist pl  where ");
-//        query.setParameter("id", idPl);
-//       int i=0;
-//       return query.getResultList();
-//        List<Music> lstmusic= ud.getLstAllMusic();
-//         for (Music mus : lstmusic) {
-//             for (Playlist pl: mus.getLstPlaylist()) {
-//                 if(pl.getId()==idPl){
-//                     lstmusic.remove(mus);
-//                 }
-//             }
-//        }
-//        
-//      return lstmusic; 
-//        Query query = em.createQuery("select m from Playlist p inner join p.musicList m where p.id <>:id");
-//        query.setParameter("id", idPl);
-//        int i=0;
-//        return query.getResultList();
-// }
-//    public List<Music> allMusicNOTINPLaylist(long idPl) {
-//        //Query query = em.createQuery("select m from Music m inner join m.lstPlaylist pl where pl.id <>?");
-//        Query query = em.createQuery("select m from Playlist p inner join p.musicList m where p.id <>:id");
-//        query.setParameter("id", idPl);
-//        int i=0;
-//        return query.getResultList();
-//
-//    }
     /**
      * Insert a Music from a chosen Playlist
      *
