@@ -72,7 +72,11 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
      * @param id PK of UserPlay
      */
     public void createPlayList(String name, long id) {
-
+        Query query= em.createNamedQuery("Playlist.findAllById", Playlist.class);
+        query.setParameter("nameplaylist", name);
+        
+        if(query.getResultList().isEmpty()){
+        
         UserPlay up = em.find(UserPlay.class, id);
         diaHoje = new TodayDate();
 
@@ -82,7 +86,8 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
         pl.setUserOwner(up);
         em.persist(pl);//cria pl
         up.setPlaylistsItem(pl);//atualliza no UserPlay
-        em.flush();
+        em.flush();}
+        
     }
 
     /**

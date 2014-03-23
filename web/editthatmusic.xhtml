@@ -9,29 +9,29 @@
 
         <ui:composition template="./main.xhtml">
             <ui:define name="content">
+                <div class="cxbox">
+                    <h2>Edit Music: </h2>
+                    <h:form>
 
-                <h2>Edit Music: </h2>
-                <h:form>
+                        <h:panelGrid columns="3" cellpadding="0" cellspacing="2">
+                            <h:outputLabel value="Album : " for="Album"/>
+                            <h:inputText label="Name of Album" value="#{musicManager.album}" required="true"/>
+                            <h:message for="Album"/>
+                            <h:outputLabel value="Year of Release : " for="Year of release"/>
+                            <h:inputText label="Year of Release" value="#{musicManager.yearOfRelease}" required="true"/>
+                            <h:message for="Year of release"/>
+                            <h:outputLabel value="Author : " for="Author"/>
+                            <h:inputText label="Author" value="#{musicManager.author}" required="true"/>
+                            <h:message for="Author"/>
+                            <h:outputLabel value="Name : " for="Name"/> 
+                            <h:inputText label="Name of music" value="#{musicManager.nameMusic}" required="true"/>
+                            <h:message for="Name"/>
+                            <h:commandButton value="Edit Music" action="#{musicManager.editMusic}" styleClass="btn_user"/>
+                            <h:commandButton value="Delete Music" action="#{musicManager.removeMusic}" styleClass="btn_user"/>
+                        </h:panelGrid> 
 
-                    <h:panelGrid columns="3" cellpadding="0" cellspacing="2">
-                        <h:outputLabel value="Album : " for="Album"/>
-                        <h:inputText label="Name of Album" value="#{musicManager.album}" required="true"/>
-                        <h:message for="Album"/>
-                        <h:outputLabel value="Year of Release : " for="Year of release"/>
-                        <h:inputText label="Year of Release" value="#{musicManager.yearOfRelease}" required="true"/>
-                        <h:message for="Year of release"/>
-                        <h:outputLabel value="Author : " for="Author"/>
-                        <h:inputText label="Author" value="#{musicManager.author}" required="true"/>
-                        <h:message for="Author"/>
-                        <h:outputLabel value="Name : " for="Name"/> 
-                        <h:inputText label="Name of music" value="#{musicManager.nameMusic}" required="true"/>
-                        <h:message for="Name"/>
-                        <h:commandButton value="Edit Music" action="#{musicManager.editMusic}" styleClass="btn_user"/>
-                        <h:commandButton value="Delete Music" action="#{musicManager.removeMusic}" styleClass="btn_user"/>
-                    </h:panelGrid> 
-
-                </h:form>
-
+                    </h:form>
+                </div>
             </ui:define>
         </ui:composition>
 
