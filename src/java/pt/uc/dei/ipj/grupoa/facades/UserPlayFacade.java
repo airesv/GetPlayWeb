@@ -5,8 +5,6 @@
 package pt.uc.dei.ipj.grupoa.facades;
 
 import java.util.List;
-import pt.uc.dei.ipj.grupoa.EJB.EncryptPassword;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -17,6 +15,7 @@ import pt.uc.dei.ipj.grupoa.EJB.UserData;
 import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
+import pt.uc.dei.uc.grupoa.utils.EncryptPassword;
 
 /**
  *
@@ -33,8 +32,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         return em;
     }
 
-    @EJB
-    private EncryptPassword encryptPassword;
+   
     @Inject
     private UserData ud;
 
@@ -51,8 +49,9 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
      * @param email
      * @param Password
      */
-    public void createUser(String name, String email, String Password) {
-        UserPlay up = new UserPlay(name, email, encryptPassword.cryptWithMD5(Password));
+    public void createUser(String name, String email, String password) {
+        EncryptPassword encrypt= new EncryptPassword();
+        UserPlay up = new UserPlay(name, email, encrypt.cryptWithMD5(password));
         if (existsUser(email) == false) {
             em.persist(up);
         }
@@ -65,7 +64,8 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
      * @return
      */
     public boolean authValidation(String attempt, UserPlay up) {
-        String encryptedAttempt = encryptPassword.cryptWithMD5(attempt);
+        EncryptPassword encrypt= new EncryptPassword();
+        String encryptedAttempt = encrypt.cryptWithMD5(attempt);
         return (encryptedAttempt.equals(up.getPassword()));
     }
 
@@ -88,11 +88,12 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
      */
     public void editUser(long id, String name, String email, String Password) {
         //procurar o utilizador 
+        EncryptPassword encrypt= new EncryptPassword();
         UserPlay up = em.find(UserPlay.class, id);
 
         up.setName(name);
         up.setEmail(email);
-        up.setPassword(encryptPassword.cryptWithMD5(Password));
+        up.setPassword(encrypt.cryptWithMD5(Password));
         em.merge(up);
     }
 

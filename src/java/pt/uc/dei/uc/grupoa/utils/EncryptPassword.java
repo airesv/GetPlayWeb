@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package pt.uc.dei.ipj.grupoa.EJB;
+package pt.uc.dei.uc.grupoa.utils;
 
+import pt.uc.dei.ipj.grupoa.EJB.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -16,7 +17,7 @@ import javax.ejb.Stateless;
  *
  * @author Alvaro/Vitor
  */
-@Stateless
+
 public class EncryptPassword {
 
    private static MessageDigest md;
