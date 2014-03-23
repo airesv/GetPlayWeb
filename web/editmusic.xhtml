@@ -12,7 +12,7 @@
                     <h:form >
                         <div class="datagrid">
                         <h1><h:outputText value="Musics"/></h1>
-                        <h:dataTable value="#{editMusic.musicsLoggedInUser}" var="item"
+                        <h:dataTable value="#{musicManager.musicsLoggedInUser}" var="item"
                                      styleClass="order-table"
                                      headerClass="order-table-header"
                                      rowClasses="order-table-odd-row,order-table-even-row"  
@@ -39,7 +39,7 @@
 
                         <h:column>
                             <f:facet name="header">Action</f:facet>
-                            <h:commandButton value="Editar" action="#{editMusic.toEdit}" styleClass="btn_user" />                       
+                            <h:commandButton value="Editar" action="#{musicManager.toEdit}" styleClass="btn_user" />                       
                         </h:column>
                     </h:dataTable>
                         </div>

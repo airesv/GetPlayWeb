@@ -19,7 +19,7 @@ import pt.uc.dei.ipj.grupoa.facades.MusicFacade;
 
 /**
  *
- * @author Aires
+ * @author Alvaro/Vitor
  */
 @Named("insertMusicPL")
 @RequestScoped

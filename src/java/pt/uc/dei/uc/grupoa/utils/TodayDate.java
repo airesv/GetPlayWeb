@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  *
- * @author Aires
+ * @author Alvaro/Vitor
  */
 
 public class TodayDate {

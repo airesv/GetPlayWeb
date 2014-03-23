@@ -15,10 +15,10 @@
 
                         <h:form>
                             <h:panelGrid columns="2" cellpadding="0" cellspacing="1" >
-                                <h:outputText value="#{userLogin.ud.nameUser}"/>
+                                <h:outputText value="#{userManager.ud.nameUser}"/>
                                 <h:commandButton value="Edit" action="edituser" styleClass="btn_user"/> 
-                                <h:outputText value="#{userLogin.ud.emailUser}"/>
-                                <h:commandButton value="Logout" action="#{userLogin.logout()}" styleClass="btn_user"/> 
+                                <h:outputText value="#{userManager.ud.emailUser}"/>
+                                <h:commandButton value="Logout" action="#{userManager.logout()}" styleClass="btn_user"/> 
                             </h:panelGrid>
                         </h:form>  
                     </td>

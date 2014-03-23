@@ -6,6 +6,8 @@
 package pt.uc.dei.ipj.grupoa.manager;
 
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 
@@ -20,10 +22,11 @@ import pt.uc.dei.ipj.grupoa.entities.Music;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
+import pt.uc.dei.ipj.grupoa.Exceptions.PlaylistAlreadyExists;
 
 /**
  *
- * @author Aires
+ * @author Alvaro/Vitor
  */
 @Named("plTable")
 @RequestScoped
@@ -55,8 +58,6 @@ public class PLTable implements Serializable {
     public PLTable() {
     }
 
-   
-
 ///////////////////////////////////////////////////////////////
     /**
      *
@@ -79,8 +80,7 @@ public class PLTable implements Serializable {
         ud.refreshPlaylist();
         //init()
     }
-    
-    
+
     //novo///7
     public void removePlaylist() {
         plfacade.removePlaylistv2(ud.getIdPlaylist(), ud.getIdUser());
@@ -108,14 +108,20 @@ public class PLTable implements Serializable {
     public String renamePlaylist() {
         //mandar para o face 
         boolean renamed = plfacade.changeNamePlaylist(ud.getIdUser(), ud.getIdPlaylist(), getNamePlaylist());
-        if (renamed) {
-            setMessage("Successfully changed");
-            ud.setNamePlay(getNamePlaylist());
-        } else {
-            setMessage("There is a Playlist with that name!");
+        try {
+            if (renamed) {
+                setMessage("Successfully changed");
+                ud.setNamePlay(getNamePlaylist());
+                ud.refreshPlaylist();//recarrega a lista de playlist
+                return null;
+            }
+            throw new PlaylistAlreadyExists("message");
+        } catch (PlaylistAlreadyExists pla) {
+            setMessage(pla.getMessage());
+            Logger.getLogger(PLTable.class.getName()).log(Level.SEVERE, null, pla);
+            return null;
         }
-        ud.refreshPlaylist();//recarrega a lista de playlist
-        return null;
+       
     }
 
     /**
@@ -143,8 +149,6 @@ public class PLTable implements Serializable {
         return "musicinplay";
     }
 
-   
-    
     ////Get and Setters////////////
     /**
      *

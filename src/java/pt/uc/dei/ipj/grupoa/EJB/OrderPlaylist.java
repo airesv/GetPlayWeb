@@ -11,7 +11,7 @@ import javax.ejb.Stateful;
 import javax.inject.Inject;
 import pt.uc.dei.ipj.grupoa.entities.Playlist;
 import pt.uc.dei.ipj.grupoa.facades.PlaylistFacade;
-import pt.uc.dei.ipj.grupoa.manager.UserLogin;
+import pt.uc.dei.ipj.grupoa.manager.UserManager;
 import pt.uc.dei.uc.grupoa.utils.OrderPL;
 
 /**
@@ -22,7 +22,7 @@ import pt.uc.dei.uc.grupoa.utils.OrderPL;
 public class OrderPlaylist {
 
     @Inject
-    private UserLogin ul;
+    private UserManager ul;
     @EJB
     private PlaylistFacade playlistfacade;
 

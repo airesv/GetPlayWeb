@@ -112,14 +112,14 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
             //caso não exista outro user com o mesmo email
             if (!existsUser(email)) {
                 editUser(id, name, email, Password);//
-                return ("Sucesseful inserted");
+                return ("Sucessefully inserted");
             } else {
                 return ("Email: " + email + " is in Database ");
             }
         } else {
             // não há problema com o email.
             editUser(id, name, email, Password);//
-            return ("Sucesseful inserted");
+            return ("Sucessefully inserted");
         }
     }
 

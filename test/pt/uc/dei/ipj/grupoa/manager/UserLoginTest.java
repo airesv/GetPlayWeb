@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.uc.dei.ipj.grupoa.manager;
+/*package pt.uc.dei.ipj.grupoa.manager;
 
 
 
@@ -23,7 +23,7 @@ public class UserLoginTest {
  *
  * @author Alvaro/Vitor
  */
-    public UserLoginTest() {
+    /*public UserLoginTest() {
     }
 
     static EJBContainer container;
@@ -122,4 +122,4 @@ public class UserLoginTest {
         facade.remove(u);
     }*/
 
-}
+//}
