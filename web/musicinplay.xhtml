@@ -16,12 +16,7 @@
                     <f:view>
                         <h:form>
                             <h1><h:outputText value="List of Musics"/></h1>
-                            <div align="center" valign="buttom">
-                               
-                                    <h:inputText value="#{insertMusicPL.searchText}"  />
-                                    <h:commandButton  value="Search by music" action="#{insertMusicPL.insertMusicsearchByMusic}" styleClass="btn_user"/>
-                                    <h:commandButton value="Search by author" action="#{insertMusicPL.insertMusicsearchByAuthor}" styleClass="btn_user"/>
-                            </div>
+                            
                             <h:dataTable  cellpadding="3" columnClasses="centered-text,centered-text,centered-text,centered-text,centered-text" 
                                           value="#{insertMusicPL.tabelaM}" cellspacing="10" var="item">
 
@@ -52,7 +47,7 @@
                                 <h:column>
                                     <f:facet name="header">Action</f:facet>
 
-                                    <h:commandButton value="Add playlist" action="#{insertMusicPL.insertMusic()}" styleClass="btn_user">
+                                    <h:commandButton value="Add in playlist" action="#{insertMusicPL.insertMusic()}" styleClass="btn_user">
 
                                     </h:commandButton>
 

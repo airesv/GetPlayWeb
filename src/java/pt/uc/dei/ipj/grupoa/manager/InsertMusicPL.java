@@ -47,40 +47,21 @@ public class InsertMusicPL {
 
     }
 
-    
-    public String insertMusPL() {
-        setLstMusic(mp.allMusicNOTINPLaylist(ud.getIdPlaylist()));
-        return "musicinplay";
-    }
-    
-    
     public String insertMusic() {
         mus = (Music) tabelaM.getRowData();
         mp.insertMusic(mus.getId(), ud.getIdPlaylist());
         ud.refreshPlaylist();
         return "viewpl";
     }
+
     
-     public String insertMusicsearchByMusic() {
-         
-         setLstMusic(mp.allMusicNOTINPLaylistbyMusic(getSearchText(),ud.getIdPlaylist()));
-         
-         tabelaM = new CollectionDataModel<>(getLstMusic());
-         
-        return "musicinplay";
-    }
-     
-     public String insertMusicsearchByAuthor() {
-         setLstMusic(mp.allMusicNOTINPLaylistbyAuthor(getSearchText(),ud.getIdPlaylist()));
-         tabelaM = new CollectionDataModel<>(getLstMusic());
-        return "musicinplay";
-    }
-  
- 
+    
     
     
     public DataModel<Music> getTabelaM() {
-        //setLstMusic(mp.allMusicNOTINPLaylist(ud.getIdPlaylist()));
+        //setLstMusic(musicafacade.listOfAllMusics());
+        //tabelaM = new CollectionDataModel<>(musicafacade.listOfAllMusics());
+        setLstMusic(mp.allMusicNOTINPLaylist(ud.getIdPlaylist()));
        tabelaM = new CollectionDataModel<>(getLstMusic());
        
         return tabelaM;
@@ -130,20 +111,6 @@ public class InsertMusicPL {
 
     public void setTabelaM(DataModel<Music> tabelaM) {
         this.tabelaM = tabelaM;
-    }
-
-    /**
-     * @return the searchText
-     */
-    public String getSearchText() {
-        return searchText;
-    }
-
-    /**
-     * @param searchText the searchText to set
-     */
-    public void setSearchText(String searchText) {
-        this.searchText = searchText;
     }
 
     
