@@ -41,6 +41,9 @@ public class Musicinplaylist {
      * @param idPl PK of Playlist Entity
      * @return List<Music>
      */
+    
+    
+    
     public List<Music> allMusicinPLaylistlist(long idPl) {
         Query query = em.createQuery("select m from Playlist p inner join p.musicList m where p.id =:id");
         query.setParameter("id", idPl);
@@ -89,6 +92,32 @@ public class Musicinplaylist {
         }
         return musicList;
     }
+    
+    public List<Music> allMusicNOTINPLaylistbyMusic(String musictext, long idPl) {
+        setMusicList(allMusicNOTINPLaylist(idPl));
+        Iterator<Music> it = musicList.iterator();
+        while (it.hasNext()) {
+            Music mus = it.next();
+            if (!mus.getName().equalsIgnoreCase(musictext)) {
+                it.remove();
+            }
+        }
+        return musicList;
+    }
+    
+    
+    public List<Music> allMusicNOTINPLaylistbyAuthor(String musictext, long idPl) {
+        setMusicList(allMusicNOTINPLaylist(idPl));
+        Iterator<Music> it = musicList.iterator();
+        while (it.hasNext()) {
+            Music mus = it.next();
+            if (!mus.getAuthor().equalsIgnoreCase(musictext)) {
+                it.remove();
+            }
+        }
+        return musicList;
+    }
+    
 
     /**
      * Insert a Music from a chosen Playlist
