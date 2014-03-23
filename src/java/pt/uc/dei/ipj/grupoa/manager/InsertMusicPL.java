@@ -37,6 +37,7 @@ public class InsertMusicPL {
     private Music mus;
     private List<Music> lstMusic;
     private DataModel<Music> tabelaM;
+    private String searchText;
 
             
      /**

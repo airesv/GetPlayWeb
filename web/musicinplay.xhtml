@@ -15,7 +15,8 @@
 
                     <f:view>
                         <h:form>
-                            <h1><h:outputText value="List of All Musics -"/></h1>
+                            <h1><h:outputText value="List of Musics"/></h1>
+                            
                             <h:dataTable  cellpadding="3" columnClasses="centered-text,centered-text,centered-text,centered-text,centered-text" 
                                           value="#{insertMusicPL.tabelaM}" cellspacing="10" var="item">
 
@@ -46,7 +47,7 @@
                                 <h:column>
                                     <f:facet name="header">Action</f:facet>
 
-                                    <h:commandButton value="Add playlist" action="#{insertMusicPL.insertMusic()}" styleClass="btn_user">
+                                    <h:commandButton value="Add in playlist" action="#{insertMusicPL.insertMusic()}" styleClass="btn_user">
 
                                     </h:commandButton>
 
