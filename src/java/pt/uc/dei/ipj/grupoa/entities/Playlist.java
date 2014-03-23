@@ -41,7 +41,7 @@ import javax.validation.constraints.Size;
  //       @NamedQuery(name = "Playlist.findMusic", query = "SELECT p FROM Playlist p ORDER by p.namePlaylist DESC")
 //    @NamedQuery(name = "Playlist.findAllByUser", query = "SELECT p FROM Playlist p WHERE p.userPlay.email=:email"),
   //  @NamedQuery(name = "Playlist.findAllByAuthor", query = "SELECT p FROM Playlist p WHERE p.author = :author"),
-@NamedQuery(name = "Playlist.findAllByMane", query = "SELECT p FROM Playlist p WHERE p.namePlaylist = :nameplaylist")
+@NamedQuery(name = "Playlist.findAllByName", query = "SELECT p FROM Playlist p WHERE p.namePlaylist = :nameplaylist")
 })
 public class Playlist implements Serializable {
 

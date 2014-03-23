@@ -45,7 +45,10 @@ public class UserPlayFacadeTest {
         String name = "test";
         String email = "test@test.com";
         String password = encrypt.cryptWithMD5("test");
+        UserPlay up = new UserPlay(name, email, password);
         upf.createUser(name, email, password);
+        UserPlay testing = upf.getUser(email);
+        assertEquals(up, testing);
         
         
         

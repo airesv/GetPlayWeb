@@ -72,7 +72,7 @@ public class PlaylistFacade extends AbstractFacade<Playlist> implements Serializ
      * @param id PK of UserPlay
      */
     public void createPlayList(String name, long id) {
-        Query query= em.createNamedQuery("Playlist.findAllById", Playlist.class);
+        Query query= em.createNamedQuery("Playlist.findAllByName", Playlist.class);
         query.setParameter("nameplaylist", name);
         
         if(query.getResultList().isEmpty()){
