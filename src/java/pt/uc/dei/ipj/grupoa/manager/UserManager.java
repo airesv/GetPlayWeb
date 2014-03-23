@@ -54,7 +54,6 @@ public class UserManager implements Serializable {
     @PostConstruct
     public void init() {
         errorMessage = "";
-        
 
     }
 
@@ -153,19 +152,12 @@ public class UserManager implements Serializable {
      * @return User edited
      */
     public String insertEditUser() {
-        try {
-            if (password.equals(confirmPassword)) {
-                message = userPlayFacade.editnewUser(ud.getIdUser(), ud.getNameUser(), ud.getEmailUser(), getPassword(), getEmail());
-            }
-            throw new PasswordUser("message");
-
-        } catch (PasswordUser ex) {
-            Logger.getLogger(UserManager.class
-                    .getName()).log(Level.SEVERE, null, ex);
-            setMessage(ex.getMessage());
-
-            return "edituser";
+        if (password.equals(confirmPassword)) {
+            message = userPlayFacade.editnewUser(ud.getIdUser(), ud.getNameUser(), ud.getEmailUser(), getPassword(), getEmail());
+        } else {
+            message = "Password doesn't match";
         }
+        return "edituser";
     }
 
     public String getNewUserEmail() {
@@ -242,12 +234,12 @@ public class UserManager implements Serializable {
     }
 
     public String getEmail() {
-        
+
         return email;
     }
 
     public void setEmail(String email) {
-        
+
         this.email = email;
     }
 
