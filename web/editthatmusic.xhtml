@@ -15,19 +15,19 @@
 
                     <h:panelGrid columns="3" cellpadding="0" cellspacing="2">
                         <h:outputLabel value="Album : " for="Album"/>
-                        <h:inputText label="Name of Album" value="#{editMusic.album}" required="true"/>
+                        <h:inputText label="Name of Album" value="#{musicManager.album}" required="true"/>
                         <h:message for="Album"/>
                         <h:outputLabel value="Year of Release : " for="Year of release"/>
-                        <h:inputText label="Year of Release" value="#{editMusic.yearOfRelease}" required="true"/>
+                        <h:inputText label="Year of Release" value="#{musicManager.yearOfRelease}" required="true"/>
                         <h:message for="Year of release"/>
                         <h:outputLabel value="Author : " for="Author"/>
-                        <h:inputText label="Author" value="#{editMusic.author}" required="true"/>
+                        <h:inputText label="Author" value="#{musicManager.author}" required="true"/>
                         <h:message for="Author"/>
                         <h:outputLabel value="Name : " for="Name"/> 
-                        <h:inputText label="Name of music" value="#{editMusic.nameMusic}" required="true"/>
+                        <h:inputText label="Name of music" value="#{musicManager.nameMusic}" required="true"/>
                         <h:message for="Name"/>
-                        <h:commandButton value="Edit Music" action="#{editMusic.editMusic}" styleClass="btn_user"/>
-                        <h:commandButton value="Delete Music" action="#{editMusic.removeMusic}" styleClass="btn_user"/>
+                        <h:commandButton value="Edit Music" action="#{musicManager.editMusic}" styleClass="btn_user"/>
+                        <h:commandButton value="Delete Music" action="#{musicManager.removeMusic}" styleClass="btn_user"/>
                     </h:panelGrid> 
 
                 </h:form>

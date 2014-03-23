@@ -32,18 +32,18 @@
                                     <thead><tr><th>Login</th></tr></thead>
                                     <tr>
                                         <td><h:outputText value="E-Mail : "/></td>
-                                        <td><h:inputText value="#{userLogin.useremail}" required="false"/></td>
+                                        <td><h:inputText value="#{userManager.useremail}" required="false"/></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="Password : "/></td>
-                                        <td><h:inputSecret value="#{userLogin.password}" required="false"/></td>
+                                        <td><h:inputSecret value="#{userManager.password}" required="false"/></td>
                                     </tr>
                                     <tr>
-                                        <td><h:commandButton value="Log in" action="#{userLogin.verification()}" styleClass="btn_user"/></td>
+                                        <td><h:commandButton value="Log in" action="#{userManager.verification()}" styleClass="btn_user"/></td>
                                         <td><h:commandButton value="Register" action="register" styleClass="btn_user"/></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2"><h:outputText value="#{userLogin.errorMessage}"/></td>
+                                        <td colspan="2"><h:outputText value="#{userManager.errorMessage}"/></td>
                                         
                                     </tr>
                                 </tbody>

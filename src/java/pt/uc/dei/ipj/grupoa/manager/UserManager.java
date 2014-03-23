@@ -9,6 +9,8 @@ package pt.uc.dei.ipj.grupoa.manager;
 import pt.uc.dei.ipj.grupoa.entities.UserPlay;
 import pt.uc.dei.ipj.grupoa.facades.UserPlayFacade;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -17,34 +19,35 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import pt.uc.dei.ipj.grupoa.EJB.UserData;
+import pt.uc.dei.ipj.grupoa.Exceptions.ExistsUser;
+import pt.uc.dei.ipj.grupoa.Exceptions.IncorretPassword;
+import pt.uc.dei.ipj.grupoa.Exceptions.NotRegistered;
+import pt.uc.dei.ipj.grupoa.Exceptions.PasswordUser;
 
 /**
  *
  * @author Alvaro/Vitor
  */
-@Named("userLogin")
+@Named
 @RequestScoped
-public class UserLogin implements Serializable {
+public class UserManager implements Serializable {
 
     @EJB
     private UserPlayFacade userPlayFacade;
-
     @Inject
     private UserData ud;
-
     private Long idUser;
     private String name;
     private String useremail;
     private String password;
     private String errorMessage;
-
     private String message;
     private String confirmPassword;
     private String email;
     private String newName;
     private String newUserEmail;
 
-    public UserLogin() {
+    public UserManager() {
 
     }
 
@@ -56,58 +59,74 @@ public class UserLogin implements Serializable {
 
     /**
      *
-     * @return
+     * @return to the same page, if the user didn t introduce data correctly. If
+     * yes, he goes to main page
      */
     public String verification() {
         UserPlay user = userPlayFacade.getUser(useremail);
 
-        if (user == null) {
-            setErrorMessage("Este Email não está na BD");
-            return "index";
-        } else if (userPlayFacade.authValidation(getPassword(), user)) {
-            this.setIdUser(user.getId());
+        try {
+            if (user != null) {
+                if (userPlayFacade.authValidation(getPassword(), user)) {
+                    this.setIdUser(user.getId());
 
-            this.setName(user.getName());
-            this.setUseremail(user.getEmail());
-            this.setEmail(user.getEmail());//necessario, caso o utilizador mude de passowrd
+                    this.setName(user.getName());
+                    this.setUseremail(user.getEmail());
+                    this.setEmail(user.getEmail());//if the user changes his password
 
-            ud.setIdUser(user.getId());
-            ud.setNameUser(user.getName());
-            ud.setEmailUser(user.getEmail());
-            ud.refreshPlaylist();
-            ud.refreshMusics();
-            ud.refreshMusicsUser();
+                    ud.setIdUser(user.getId());
+                    ud.setNameUser(user.getName());
+                    ud.setEmailUser(user.getEmail());
+                    ud.refreshPlaylist();
+                    ud.refreshMusics();
+                    ud.refreshMusicsUser();
 
-            return "main";
-        } else {
-            setErrorMessage("Password badly inserted");
-            return "index";
+                    return "main";
+                }
+            } else if (user == null) {
+                throw new NotRegistered("message");
+
+            } else {
+                throw new IncorretPassword("message");
+
+            }
+        } catch (NotRegistered | IncorretPassword ex) {
+            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+            setErrorMessage(ex.getMessage());
+
         }
+        return "index";
+
     }
 
     /**
      *
-     * @return
+     * @return a new user, if all fields are introduced, according to premises.
+     * If not, receives a new message with the detailed errors.
      */
     public String insertNewUser() {
-        if (userPlayFacade.existsUser(getNewUserEmail())) {
-            message = "This user already exists!";
-            return "register";
-        }
-        if (!password.equals(confirmPassword)) {
-            message = "Passwords do not match";
-            return "register";
-        } else {
-            userPlayFacade.createUser(getNewName(), getNewUserEmail(), getPassword());
-            message = "Successfully inserted";
-            return "register";
+        try {
+            if (!userPlayFacade.existsUser(getNewUserEmail()) && password.equals(confirmPassword)) {
+                userPlayFacade.createUser(getNewName(), getNewUserEmail(), getPassword());
+                setErrorMessage("Successfully inserted");
+            } else if (userPlayFacade.existsUser(getNewUserEmail())) {
+                throw new ExistsUser("message");
+            } else {
+                throw new PasswordUser("message");
 
+            }
+        } catch (ExistsUser | PasswordUser ex) {
+            Logger.getLogger(UserManager.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            setErrorMessage(ex.getMessage());
         }
+        return "register";
     }
 
     /**
      *
-     * @return
+     * @return to index. User is deleted, as his created musics and his
+     * playlists
      */
     public String deleteUser() {
         userPlayFacade.removeUser(ud.getIdUser());
@@ -119,7 +138,7 @@ public class UserLogin implements Serializable {
 
     /**
      *
-     * @return
+     * @return to index and session of this user is finished
      */
     public String logout() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -130,177 +149,103 @@ public class UserLogin implements Serializable {
 
     /**
      *
-     * @return
+     * @return User edited
      */
     public String insertEditUser() {
-        if (password.equals(confirmPassword)) {
-            message = userPlayFacade.editnewUser(ud.getIdUser(), ud.getNameUser(), ud.getEmailUser(), getPassword(), getEmail());
-        } else {
-            message = "Password doesn´t match";
+        try {
+            if (password.equals(confirmPassword)) {
+                message = userPlayFacade.editnewUser(ud.getIdUser(), ud.getNameUser(), ud.getEmailUser(), getPassword(), getEmail());
+            }
+            throw new PasswordUser("message");
+
+        } catch (PasswordUser ex) {
+            Logger.getLogger(UserManager.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            setMessage(ex.getMessage());
+
+            return "edituser";
         }
-        return "edituser";
     }
 
-    /**
-     *
-     * @return
-     */
     public String getNewUserEmail() {
         return newUserEmail;
     }
 
-    /**
-     *
-     * @param newUserEmail
-     */
     public void setNewUserEmail(String newUserEmail) {
         this.newUserEmail = newUserEmail;
     }
 
-    /**
-     *
-     * @return
-     */
     public Long getIdUser() {
         return idUser;
     }
 
-    /**
-     *
-     * @param idUser
-     */
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getName() {
         name = ud.getNameUser();
         return name;
     }
 
-    /**
-     *
-     * @param name
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     *
-     * @return
-     */
     public UserPlayFacade getUserPlayFacade() {
         return userPlayFacade;
     }
 
-    /**
-     *
-     * @param userPlayFacade
-     */
     public void setUserPlayFacade(UserPlayFacade userPlayFacade) {
         this.userPlayFacade = userPlayFacade;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getUseremail() {
         return useremail;
     }
 
-    /**
-     *
-     * @param useremail
-     */
     public void setUseremail(String useremail) {
         this.useremail = useremail;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getPassword() {
         return password;
     }
 
-    /**
-     *
-     * @param password
-     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
-    /**
-     *
-     * @param errorMessage
-     */
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getMessage() {
         return message;
     }
 
-    /**
-     *
-     * @param message
-     */
     public void setMessage(String message) {
         this.message = message;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
-    /**
-     *
-     * @param confirmPassword
-     */
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getEmail() {
         email = ud.getEmailUser();
         return email;
     }
 
-    /**
-     *
-     * @param email
-     */
     public void setEmail(String email) {
-        //email=ud.getEmailUser();
         this.email = email;
     }
 

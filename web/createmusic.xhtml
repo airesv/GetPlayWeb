@@ -15,21 +15,21 @@
                 <h:form enctype="multipart/form-data">
                     <h:panelGrid columns="3" cellpadding="0" columnClasses="rightalign,leftalign,leftalign" cellspacing="2">
                         <h:outputLabel value="Name : " for="NameMusic" />
-                        <h:inputText id="NameMusic" label="Name of Music" value="#{editMusic.nameMusic}" required="true"/> 
+                        <h:inputText id="NameMusic" label="Name of Music" value="#{musicManager.nameMusic}" required="true"/> 
                         <h:message for="NameMusic"/>
                         <h:outputLabel value="Year of Release : " for="YearOfRelease" />
-                        <h:inputText id= "YearOfRelease" value="#{editMusic.yearOfRelease}" label="YearOfRelease"/>
-                        <h:message for="YearOfRelease"/>
+                        <h:inputText id= "YearOfRelease" value="#{musicManager.yearOfRelease}" label="YearOfRelease"/>
+                        <h:outputLabel value="#{musicManager.invalidYear}"/>
                         <h:outputLabel value="Album : " for="Album"/>
-                        <h:inputText id="Album" value="#{editMusic.album}" required="true" label="Album"/>
+                        <h:inputText id="Album" value="#{musicManager.album}" required="true" label="Album"/>
                         <h:message for="Album"/>
                         <h:outputLabel value="Author : " for="Author"/>
-                        <h:inputText id="Author" value="#{editMusic.author}" required="true" label="Author"/>
+                        <h:inputText id="Author" value="#{musicManager.author}" required="true" label="Author"/>
                         <h:message for="Author"/>
-                        <h:inputFile id="file" value="#{editMusic.file}" required="true" styleClass="btn_user"> </h:inputFile>                
-                        <h:message for="file"/>
+                        <h:inputFile id="file" value="#{musicManager.file}" required="true" styleClass="btn_user"> </h:inputFile>                
+                        <h:outputLabel value="#{musicManager.noFile}"/>
                         <h:outputText value=""/>
-                        <h:commandButton value="Insert" action="#{editMusic.createNewMusic()}" styleClass="btn_user"/>
+                        <h:commandButton value="Insert" action="#{musicManager.createNewMusic()}" styleClass="btn_user"/>
                         <h:commandButton value="Cancel" immediate="true" action="main" styleClass="btn_user"/>                   
                     </h:panelGrid>  
                 </h:form>

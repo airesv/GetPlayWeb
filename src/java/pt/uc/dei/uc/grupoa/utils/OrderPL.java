@@ -12,7 +12,7 @@ import pt.uc.dei.ipj.grupoa.entities.Playlist;
 
 /**
  *
- * @author Aires
+ * @author Alvaro/Vitor
  */
 
 public class OrderPL {

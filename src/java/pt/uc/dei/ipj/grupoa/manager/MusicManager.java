@@ -5,9 +5,11 @@
  */
 package pt.uc.dei.ipj.grupoa.manager;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.model.CollectionDataModel;
@@ -31,6 +33,7 @@ public class MusicManager implements Serializable {
 
     @Inject
     private UserData ud;
+
     private List<Music> lstMusic;
     private static final long serialVersionUID = 1L;
     private int yearOfRelease = 1920;
@@ -41,25 +44,39 @@ public class MusicManager implements Serializable {
     private Part file;
     private Music music;
     private Long id;
+    private String noFile;
+    private String invalidYear;
     @EJB
     private UserPlayFacade upf;
     @EJB
     private MusicFacade musicFacade;
     DataModel<Music> musicsLoggedInUser;
     private Music selectedMusic;
+
     @EJB
     private Musicinplaylist mp;
 
     /**
      * Create new music
+     *
      * @return Xhtml, with the list of all musics, included the last one created
      * @throws IOException
      */
     public String createNewMusic() throws IOException {
-        musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), ud.getIdUser(), getFile());
-        ud.refreshMusicsUser();
-        ud.refreshMusics();
-        return "allmusic";
+        try {
+            if (getYearOfRelease() > 1900 && getYearOfRelease() < 2013) {
+                musicFacade.createMusic(getYearOfRelease(), getNameMusic(), getAuthor(), getAlbum(), getPathSound(), ud.getIdUser(), getFile());
+                ud.refreshMusicsUser();
+                ud.refreshMusics();
+                return "allmusic";
+            } else {
+                invalidYear = "Invalid Year";
+                return "createmusic";
+            }
+        } catch (FileNotFoundException | NumberFormatException e) {
+            java.util.logging.Logger.getLogger(MusicManager.class.getName()).log(Level.SEVERE, null, e);
+            return "createmusic";
+        }
     }
 
     /**
@@ -102,21 +119,14 @@ public class MusicManager implements Serializable {
 
     /**
      *
-     * @return List of Musics of the logged in User
+     * @return
      */
     public DataModel<Music> getMusicsLoggedInUser() {
+        ud.refreshMusicsUser();
         musicsLoggedInUser = new CollectionDataModel<>(ud.getListUserMusic());
         return musicsLoggedInUser;
     }
-    /**
-     * 
-     * @return List of the musics of the application 
-     */
-    public List<Music> getLstMusic() {
-        return musicFacade.listOfAllMusics();
-    }
 
-    //Getters and Setters//
     public MusicFacade getMusicFacade() {
         return musicFacade;
     }
@@ -201,6 +211,10 @@ public class MusicManager implements Serializable {
         this.ud = ud;
     }
 
+    public List<Music> getLstMusic() {
+        return musicFacade.listOfAllMusics();
+    }
+
     public void setLstMusic(List<Music> lstMusic) {
         this.lstMusic = lstMusic;
     }
@@ -219,6 +233,22 @@ public class MusicManager implements Serializable {
 
     public void setMusic(Music music) {
         this.music = music;
+    }
+
+    public String getNoFile() {
+        return noFile;
+    }
+
+    public void setNoFile(String noFile) {
+        this.noFile = noFile;
+    }
+
+    public String getInvalidYear() {
+        return invalidYear;
+    }
+
+    public void setInvalidYear(String invalidYear) {
+        this.invalidYear = invalidYear;
     }
 
 }

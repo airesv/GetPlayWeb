@@ -28,27 +28,27 @@
                                         <thead><tr><th>Register</th></tr></thead>
                                         <tr>
                                             <td><h:outputText value="Name : "/></td>
-                                            <td><h:inputText value="#{userLogin.newName}" required="true"/></td>
+                                            <td><h:inputText value="#{userManager.newName}" required="true"/></td>
                                         </tr>
                                         <tr>
                                             <td><h:outputText value="E-Mail : "/></td>
-                                            <td><h:inputText value="#{userLogin.newUserEmail}" required="true"/></td>
+                                            <td><h:inputText value="#{userManager.newUserEmail}" required="true"/></td>
                                         </tr>
                                         <tr>
                                             <td><h:outputText value="Password : "/></td>
-                                            <td><h:inputSecret value="#{userLogin.password}" required="true"/></td>
+                                            <td><h:inputSecret value="#{userManager.password}" required="true"/></td>
                                         </tr>
                                         <tr>
                                             <td><h:outputText value="Confirm Password : "/></td>
-                                            <td><h:inputSecret value="#{userLogin.confirmPassword}" required="true"/></td>
+                                            <td><h:inputSecret value="#{userManager.confirmPassword}" required="true"/></td>
                                         </tr>
                                         <tr>
 
-                                            <td><h:commandButton value="Insert" action="#{userLogin.insertNewUser()}" styleClass="btn_user"/></td>
+                                            <td><h:commandButton value="Insert" action="#{userManager.insertNewUser()}" styleClass="btn_user"/></td>
                                             <td><h:commandButton value="Cancel" immediate="true" action="index" styleClass="btn_user"/></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2"><h:outputText value="#{userLogin.message}"/></td>
+                                            <td colspan="2"><h:outputText value="#{userManager.errorMessage}"/></td>
 
                                         </tr>
                                     </tbody>
