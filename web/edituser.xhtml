@@ -17,7 +17,7 @@
                         <h:inputText label="Name of User" id="NameUser" value="#{userManager.ud.nameUser}" required="true"/>
                         <h:message for="NameUser"/>
                         <h:outputLabel value="Email: " for="EmailUser" />
-                        <h:inputText label="Email of user" id="EmailUser" value="#{userManager.ud.emailUser}" required="true"/>
+                        <h:inputText label="Email of user" id="EmailUser" value="#{userManager.email}" required="true"/>
                         <h:message for="EmailUser"/>
                         <h:outputLabel value="Password : " for="PasswordUser"/>
                         <h:inputSecret  label="Password" id="PasswordUser" value="#{userManager.password}" required="true"/>

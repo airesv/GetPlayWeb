@@ -54,6 +54,7 @@ public class UserManager implements Serializable {
     @PostConstruct
     public void init() {
         errorMessage = "";
+        
 
     }
 
@@ -241,11 +242,12 @@ public class UserManager implements Serializable {
     }
 
     public String getEmail() {
-        email = ud.getEmailUser();
+        
         return email;
     }
 
     public void setEmail(String email) {
+        
         this.email = email;
     }
 

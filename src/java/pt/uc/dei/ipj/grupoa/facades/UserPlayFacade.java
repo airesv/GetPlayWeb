@@ -32,7 +32,6 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         return em;
     }
 
-   
     @Inject
     private UserData ud;
 
@@ -50,7 +49,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
      * @param Password
      */
     public void createUser(String name, String email, String password) {
-        EncryptPassword encrypt= new EncryptPassword();
+        EncryptPassword encrypt = new EncryptPassword();
         UserPlay up = new UserPlay(name, email, encrypt.cryptWithMD5(password));
         if (existsUser(email) == false) {
             em.persist(up);
@@ -64,7 +63,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
      * @return
      */
     public boolean authValidation(String attempt, UserPlay up) {
-        EncryptPassword encrypt= new EncryptPassword();
+        EncryptPassword encrypt = new EncryptPassword();
         String encryptedAttempt = encrypt.cryptWithMD5(attempt);
         return (encryptedAttempt.equals(up.getPassword()));
     }
@@ -87,8 +86,8 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
      * @param Password
      */
     public void editUser(long id, String name, String email, String Password) {
-        //procurar o utilizador 
-        EncryptPassword encrypt= new EncryptPassword();
+
+        EncryptPassword encrypt = new EncryptPassword();
         UserPlay up = em.find(UserPlay.class, id);
 
         up.setName(name);
@@ -106,13 +105,14 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
      * @param oldEmail
      * @return
      */
-    public String editnewUser(long id, String name, String email, String Password, String oldEmail) {
+    public String editnewUser(long id, String name, String oldEmail, String Password, String email) {
 
         //verifica. se há outro utilizador com o mesmo email
         if (!oldEmail.equals(email)) {
             //caso não exista outro user com o mesmo email
             if (!existsUser(email)) {
                 editUser(id, name, email, Password);//
+                ud.setEmailUser(email);
                 return ("Sucessefully inserted");
             } else {
                 return ("Email: " + email + " is in Database ");
@@ -124,15 +124,7 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         }
     }
 
-    /**
-     *
-     * @param id
-     * @param pl
-     */
-    public void setNewPlayList(long id, Playlist pl) {
-        UserPlay up = em.find(UserPlay.class, id);
-        up.setPlaylistsItem(pl);
-    }
+   
 
     /**
      *
@@ -161,7 +153,6 @@ public class UserPlayFacade extends AbstractFacade<UserPlay> {
         UserPlay up = em.find(UserPlay.class, idUser);
         em.remove(em.merge(up));
     }
-
 
     /**
      *
